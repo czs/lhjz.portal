@@ -5,6 +5,7 @@ package com.lhjz.portal.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.lhjz.portal.domain.User;
 import com.lhjz.portal.domain.UserRepository;
@@ -17,6 +18,7 @@ import com.lhjz.portal.domain.UserRepository;
  * 
  */
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
 
 	@Autowired
