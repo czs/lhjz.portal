@@ -3,7 +3,7 @@
  */
 package com.lhjz.portal.service;
 
-import com.lhjz.portal.domain.User;
+import com.lhjz.portal.entity.User;
 
 /**
  * 
