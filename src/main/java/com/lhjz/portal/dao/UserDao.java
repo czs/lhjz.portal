@@ -3,6 +3,8 @@
  */
 package com.lhjz.portal.dao;
 
+import java.util.Optional;
+
 import com.lhjz.portal.entity.User;
 
 /**
@@ -14,5 +16,5 @@ import com.lhjz.portal.entity.User;
  */
 public interface UserDao {
 
-	void save(User user);
+	Optional<User> save(User user);
 }

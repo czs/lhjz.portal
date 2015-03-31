@@ -3,6 +3,9 @@
  */
 package com.lhjz.portal.dao.impl;
 
+import java.util.List;
+import java.util.Optional;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -12,6 +15,7 @@ import org.springframework.stereotype.Repository;
 
 import com.lhjz.portal.dao.UserDao;
 import com.lhjz.portal.entity.User;
+import com.lhjz.portal.repository.UserRepository;
 
 /**
  * 
@@ -27,18 +31,31 @@ public class UserDaoImpl implements UserDao {
 	JdbcTemplate jdbcTemplate;
 
 	@PersistenceContext
-	EntityManager em;
+	EntityManager entityManager;
+
+	@Autowired
+	UserRepository userRepository;
 
 	@Override
-	public void save(User user) {
+	public Optional<User> save(User user) {
 
-		em.persist(user);
-		em.flush();
+		entityManager.persist(user);
+		entityManager.flush();
 
-		// jdbcTemplate
-		// .execute("insert into lhjz.user (name, password) values ('xiwc', 'pwd')");
+		User find = entityManager.find(User.class, user.getId());
 
-		System.out
-				.println("insert into lhjz.user (name, password) values ('xiwc', 'pwd')");
+		System.out.println(find);
+
+		jdbcTemplate.execute("insert into lhjz.user (name, password) values ('xiwc', 'pwd')");
+		
+		userRepository.findAll().forEach(System.out::println);
+
+		List<User> users = userRepository.findByName("xiwc");
+		
+		users.stream().forEach(System.out::println);
+
+		System.out.println("UserDaoImpl.save()");
+
+		return Optional.of(user);
 	}
 }
