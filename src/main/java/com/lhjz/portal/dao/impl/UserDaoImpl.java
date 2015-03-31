@@ -3,6 +3,9 @@
  */
 package com.lhjz.portal.dao.impl;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -23,11 +26,17 @@ public class UserDaoImpl implements UserDao {
 	@Autowired
 	JdbcTemplate jdbcTemplate;
 
+	@PersistenceContext
+	EntityManager em;
+
 	@Override
 	public void save(User user) {
 
-		jdbcTemplate
-				.execute("insert into lhjz.user (name, password) values ('xiwc', 'pwd')");
+		em.persist(user);
+		em.flush();
+
+		// jdbcTemplate
+		// .execute("insert into lhjz.user (name, password) values ('xiwc', 'pwd')");
 
 		System.out
 				.println("insert into lhjz.user (name, password) values ('xiwc', 'pwd')");

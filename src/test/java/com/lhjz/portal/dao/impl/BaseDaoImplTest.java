@@ -4,7 +4,7 @@
 package com.lhjz.portal.dao.impl;
 
 import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
+import org.springframework.test.context.testng.AbstractTransactionalTestNGSpringContextTests;
 
 import com.lhjz.portal.Application;
 
@@ -16,6 +16,7 @@ import com.lhjz.portal.Application;
  * 
  */
 @SpringApplicationConfiguration(classes = Application.class)
-public abstract class BaseDaoImplTest extends AbstractTestNGSpringContextTests {
+public abstract class BaseDaoImplTest extends
+		AbstractTransactionalTestNGSpringContextTests {
 
 }
