@@ -4,12 +4,16 @@
 package com.lhjz.portal.dao.impl;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -27,6 +31,11 @@ import com.lhjz.portal.repository.UserRepository;
 @Repository
 public class UserDaoImpl implements UserDao {
 
+	static Logger logger = LoggerFactory.getLogger(UserDaoImpl.class);
+
+	@Autowired
+	MessageSource messageSource;
+
 	@Autowired
 	JdbcTemplate jdbcTemplate;
 
@@ -39,22 +48,26 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public Optional<User> save(User user) {
 
+		String message = messageSource.getMessage("M0001", new Object[] { "Save User" }, Locale.getDefault());
+
+		logger.info(message);
+
 		entityManager.persist(user);
 		entityManager.flush();
 
 		User find = entityManager.find(User.class, user.getId());
 
-		System.out.println(find);
+		logger.info(find.toString());
 
 		jdbcTemplate.execute("insert into lhjz.user (name, password) values ('xiwc', 'pwd')");
-		
+
 		userRepository.findAll().forEach(System.out::println);
 
 		List<User> users = userRepository.findByName("xiwc");
-		
-		users.stream().forEach(System.out::println);
 
-		System.out.println("UserDaoImpl.save()");
+		users.stream().forEach(u -> logger.info(u.toString()));
+
+		logger.info("UserDaoImpl.save()");
 
 		return Optional.of(user);
 	}
