@@ -25,7 +25,7 @@ Dependency
 7. spring-boot-starter-tomcat
 8. spring-boot-starter-test
 
-### 2015/3/28
+### 2015/3/29
 
 框架结构构建
 >
@@ -47,7 +47,7 @@ Dependency
 2. split `domain` package to `entity` and `repository` package
 3. add apache commons `dbutils` lib dependency
 
-### 2015/3/30
+### 2015/3/31
 
 框架结构构建
 >
