@@ -32,10 +32,10 @@ Dependency
 1. reset web controller
 2. service
 3. jap repository
-4. connect to real mysql instance
-5. add testng test(replace default junit test)
+4. connect to real `mysql` instance
+5. add `testng` test(replace default `junit` test)
 6. add jpa transaction
-7. add apache commons dbcp connection pool
+7. add apache commons `dbcp` connection pool
 8. add `json-path` lib dependency
 9. add `apache commons-io|beanutils|lang|connections` lib dependency
 
@@ -43,7 +43,7 @@ Dependency
 
 框架结构构建
 >
-1. add dao|base|component|exception|pojo package
+1. add `dao|base|component|exception|pojo` package
 2. split `domain` package to `entity` and `repository` package
 3. add apache commons `dbutils` lib dependency
 
@@ -51,14 +51,14 @@ Dependency
 
 框架结构构建
 >
-1. add @PersistenceContext EntityManager
+1. add `@PersistenceContext EntityManager`
 2. change base test to `AbstractTransactionTestNGSpringContextTests`
 3. rename base test class
-4. test spring data jpa transaction
-5. test jdbcTemplate
-6. test collection stream lambda
-7. add i18n support
-8. add logback.xml configuration file
+4. test spring data `jpa transaction`
+5. test `jdbcTemplate`
+6. test `collection stream lambda`
+7. add `i18n` support
+8. add `logback.xml` configuration file
 9. change i18n properties file to charset `ISO-8859-1`
 10. append dir `log/` to .gitignore file
 11. add history to `readme.md`
