@@ -5,7 +5,7 @@
 
 ### 2015/3/28
 
-Initial commit.
+Initial commit
 >
 1. maven build - version:3.2.1
 2. spring tool suite(sts) - version:3.6.4.RELEASE
@@ -14,7 +14,7 @@ Initial commit.
 5. mysql-5.6
 6. junit test
 
-Dependency。
+Dependency
 >
 1. spring boot starter
 2. spring-boot-starter-actuator
@@ -27,7 +27,7 @@ Dependency。
 
 ### 2015/3/28
 
-框架结构构建。
+框架结构构建
 >
 1. reset web controller
 2. service
@@ -41,7 +41,7 @@ Dependency。
 
 ### 2015/3/30
 
-框架结构构建。
+框架结构构建
 >
 1. add dao|base|component|exception|pojo package
 2. split `domain` package to `entity` and `repository` package
@@ -49,7 +49,7 @@ Dependency。
 
 ### 2015/3/30
 
-框架结构构建。
+框架结构构建
 >
 1. add @PersistenceContext EntityManager
 2. change base test to `AbstractTransactionTestNGSpringContextTests`
