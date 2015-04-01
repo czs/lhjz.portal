@@ -63,6 +63,17 @@ Dependency
 10. append dir `log/` to .gitignore file
 11. add history to `readme.md`
 
+### 2015/4/1
 
+框架结构构建
+>
+1. add lib dependency `spring-boot-starter-thymeleaf`
+2. add view template `Thymeleaf 2.1.4`
+3. add [thymeleaf eclipse plugin](https://github.com/thymeleaf/thymeleaf-extras-eclipse-plugin#adding-content-assist-for-your-dialect)
+4. add test template view page `home.html`
+
+# TODO
+>
+1. more thymeleaf tags.
 
 
