@@ -8,31 +8,31 @@
 <!-- http://www.qos.ch/shop/products/professionalSupport -->
 <!-- -->
 <configuration>
+
+	<property name="LOG_DIR" value="log" />
+
 	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
 		<encoder>
-			<pattern>%-4relative [%thread] %-5level %logger{35} - %msg %n
-			</pattern>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
 		</encoder>
 	</appender>
 
 	<appender name="FILE" class="ch.qos.logback.core.FileAppender">
-		<file>log/file.log</file>
+		<file>${LOG_DIR}/file.log</file>
 		<append>true</append>
 		<encoder>
-			<pattern>%-4relative [%thread] %-5level %logger{35} - %msg%n
-			</pattern>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
 		</encoder>
 	</appender>
 
-	<appender name="ROLLING"
+	<appender name="ROLLING_FILE"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<fileNamePattern>log/rollingFile.%d{yyyy-MM-dd}.log</fileNamePattern>
+			<fileNamePattern>${LOG_DIR}/rollingFile.%d{yyyy-MM-dd}.log</fileNamePattern>
 			<maxHistory>30</maxHistory>
 		</rollingPolicy>
 		<encoder>
-			<pattern>%-4relative [%thread] %-5level %logger{35} - %msg%n
-			</pattern>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
 		</encoder>
 	</appender>
 
@@ -55,6 +55,6 @@
 	<root level="INFO">
 		<appender-ref ref="STDOUT" />
 		<appender-ref ref="FILE" />
-		<appender-ref ref="ROLLING" />
+		<appender-ref ref="ROLLING_FILE" />
 	</root>
 </configuration>
