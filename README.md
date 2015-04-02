@@ -81,6 +81,7 @@ Dependency
 3. add base class for `controller&dao&service`
 4. change in application.properties `spring.messages.encoding=ISO-8859-1`
 5. add thymeleaf test template view `test.html`
+6. add dev-framework related docs to dir `doc\`
 
 # TODO
 >
