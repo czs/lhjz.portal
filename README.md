@@ -72,8 +72,17 @@ Dependency
 3. add [thymeleaf eclipse plugin](https://github.com/thymeleaf/thymeleaf-extras-eclipse-plugin#adding-content-assist-for-your-dialect)
 4. add test template view page `home.html`
 
+### 2015/4/2
+
+框架结构构建
+>
+1. seprate i18n properties file
+2. add `doc\xhtml1-strict-thymeleaf-spring4-4.dtd` for `content assist` when thymeleaf page design
+3. add base class for `controller&dao&service`
+4. change in application.properties `spring.messages.encoding=ISO-8859-1`
+5. add thymeleaf test template view `test.html`
+
 # TODO
 >
 1. more thymeleaf tags.
-
 

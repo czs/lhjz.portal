@@ -8,10 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.lhjz.portal.base.BaseController;
-import com.lhjz.portal.entity.User;
 import com.lhjz.portal.service.UserService;
 
 /**
@@ -22,22 +20,15 @@ import com.lhjz.portal.service.UserService;
  * 
  */
 @Controller
-@RequestMapping("user")
-public class UserController extends BaseController {
+@RequestMapping("test")
+public class TestController extends BaseController {
 
 	@Autowired
 	UserService userService;
 
-	@RequestMapping(value = "home", method = { RequestMethod.GET })
-	public String home(Model model) {
+	@RequestMapping(value = "test", method = { RequestMethod.GET })
+	public String test(Model model) {
 		model.addAttribute("users", userService.getAll());
-		return "home";
-	}
-
-	@RequestMapping(value = "register", method = { RequestMethod.POST })
-	@ResponseBody
-	public User register() {
-		User user = new User("张三", "password");
-		return userService.save(user);
+		return "test";
 	}
 }

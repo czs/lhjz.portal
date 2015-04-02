@@ -7,16 +7,12 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.lhjz.portal.base.BaseDao;
 import com.lhjz.portal.dao.UserDao;
 import com.lhjz.portal.entity.User;
 import com.lhjz.portal.repository.UserRepository;
@@ -29,18 +25,9 @@ import com.lhjz.portal.repository.UserRepository;
  * 
  */
 @Repository
-public class UserDaoImpl implements UserDao {
+public class UserDaoImpl extends BaseDao implements UserDao {
 
 	static Logger logger = LoggerFactory.getLogger(UserDaoImpl.class);
-
-	@Autowired
-	MessageSource messageSource;
-
-	@Autowired
-	JdbcTemplate jdbcTemplate;
-
-	@PersistenceContext
-	EntityManager entityManager;
 
 	@Autowired
 	UserRepository userRepository;

@@ -13,5 +13,8 @@ import com.lhjz.portal.entity.User;
  * 
  */
 public interface UserService {
+
 	public User save(User user);
+
+	public Iterable<User> getAll();
 }
