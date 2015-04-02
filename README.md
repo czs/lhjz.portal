@@ -82,8 +82,11 @@ Dependency
 4. change in application.properties `spring.messages.encoding=ISO-8859-1`
 5. add thymeleaf test template view `test.html`
 6. add dev-framework related docs to dir `doc\`
+7. use `external tomcat8` run webapp, add `<Context path="/" reloadable="true" docBase=".../webapp" />` to `Host` node of `conf/server.xml`
+8. run maven command `mvn clean package -Dmaven.test.skip=true` to package project
+9. thymeleaf expressions test `Link URL Expressions: @{...}`
 
 # TODO
 >
-1. more thymeleaf tags.
+1. more thymeleaf `tags & expressions` test.
 
