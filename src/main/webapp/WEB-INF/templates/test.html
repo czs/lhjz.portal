@@ -4,11 +4,15 @@
 
 <head>
 <title>Home</title>
+<link rel="shortcut icon" th:href="@{/favicon.ico}" href="../static/favicon.ico" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link th:href="@{/static/css/test.css}" href="../../static/css/test.css" rel="stylesheet" type="text/css" />
+<script th:src="@{/static/js/test.js}" src="../../static/js/test.js" type="text/javascript"></script>
 </head>
 
 <body>
 	<p th:text="#{home.welcome}">Welcome!</p>
+	<img alt="test image" th:src="@{/static/img/test.png}" src="../../static/img/test.png" />
 	<table>
 		<thead>
 			<tr>

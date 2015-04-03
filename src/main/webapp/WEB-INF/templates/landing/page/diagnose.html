@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="shortcut icon" href="../favicon.ico">
+<title>立衡脊柱- 在线诊断</title>
+<!-- Bootstrap core CSS -->
+<link href="../../resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="../../resources/scrollup/css/themes/image.css" rel="stylesheet" type="text/css">
+<!-- Add custom CSS here -->
+<link href="../css/custom.css" rel="stylesheet">
+<link href="../css/diagnose.css" rel="stylesheet">
+<!-- JavaScript -->
+<script src="../../resources/js/lib/jquery-1.10.2.min.js"></script>
+<script src="../../resources/bootstrap/js/bootstrap.min.js"></script>
+<script src="../../resources/scrollup/js/jquery.scrollUp.min.js" charset="utf-8"></script>
+<script src="../js/diagnose.js" charset="utf-8"></script>
+</head>
+<body>
+	<div class="lhjz-header">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+						<div class="container">
+							<div class="navbar-header">
+								<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+									<span class="sr-only">切换导航</span><span class="icon-bar"></span><span class="icon-bar"></span><span
+										class="icon-bar"></span>
+								</button>
+								<a class="navbar-brand" href="../index.html">立衡脊柱</a>
+							</div>
+							<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+								<ul class="nav navbar-nav">
+									<li><a href="about.html">关于我们</a></li>
+									<li><a href="feature.html">疗法特色</a></li>
+									<li><a href="case.html">康复案例</a></li>
+									<li><a href="product.html">专利产品</a></li>
+									<li><a href="env.html">店内环境</a></li>
+									<li><a href="team.html">专家团队</a></li>
+									<li><a href="health.html">脊柱健康</a></li>
+									<li class="active"><a href="diagnose.html">在线诊断</a></li>
+									<li><a href="contact.html">联系我们</a></li>
+								</ul>
+							</div>
+						</div>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="lhjz-body">
+		<div class="container">
+			<div class="row clearfix" id="about">
+				<div class="col-md-12 column">
+					<div class="panel panel-default lhjz-margin-top20">
+						<div class="panel-heading">
+							<h4 class="panel-title">
+								在线诊断说明
+								<button id="btnToggleHelp" type="button" class="btn btn-info pull-right btn-xs" data-toggle="collapse"
+									data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+									<span class="glyphicon glyphicon-chevron-left"></span>
+								</button>
+							</h4>
+						</div>
+						<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel">
+							<div class="panel-body">
+								在线诊断是针对您在网上描述的基本症状信息,我们的专家人员会及时反馈到您的初步诊断信息,以便您清楚的了解自己的病况,然后选择正确的治疗方法.
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<div class="alert alert-warning col-sm-offset-2" role="alert">
+								<p>需要留下您的<strong>邮箱</strong>或者<strong>手机号</strong>,以方便反馈到您我们的初步诊断信息.</p>
+							</div>
+							<form class="form-horizontal" role="form">
+								<div class="form-group">
+									<label for="txtAreaSymptom" class="col-sm-2 control-label">症状描述</label>
+									<div class="col-sm-10">
+										<textarea id="txtAreaSymptom" class="form-control" rows="3"></textarea>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="txtMail" class="col-sm-2 control-label">邮箱</label>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" id="txtMail" placeholder="">
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="txtPhone" class="col-sm-2 control-label">手机</label>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" id="txtPhone" placeholder="">
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-offset-2 col-sm-10">
+										<button type="submit" class="btn btn-default">提交</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<footer class="lhjz-footer ">
+			<div class="container">
+				<div class="row footer-top">
+					<div class="col-sm-6 col-lg-6">
+						<div class="col-xs-6">
+							<h4>
+								<img src="../logo_128.jpg">
+							</h4>
+						</div>
+						<div class="col-xs-6">
+							<h4>
+								<img src="../wechat_128.jpg">
+							</h4>
+						</div>
+					</div>
+					<div class="col-sm-6  col-lg-5 col-lg-offset-1">
+						<div class="row about">
+							<div class="col-xs-3">
+								<h4>关于</h4>
+								<ul class="list-unstyled">
+									<li><a href="about.html">关于我们</a></li>
+									<li><a href="team.html">专家团队</a></li>
+									<li><a href="env.html">店内环境</a></li>
+								</ul>
+							</div>
+							<div class="col-xs-3">
+								<h4>联系方式</h4>
+								<ul class="list-unstyled">
+									<li><a href="http://weibo.com/bootcss" title="立衡脊柱官方微博" target="_blank">新浪微博</a></li>
+									<li><a href="mailto:admin@bootcss.com">电子邮件</a></li>
+									<li><a href="contact.html">联系我们</a></li>
+								</ul>
+							</div>
+							<div class="col-xs-3">
+								<h4>产品案例</h4>
+								<ul class="list-unstyled">
+									<li><a href="feature.html">疗法特色</a></li>
+									<li><a href="product.html">专利产品</a></li>
+									<li><a href="case.html">康复案例</a></li>
+								</ul>
+							</div>
+							<div class="col-xs-3">
+								<h4>健康诊断</h4>
+								<ul class="list-unstyled">
+									<li><a href="health.html">脊柱健康</a></li>
+									<li><a href="diagnose.html">在线诊断</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<hr>
+				<div class="row">
+					<div class="col-md-12">
+						<p class="copyright text-muted small">Copyright &copy; 北京立衡脊柱 2014. 保留所有权利</p>
+					</div>
+				</div>
+				<div class="row footer-bottom">
+					<ul class="list-inline text-center">
+						<li><a href="http://www.miibeian.gov.cn/" target="_blank">京ICP备11008151号</a></li>
+						<li>京公网安备11010802014853</li>
+					</ul>
+				</div>
+			</div>
+		</footer>
+</body>
+</html>

@@ -1,0 +1,63 @@
+.lhjz-footer {
+    background-color: #000;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+#footer h3 {
+    font-size: 17px;
+}
+#footer ul {
+    padding-left: 0px;
+}
+#footer ul li {
+    list-style-type: none;
+}
+.lhjz-jumbotron {
+    margin-top: 20px;
+}
+.lhjz-body {
+    padding-top: 50px;
+}
+.lhjz-map {
+    display: block;
+    width: 100% \9;
+    max-width: 100%;
+    height: auto;
+}
+.lhjz-row1 {
+    background-color: #FFFFFF;
+}
+.lhjz-row2 {
+    background-color: #F7F7F7;
+}
+.lhjz-margin-top20 {
+    margin-top: 20px;
+}
+.lhjz-icon {
+	width: 14px;
+    height: 16px;
+    position: relative;
+    top: 1px;
+    display: inline-block;
+    font-family: 'Glyphicons Halflings';
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.lhjz-icon-qq {
+    background-image: url('../img/icon/qq.png');
+}
+.lhjz-icon-bus {
+    background-image: url('../img/icon/bus.png');
+}
+.lhjz-contact > div {
+	margin-top: 5px;
+}
+
+.lhjz-contact-item-name{
+	position: relative;
+	display: inline-block;
+	width: 40px;
+}

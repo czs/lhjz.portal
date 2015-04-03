@@ -86,6 +86,16 @@ Dependency
 8. run maven command `mvn clean package -Dmaven.test.skip=true` to package project
 9. thymeleaf expressions test `Link URL Expressions: @{...}`
 
+### 2015/4/3
+
+框架结构构建
+>
+1. upgrade `spring-boot-starter-parent` to `1.2.31.2.3.RELEASE`
+2. move `static & templates` dir to webapp
+3. add `lhjz` static html page to `templates`
+4. change prefix of thymeleaf templates as `spring.thymeleaf.prefix=/WEB-INF/templates/`
+5. add javascript lib to webapp `static` dir
+
 # TODO
 >
 1. more thymeleaf `tags & expressions` test.
