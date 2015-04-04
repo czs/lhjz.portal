@@ -96,6 +96,14 @@ Dependency
 4. change prefix of thymeleaf templates as `spring.thymeleaf.prefix=/WEB-INF/templates/`
 5. add javascript lib to webapp `static` dir
 
+### 2015/4/4
+
+框架结构构建
+>
+1. move `static resources` in webapp content to `classpath`
+2. combine t`hymeleaf with` landing `index.html`
+3. add web project `favicon.ico`
+
 # TODO
 >
 1. more thymeleaf `tags & expressions` test.

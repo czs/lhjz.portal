@@ -1,22 +1,27 @@
-<!DOCTYPE html>
-<html lang="zh-cn">
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html lang="zh-cn" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<link rel="shortcut icon" href="favicon.ico" />
+<link rel="icon" th:href="@{/favicon.ico}" href="../../static/favicon.ico" type="image/x-icon" />
+<link rel="shortcut icon" th:href="@{/favicon.ico}" href="../../static/favicon.ico" type="image/x-icon" />
 <title>立衡脊柱</title>
 <!-- Bootstrap core CSS -->
-<link href="../resources/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-<link href="../resources/scrollup/css/themes/image.css" rel="stylesheet" type="text/css" />
+<link th:href="@{/lib/bootstrap/css/bootstrap.min.css}" href="../../static/lib/bootstrap/css/bootstrap.min.css"
+	rel="stylesheet" type="text/css" />
+<link th:href="@{/lib/scrollup/css/themes/image.css}" href="../../static/lib/scrollup/css/themes/image.css"
+	rel="stylesheet" type="text/css" />
 <!-- Add custom CSS here -->
-<link href="css/custom.css" rel="stylesheet" />
+<link th:href="@{/landing/css/custom.css}" href="../../static/landing/css/custom.css" rel="stylesheet" type="text/css" />
 <!-- JavaScript -->
-<script src="../resources/js/lib/jquery-1.10.2.min.js"></script>
-<script src="../resources/bootstrap/js/bootstrap.min.js"></script>
-<script src="../resources/scrollup/js/jquery.scrollUp.min.js" charset="utf-8"></script>
-<script src="js/custom.js"></script>
+<script th:src="@{/lib/jquery-1.11.1.min.js}" src="../../static/lib/jquery-1.11.1.min.js" charset="utf-8"></script>
+<script th:src="@{/lib/bootstrap/js/bootstrap.min.js}" src="../../static/lib/bootstrap/js/bootstrap.min.js"
+	charset="utf-8"></script>
+<script th:src="@{/lib/scrollup/js/jquery.scrollUp.min.js}" src="../../static/lib/scrollup/js/jquery.scrollUp.min.js"
+	charset="utf-8"></script>
+<script th:src="@{/landing/js/custom.js}" src="../../static/landing/js/custom.js" charset="utf-8"></script>
 </head>
 <body>
 	<div class="lhjz-header">
@@ -32,7 +37,6 @@
 								</button>
 								<a class="navbar-brand" href="index.html">立衡脊柱</a>
 							</div>
-
 							<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 								<ul class="nav navbar-nav">
 									<li><a href="page/about.html">关于我们</a></li>
@@ -64,21 +68,21 @@
 						</ol>
 						<div class="carousel-inner">
 							<div class="item active">
-								<img alt="" src="img/img1.jpg" width="100%" height="200" />
+								<img alt="" th:src="@{/landing/img/img1.jpg}" src="../../static/landing/img/img1.jpg" width="100%" height="200" />
 								<div class="carousel-caption">
 									<h4>焦点图一</h4>
 									<p>焦点图一的描述</p>
 								</div>
 							</div>
 							<div class="item">
-								<img alt="" src="img/img2.jpg" width="100%" height="200" />
+								<img alt="" th:src="@{/landing/img/img2.jpg}" src="../../static/landing/img/img2.jpg" width="100%" height="200" />
 								<div class="carousel-caption">
 									<h4>焦点图二</h4>
 									<p>焦点图二的描述</p>
 								</div>
 							</div>
 							<div class="item">
-								<img alt="" src="img/img3.jpg" width="100%" height="200" />
+								<img alt="" th:src="@{/landing/img/img3.jpg}" src="../../static/landing/img/img3.jpg" width="100%" height="200" />
 								<div class="carousel-caption">
 									<h4>焦点图三</h4>
 									<p>焦点图三的描述</p>
@@ -113,7 +117,7 @@
 							<div class="row">
 								<div class="col-md-3">
 									<div class="thumbnail">
-										<img alt="300x200" src="img/love.jpg" />
+										<img alt="300x200" th:src="@{/landing/img/love.jpg}" src="../../static/landing/img/love.jpg" />
 										<div class="caption">
 											<h3>标题一</h3>
 											<p>是的，这部分就是内容啦！</p>
@@ -125,7 +129,7 @@
 								</div>
 								<div class="col-md-3">
 									<div class="thumbnail">
-										<img alt="300x200" src="img/love.jpg" />
+										<img alt="300x200" th:src="@{/landing/img/love.jpg}" src="../../static/landing/img/love.jpg" />
 										<div class="caption">
 											<h3>标题二</h3>
 											<p>对的，这部分就是内容啦！</p>
@@ -137,7 +141,7 @@
 								</div>
 								<div class="col-md-3">
 									<div class="thumbnail">
-										<img alt="300x200" src="img/love.jpg" />
+										<img alt="300x200" th:src="@{/landing/img/love.jpg}" src="../../static/landing/img/love.jpg" />
 										<div class="caption">
 											<h3>标题三</h3>
 											<p>没错，这部分就是内容啦！</p>
@@ -149,7 +153,7 @@
 								</div>
 								<div class="col-md-3">
 									<div class="thumbnail">
-										<img alt="300x200" src="img/love.jpg" />
+										<img alt="300x200" th:src="@{/landing/img/love.jpg}" src="../../static/landing/img/love.jpg" />
 										<div class="caption">
 											<h3>标题三</h3>
 											<p>没错，这部分就是内容啦！</p>
@@ -174,7 +178,7 @@
 							<div class="row">
 								<div class="col-md-4">
 									<div class="thumbnail">
-										<img alt="300x200" src="img/love.jpg" />
+										<img alt="300x200" th:src="@{/landing/img/love.jpg}" src="../../static/landing/img/love.jpg" />
 										<div class="caption">
 											<h3>标题一</h3>
 											<p>是的，这部分就是内容啦！</p>
@@ -186,7 +190,7 @@
 								</div>
 								<div class="col-md-4">
 									<div class="thumbnail">
-										<img alt="300x200" src="img/love.jpg" />
+										<img alt="300x200" th:src="@{/landing/img/love.jpg}" src="../../static/landing/img/love.jpg" />
 										<div class="caption">
 											<h3>标题二</h3>
 											<p>对的，这部分就是内容啦！</p>
@@ -198,7 +202,7 @@
 								</div>
 								<div class="col-md-4">
 									<div class="thumbnail">
-										<img alt="300x200" src="img/love.jpg" />
+										<img alt="300x200" th:src="@{/landing/img/love.jpg}" src="../../static/landing/img/love.jpg" />
 										<div class="caption">
 											<h3>标题三</h3>
 											<p>没错，这部分就是内容啦！</p>
@@ -223,7 +227,7 @@
 							<div class="row">
 								<div class="col-md-4">
 									<div class="thumbnail">
-										<img alt="300x200" src="img/love.jpg" />
+										<img alt="300x200" th:src="@{/landing/img/love.jpg}" src="../../static/landing/img/love.jpg" />
 										<div class="caption">
 											<h3>标题一</h3>
 											<p>是的，这部分就是内容啦！</p>
@@ -235,7 +239,7 @@
 								</div>
 								<div class="col-md-4">
 									<div class="thumbnail">
-										<img alt="300x200" src="img/love.jpg" />
+										<img alt="300x200" th:src="@{/landing/img/love.jpg}" src="../../static/landing/img/love.jpg" />
 										<div class="caption">
 											<h3>标题二</h3>
 											<p>对的，这部分就是内容啦！</p>
@@ -247,7 +251,7 @@
 								</div>
 								<div class="col-md-4">
 									<div class="thumbnail">
-										<img alt="300x200" src="img/love.jpg" />
+										<img alt="300x200" th:src="@{/landing/img/love.jpg}" src="../../static/landing/img/love.jpg" />
 										<div class="caption">
 											<h3>标题三</h3>
 											<p>没错，这部分就是内容啦！</p>
@@ -272,7 +276,7 @@
 							<div class="row">
 								<div class="col-md-4">
 									<div class="thumbnail">
-										<img alt="300x200" src="img/love.jpg" />
+										<img alt="300x200" th:src="@{/landing/img/love.jpg}" src="../../static/landing/img/love.jpg" />
 										<div class="caption">
 											<h3>标题一</h3>
 											<p>是的，这部分就是内容啦！</p>
@@ -284,7 +288,7 @@
 								</div>
 								<div class="col-md-4">
 									<div class="thumbnail">
-										<img alt="300x200" src="img/love.jpg" />
+										<img alt="300x200" th:src="@{/landing/img/love.jpg}" src="../../static/landing/img/love.jpg" />
 										<div class="caption">
 											<h3>标题二</h3>
 											<p>对的，这部分就是内容啦！</p>
@@ -296,7 +300,7 @@
 								</div>
 								<div class="col-md-4">
 									<div class="thumbnail">
-										<img alt="300x200" src="img/love.jpg" />
+										<img alt="300x200" th:src="@{/landing/img/love.jpg}" src="../../static/landing/img/love.jpg" />
 										<div class="caption">
 											<h3>标题三</h3>
 											<p>没错，这部分就是内容啦！</p>
@@ -321,7 +325,7 @@
 							<div class="row">
 								<div class="col-md-4">
 									<div class="thumbnail">
-										<img alt="300x200" src="img/love.jpg" />
+										<img alt="300x200" th:src="@{/landing/img/love.jpg}" src="../../static/landing/img/love.jpg" />
 										<div class="caption">
 											<h3>标题一</h3>
 											<p>是的，这部分就是内容啦！</p>
@@ -333,7 +337,7 @@
 								</div>
 								<div class="col-md-4">
 									<div class="thumbnail">
-										<img alt="300x200" src="img/love.jpg" />
+										<img alt="300x200" th:src="@{/landing/img/love.jpg}" src="../../static/landing/img/love.jpg" />
 										<div class="caption">
 											<h3>标题二</h3>
 											<p>对的，这部分就是内容啦！</p>
@@ -345,7 +349,7 @@
 								</div>
 								<div class="col-md-4">
 									<div class="thumbnail">
-										<img alt="300x200" src="img/love.jpg" />
+										<img alt="300x200" th:src="@{/landing/img/love.jpg}" src="../../static/landing/img/love.jpg" />
 										<div class="caption">
 											<h3>标题三</h3>
 											<p>没错，这部分就是内容啦！</p>
@@ -370,7 +374,7 @@
 							<div class="row">
 								<div class="col-md-4">
 									<div class="thumbnail">
-										<img alt="300x200" src="img/love.jpg" />
+										<img alt="300x200" th:src="@{/landing/img/love.jpg}" src="../../static/landing/img/love.jpg" />
 										<div class="caption">
 											<h3>标题一</h3>
 											<p>是的，这部分就是内容啦！</p>
@@ -382,7 +386,7 @@
 								</div>
 								<div class="col-md-4">
 									<div class="thumbnail">
-										<img alt="300x200" src="img/love.jpg" />
+										<img alt="300x200" th:src="@{/landing/img/love.jpg}" src="../../static/landing/img/love.jpg" />
 										<div class="caption">
 											<h3>标题二</h3>
 											<p>对的，这部分就是内容啦！</p>
@@ -394,7 +398,7 @@
 								</div>
 								<div class="col-md-4">
 									<div class="thumbnail">
-										<img alt="300x200" src="img/love.jpg" />
+										<img alt="300x200" th:src="@{/landing/img/love.jpg}" src="../../static/landing/img/love.jpg" />
 										<div class="caption">
 											<h3>标题三</h3>
 											<p>没错，这部分就是内容啦！</p>
@@ -417,12 +421,12 @@
 				<div class="col-sm-6 col-lg-6">
 					<div class="col-xs-6">
 						<h4>
-							<img src="logo_128.jpg" />
+							<img th:src="@{/landing/img/logo_128.jpg}" src="../../static/landing/img/logo_128.jpg" />
 						</h4>
 					</div>
 					<div class="col-xs-6">
 						<h4>
-							<img src="wechat_128.jpg" />
+							<img th:src="@{/landing/img/wechat_128.jpg}" src="../../static/landing/img/wechat_128.jpg" />
 						</h4>
 					</div>
 				</div>
@@ -460,7 +464,6 @@
 							</ul>
 						</div>
 					</div>
-
 				</div>
 			</div>
 			<hr />
@@ -477,6 +480,5 @@
 			</div>
 		</div>
 	</footer>
-
 </body>
 </html>
