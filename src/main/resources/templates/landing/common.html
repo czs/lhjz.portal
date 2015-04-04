@@ -1,0 +1,129 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html lang="zh-cn" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<link rel="icon" th:href="@{/favicon.ico}" href="../../static/favicon.ico" type="image/x-icon" />
+<link rel="shortcut icon" th:href="@{/favicon.ico}" href="../../static/favicon.ico" type="image/x-icon" />
+<title>立衡脊柱</title>
+<!-- Bootstrap core CSS -->
+<link th:href="@{/lib/bootstrap/css/bootstrap.min.css}" href="../../static/lib/bootstrap/css/bootstrap.min.css"
+	rel="stylesheet" type="text/css" />
+<link th:href="@{/lib/scrollup/css/themes/image.css}" href="../../static/lib/scrollup/css/themes/image.css"
+	rel="stylesheet" type="text/css" />
+<!-- Add custom CSS here -->
+<link th:href="@{/landing/css/custom.css}" href="../../static/landing/css/custom.css" rel="stylesheet" type="text/css" />
+<!-- JavaScript -->
+<script th:src="@{/lib/jquery-1.11.1.min.js}" src="../../static/lib/jquery-1.11.1.min.js" charset="utf-8"></script>
+<script th:src="@{/lib/bootstrap/js/bootstrap.min.js}" src="../../static/lib/bootstrap/js/bootstrap.min.js"
+	charset="utf-8"></script>
+<script th:src="@{/lib/scrollup/js/jquery.scrollUp.min.js}" src="../../static/lib/scrollup/js/jquery.scrollUp.min.js"
+	charset="utf-8"></script>
+<script th:src="@{/landing/js/custom.js}" src="../../static/landing/js/custom.js" charset="utf-8"></script>
+</head>
+<body>
+	<div th:fragment="header">
+		<div class="lhjz-header">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12">
+						<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+							<div class="container">
+								<div class="navbar-header">
+									<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+										<span class="sr-only">切换导航</span><span class="icon-bar"></span><span class="icon-bar"></span><span
+											class="icon-bar"></span>
+									</button>
+									<a class="navbar-brand" th:href="@{/}" href="index.html">立衡脊柱</a>
+								</div>
+								<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+									<ul class="nav navbar-nav">
+										<li><a th:href="@{/about}" href="about.html">关于我们</a></li>
+										<li><a th:href="@{/feature}" href="feature.html">疗法特色</a></li>
+										<li><a th:href="@{/case}" href="case.html">康复案例</a></li>
+										<li><a th:href="@{/product}" href="product.html">专利产品</a></li>
+										<li><a th:href="@{/env}" href="env.html">店内环境</a></li>
+										<li><a th:href="@{/team}" href="team.html">专家团队</a></li>
+										<li><a th:href="@{/health}" href="health.html">脊柱健康</a></li>
+										<li><a th:href="@{/diagnose}" href="diagnose.html">在线诊断</a></li>
+										<li><a th:href="@{/contact}" href="contact.html">联系我们</a></li>
+									</ul>
+								</div>
+							</div>
+						</nav>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div th:fragment="footer">
+		<footer class="lhjz-footer">
+			<div class="container">
+				<div class="row footer-top">
+					<div class="col-sm-6 col-lg-6">
+						<div class="col-xs-6">
+							<h4>
+								<img th:src="@{/landing/img/logo_128.jpg}" src="../../static/landing/img/logo_128.jpg" />
+							</h4>
+						</div>
+						<div class="col-xs-6">
+							<h4>
+								<img th:src="@{/landing/img/wechat_128.jpg}" src="../../static/landing/img/wechat_128.jpg" />
+							</h4>
+						</div>
+					</div>
+					<div class="col-sm-6  col-lg-5 col-lg-offset-1">
+						<div class="row about">
+							<div class="col-xs-3">
+								<h4>关于</h4>
+								<ul class="list-unstyled">
+									<li><a href="about.html">关于我们</a></li>
+									<li><a href="team.html">专家团队</a></li>
+									<li><a href="env.html">店内环境</a></li>
+								</ul>
+							</div>
+							<div class="col-xs-3">
+								<h4>联系方式</h4>
+								<ul class="list-unstyled">
+									<li><a href="http://weibo.com/bootcss" title="立衡脊柱官方微博" target="_blank">新浪微博</a></li>
+									<li><a href="mailto:admin@bootcss.com">电子邮件</a></li>
+									<li><a href="contact.html">联系我们</a></li>
+								</ul>
+							</div>
+							<div class="col-xs-3">
+								<h4>产品案例</h4>
+								<ul class="list-unstyled">
+									<li><a href="feature.html">疗法特色</a></li>
+									<li><a href="product.html">专利产品</a></li>
+									<li><a href="case.html">康复案例</a></li>
+								</ul>
+							</div>
+							<div class="col-xs-3">
+								<h4>健康诊断</h4>
+								<ul class="list-unstyled">
+									<li><a href="health.html">脊柱健康</a></li>
+									<li><a href="diagnose.html">在线诊断</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<hr />
+				<div class="row">
+					<div class="col-md-12">
+						<p class="copyright text-muted small">Copyright &copy; 北京立衡脊柱 2014. 保留所有权利</p>
+					</div>
+				</div>
+				<div class="row footer-bottom">
+					<ul class="list-inline text-center">
+						<li><a href="http://www.miibeian.gov.cn/" target="_blank">京ICP备11008151号</a></li>
+						<li>京公网安备11010802014853</li>
+					</ul>
+				</div>
+			</div>
+		</footer>
+	</div>
+</body>
+</html>

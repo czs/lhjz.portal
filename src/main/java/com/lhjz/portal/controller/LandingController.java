@@ -29,4 +29,49 @@ public class LandingController extends BaseController {
 	public String home(Model model) {
 		return "landing/index";
 	}
+
+	@RequestMapping("about")
+	public String about(Model model) {
+		return "landing/about";
+	}
+
+	@RequestMapping("case")
+	public String cases(Model model) {
+		return "landing/case";
+	}
+
+	@RequestMapping("team")
+	public String team(Model model) {
+		return "landing/team";
+	}
+
+	@RequestMapping("diagnose")
+	public String diagnose(Model model) {
+		return "landing/diagnose";
+	}
+
+	@RequestMapping("contact")
+	public String contact(Model model) {
+		return "landing/contact";
+	}
+
+	@RequestMapping("env")
+	public String env(Model model) {
+		return "landing/env";
+	}
+
+	@RequestMapping("feature")
+	public String feature(Model model) {
+		return "landing/feature";
+	}
+
+	@RequestMapping("health")
+	public String health(Model model) {
+		return "landing/health";
+	}
+
+	@RequestMapping("product")
+	public String product(Model model) {
+		return "landing/product";
+	}
 }

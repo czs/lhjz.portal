@@ -31,7 +31,7 @@ Dependency
 >
 1. reset web controller
 2. service
-3. jap repository
+3. jpa repository
 4. connect to real `mysql` instance
 5. add `testng` test(replace default `junit` test)
 6. add jpa transaction
@@ -101,8 +101,10 @@ Dependency
 框架结构构建
 >
 1. move `static resources` in webapp content to `classpath`
-2. combine t`hymeleaf with` landing `index.html`
+2. combine `thymeleaf` with landing `index.html`
 3. add web project `favicon.ico`
+4. remove `spring-boot-starter-actuator` lib dependency
+5. combine `thymeleaf` with others remaining landing pages
 
 # TODO
 >
