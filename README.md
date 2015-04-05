@@ -106,7 +106,16 @@ Dependency
 4. remove `spring-boot-starter-actuator` lib dependency
 5. combine `thymeleaf` with others remaining landing pages
 
+### 2015/4/4
+
+框架结构构建
+>
+1. add profile `dev` & `prod` for development and deploy product
+2. add `spring.profiles.active=dev` into `application.properties` file
+3. add `data.sql` for initializing database when launching webapp
+
 # TODO
 >
 1. more thymeleaf `tags & expressions` test.
+2. separate `logback.xml` into `dev&prod` two profiles environment.
 
