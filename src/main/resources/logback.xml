@@ -9,52 +9,71 @@
 <!-- -->
 <configuration>
 
-	<property name="LOG_DIR" value="log" />
+	<if condition='isDefined("LOG_PATH")'>
+		<then>
+			<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+				<encoder>
+					<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
+					</pattern>
+				</encoder>
+			</appender>
 
-	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-		<encoder>
-			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
-		</encoder>
-	</appender>
+			<appender name="FILE" class="ch.qos.logback.core.FileAppender">
+				<file>${LOG_PATH}/FILE_${LOG_FILE}</file>
+				<append>true</append>
+				<encoder>
+					<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36}
+						-
+						%msg%n</pattern>
+				</encoder>
+			</appender>
 
-	<appender name="FILE" class="ch.qos.logback.core.FileAppender">
-		<file>${LOG_DIR}/file.log</file>
-		<append>true</append>
-		<encoder>
-			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
-		</encoder>
-	</appender>
+			<appender name="ROLLING_FILE"
+				class="ch.qos.logback.core.rolling.RollingFileAppender">
+				<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+					<fileNamePattern>${LOG_PATH}/ROLLING_FILE_%d{yyyy-MM-dd}_${LOG_FILE}
+					</fileNamePattern>
+					<maxHistory>30</maxHistory>
+				</rollingPolicy>
+				<encoder>
+					<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36}
+						-
+						%msg%n</pattern>
+				</encoder>
+			</appender>
 
-	<appender name="ROLLING_FILE"
-		class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<fileNamePattern>${LOG_DIR}/rollingFile.%d{yyyy-MM-dd}.log</fileNamePattern>
-			<maxHistory>30</maxHistory>
-		</rollingPolicy>
-		<encoder>
-			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
-		</encoder>
-	</appender>
+			<!-- <logger name="org.apache.activemq" level="OFF" /> -->
+			<!-- <logger name="org.apache.http" level="OFF" /> -->
+			<!-- <logger name="org.springframework.jndi" level="OFF" /> -->
+			<!-- <logger name="org.springframework.web" level="OFF" /> -->
+			<!-- <logger name="org.springframework.batch" level="OFF" /> -->
+			<!-- <logger name="org.springframework.test" level="OFF" /> -->
+			<!-- <logger name="org.springframework.aop" level="OFF" /> -->
+			<!-- <logger name="org.springframework.beans" level="OFF" /> -->
+			<!-- <logger name="org.springframework.context" level="OFF" /> -->
+			<!-- <logger name="org.springframework.transaction" level="INFO" /> -->
+			<!-- <logger name="org.springframework.ui" level="OFF" /> -->
+			<!-- <logger name="org.springframework.core" level="OFF" /> -->
+			<!-- <logger name="org.springframework.orm" level="INFO" /> -->
+			<!-- <logger name="org.hibernate.SQL" level="DEBUG" /> -->
+			<logger name="com.lhjz.portal" level="DEBUG" />
 
-	<!-- <logger name="org.apache.activemq" level="OFF" /> -->
-	<!-- <logger name="org.apache.http" level="OFF" /> -->
-	<!-- <logger name="org.springframework.jndi" level="OFF" /> -->
-	<!-- <logger name="org.springframework.web" level="OFF" /> -->
-	<!-- <logger name="org.springframework.batch" level="OFF" /> -->
-	<!-- <logger name="org.springframework.test" level="OFF" /> -->
-	<!-- <logger name="org.springframework.aop" level="OFF" /> -->
-	<!-- <logger name="org.springframework.beans" level="OFF" /> -->
-	<!-- <logger name="org.springframework.context" level="OFF" /> -->
-	<!-- <logger name="org.springframework.transaction" level="INFO" /> -->
-	<!-- <logger name="org.springframework.ui" level="OFF" /> -->
-	<!-- <logger name="org.springframework.core" level="OFF" /> -->
-	<!-- <logger name="org.springframework.orm" level="INFO" /> -->
-	<!-- <logger name="org.hibernate.SQL" level="DEBUG" /> -->
-	<logger name="com.lhjz.portal" level="DEBUG" />
-
-	<root level="INFO">
-		<appender-ref ref="STDOUT" />
-		<appender-ref ref="FILE" />
-		<appender-ref ref="ROLLING_FILE" />
-	</root>
+			<root level="INFO">
+				<appender-ref ref="STDOUT" />
+				<appender-ref ref="FILE" />
+				<appender-ref ref="ROLLING_FILE" />
+			</root>
+		</then>
+		<else>
+			<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+				<encoder>
+					<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
+					</pattern>
+				</encoder>
+			</appender>
+			<root level="INFO">
+				<appender-ref ref="STDOUT" />
+			</root>
+		</else>
+	</if>
 </configuration>

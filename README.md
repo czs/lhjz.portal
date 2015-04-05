@@ -106,16 +106,23 @@ Dependency
 4. remove `spring-boot-starter-actuator` lib dependency
 5. combine `thymeleaf` with others remaining landing pages
 
-### 2015/4/4
+### 2015/4/5
 
 框架结构构建
 >
 1. add profile `dev` & `prod` for development and deploy product
 2. add `spring.profiles.active=dev` into `application.properties` file
 3. add `data.sql` for initializing database when launching webapp
+4. enable `spring-boot-starter-actuator` lib dependency
+5. add `janino` lib dependency for logback's <if>-<then>-<else> expression
+6. `LandingController` add `landing` context prefix
+7. set `logging.path` & `logging.file` properties for `logback.xml`'s context variable
+8. change logback.xml configuration with <if>-<then>-<else> expression
+9. add prefix action href `landing` into `common.html` file
 
 # TODO
 >
 1. more thymeleaf `tags & expressions` test.
 2. separate `logback.xml` into `dev&prod` two profiles environment.
-
+3. try to launch the webapp using `jar` package mode(by `inner tomcat` and run through `main` method).
+4. actuator endpoints url change, don't use default url.

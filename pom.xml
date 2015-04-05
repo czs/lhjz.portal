@@ -23,10 +23,10 @@
 	</properties>
 
 	<dependencies>
-		<!-- <dependency>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
-		</dependency> -->
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-aop</artifactId>
@@ -91,6 +91,10 @@
 			<groupId>commons-dbutils</groupId>
 			<artifactId>commons-dbutils</artifactId>
 			<version>1.6</version>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.janino</groupId>
+			<artifactId>janino</artifactId>
 		</dependency>
 	</dependencies>
 

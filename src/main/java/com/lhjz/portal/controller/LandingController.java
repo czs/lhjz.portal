@@ -19,13 +19,13 @@ import com.lhjz.portal.service.UserService;
  * 
  */
 @Controller
-@RequestMapping()
+@RequestMapping("landing")
 public class LandingController extends BaseController {
 
 	@Autowired
 	UserService userService;
 
-	@RequestMapping()
+	@RequestMapping("index")
 	public String home(Model model) {
 		return "landing/index";
 	}
