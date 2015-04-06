@@ -120,6 +120,14 @@ Dependency
 8. change logback.xml configuration with <if>-<then>-<else> expression
 9. add prefix action href `landing` into `common.html` file
 
+### 2015/4/6
+
+框架结构构建
+>
+1. set `management.context-path`
+2. merge `LandingController & RootController`
+3. romve prefix context url in `common.html`
+
 # TODO
 >
 1. more thymeleaf `tags & expressions` test.
