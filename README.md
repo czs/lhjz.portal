@@ -127,6 +127,7 @@ Dependency
 1. set `management.context-path`
 2. merge `LandingController & RootController`
 3. romve prefix context url in `common.html`
+4. resolve run tomcat failed problem - `common user` cannot use `80` port
 
 # TODO
 >

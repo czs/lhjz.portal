@@ -153,10 +153,34 @@ unzip web.war -d webapps/ROOT/
 1. 分配日志文件夹写权限
 2. 停用端口被占用的进程
 
-/home/lhjz/ROOT (webapp content)
+/home/lhjz/webapps/ROOT (webapp content)
 
 service tocmat start | stop (exec tomcat cmd)
 
 tail -f /usr/tomcat/logs/catalina.out (tomcat startup log)
 
 usr/tomcat/log/lhjz (web app log dir)
+
+问题:
+>
+1. 以安全用户启动tomcat失败
+
+	linux下普通用户如何使用80端口启动程序
+	大家都知道默认情况下linux的1024以下端口是只有root用户才有权限占用，于是我们的tomcat，apache，
+	nginx等等程序如果想要用普通用户来占用80端口的话就会抛出permission denied的异常。
+	
+	解决办法有两种：
+	
+	1.使用非80端口启动程序，然后再用iptables做一个端口转发。
+	
+	2.假设我们需要启动的程序是nginx，那么这么做也可以达到目的。
+	一开始我们查看nginx的权限描述：
+	-rwxr-xr-x 1 nginx dev 2408122 Sep  5 16:01 nginx
+	这个时候必然是无法正常启动的。
+	首先修改文件所属用户为root：
+	chown root nginx
+	然后再加上s权限：
+	 chmod u+s nginx 
+	再次查看权限描述的时候：
+	-rwsr-xr-x 1 root root 2408122 Sep  5 16:01 nginx
+	这个时候再启动就没问题了。
