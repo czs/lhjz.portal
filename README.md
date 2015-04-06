@@ -128,6 +128,8 @@ Dependency
 2. merge `LandingController & RootController`
 3. romve prefix context url in `common.html`
 4. resolve run tomcat failed problem - `common user` cannot use `80` port
+5. add `spring security` control for `/admin` manager
+6. remove some unused files
 
 # TODO
 >
@@ -135,3 +137,5 @@ Dependency
 2. separate `logback.xml` into `dev&prod` two profiles environment.
 3. try to launch the webapp using `jar` package mode(by `inner tomcat` and run through `main` method).
 4. actuator endpoints url change, don't use default url.
+5. add spring security feature
+6. admin manager gui part
