@@ -131,6 +131,14 @@ Dependency
 5. add `spring security` control for `/admin` manager
 6. remove some unused files
 
+### 2015/4/8
+
+框架结构构建
+>
+1. add mysql database for user authenticatio
+2. add a Password Encoder
+3. tidy up the static resources
+
 # TODO
 >
 1. more thymeleaf `tags & expressions` test.
@@ -139,3 +147,4 @@ Dependency
 5. add spring security feature
 6. admin manager gui part
 7。  add database for user authentication 
+8. add a `BCryptPasswordEncoder` Password Encoder

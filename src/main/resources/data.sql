@@ -10,28 +10,10 @@ Target Server Type    : MYSQL
 Target Server Version : 50614
 File Encoding         : 65001
 
-Date: 2015-04-07 22:29:17
+Date: 2015-04-08 20:05:57
 */
 
 SET FOREIGN_KEY_CHECKS=0;
-/*
--- ----------------------------
--- Table structure for users
--- ----------------------------
-DROP TABLE IF EXISTS `users`;
-CREATE TABLE `users` (
-  `username` varchar(50) NOT NULL,
-  `password` varchar(50) NOT NULL,
-  `enabled` bit(1) NOT NULL,
-  PRIMARY KEY (`username`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of users
--- ----------------------------
-
-INSERT INTO `users` VALUES ('admin', 'admin', '');
-INSERT INTO `users` VALUES ('xiwc', 'xiwc', '');
 
 -- ----------------------------
 -- Table structure for authorities
@@ -40,19 +22,83 @@ DROP TABLE IF EXISTS `authorities`;
 CREATE TABLE `authorities` (
   `username` varchar(50) NOT NULL,
   `authority` varchar(50) NOT NULL,
-  KEY `ix_auth_username` (`username`,`authority`),
+  UNIQUE KEY `ix_auth_username` (`username`,`authority`),
   CONSTRAINT `fk_authorities_users` FOREIGN KEY (`username`) REFERENCES `users` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of authorities
 -- ----------------------------
+INSERT INTO `authorities` VALUES ('admin', 'ROLE_ADMIN');
+INSERT INTO `authorities` VALUES ('admin', 'ROLE_USER');
+INSERT INTO `authorities` VALUES ('xiwc', 'ROLE_ADMIN');
+INSERT INTO `authorities` VALUES ('xiwc', 'ROLE_USER');
 
-INSERT INTO `authorities` VALUES ('admin', 'USER,ADMIN');
-INSERT INTO `authorities` VALUES ('xiwc', 'USER');
-*/
+-- ----------------------------
+-- Table structure for groups
+-- ----------------------------
+DROP TABLE IF EXISTS `groups`;
+CREATE TABLE `groups` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `group_name` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of groups
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for group_authorities
+-- ----------------------------
+DROP TABLE IF EXISTS `group_authorities`;
+CREATE TABLE `group_authorities` (
+  `group_id` bigint(20) NOT NULL,
+  `authority` varchar(50) NOT NULL,
+  KEY `fk_group_authorities_group` (`group_id`),
+  CONSTRAINT `fk_group_authorities_group` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of group_authorities
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for group_members
+-- ----------------------------
+DROP TABLE IF EXISTS `group_members`;
+CREATE TABLE `group_members` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `username` varchar(50) NOT NULL,
+  `group_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_group_members_group` (`group_id`),
+  CONSTRAINT `fk_group_members_group` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of group_members
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for users
+-- ----------------------------
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE `users` (
+  `username` varchar(50) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `enabled` tinyint(1) NOT NULL,
+  PRIMARY KEY (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of users
+-- ----------------------------
+INSERT INTO `users` VALUES ('admin', '$2a$10$of1L1pNENMuUeP2/pMfy1ePScKhrOzHIrHsuhL2u1ieoXClLP5wFG', '1');
+INSERT INTO `users` VALUES ('xiwc', '$2a$10$qR3ar2k/g9gsLgPKAqqprOcN4tsfQAiSd7mdLNDIEC4ytwAUKKgzO', '1');
 
 
+/*
 DROP TABLE IF EXISTS `users`;
 create table users(
   username varchar(50) not null primary key,
@@ -91,3 +137,4 @@ create table group_members (
   username varchar(50) not null,
   group_id bigint not null,
   constraint fk_group_members_group foreign key(group_id) references groups(id));
+  */

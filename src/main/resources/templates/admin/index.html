@@ -4,11 +4,16 @@
 <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>立衡脊柱-后台管理</title>
+<title>立衡脊柱-后台管理主页</title>
+<link rel="stylesheet" type="text/css" th:href="@{/admin/css/admin.css}" href="../../static/admin/css/admin.css" />
+<link rel="stylesheet" type="text/css" th:href="@{/lib/semantic/semantic.min.css}"
+	href="../../static/lib/semantic/semantic.min.css" />
+<script type="text/javascript" th:src="@{/lib/jquery-1.11.1.min.js}" src="../../static/lib/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" th:src="@{/lib/semantic/semantic.min.js}" src="../../static/lib/semantic/semantic.min.js"></script>
+
 </head>
 
 <body>
-
 	<p th:text="'登录成功!'">登录成功!</p>
 	<form th:action="@{/admin/logout}" method="post">
 		<input type="submit" value="退出" /> <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />

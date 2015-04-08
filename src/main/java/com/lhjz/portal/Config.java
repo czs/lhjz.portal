@@ -6,11 +6,13 @@ package com.lhjz.portal;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 /**
  * 
@@ -22,27 +24,43 @@ import org.springframework.security.config.annotation.web.servlet.configuration.
 @Configuration
 public class Config {
 
+	@Bean
+	BCryptPasswordEncoder bCryptPasswordEncoderBean() {
+		return new BCryptPasswordEncoder();
+	}
+
 	@Configuration
 	@EnableWebMvcSecurity
-	public static class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+	public static class SecurityConfiguration extends
+			WebSecurityConfigurerAdapter {
 
 		@Autowired
 		DataSource dataSource;
 
 		@Autowired
-		public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-			// auth.inMemoryAuthentication().withUser("xiwc").password("xiwc").roles("ADMIN");
+		BCryptPasswordEncoder bCryptPasswordEncoder;
 
-			auth.jdbcAuthentication().dataSource(dataSource);
+		@Autowired
+		public void configureGlobal(AuthenticationManagerBuilder auth)
+				throws Exception {
+
+			auth.jdbcAuthentication().dataSource(dataSource)
+					.passwordEncoder(bCryptPasswordEncoder);
 		}
 
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
 
-			http.antMatcher("/admin/**").authorizeRequests().antMatchers("/admin/login*").permitAll().anyRequest()
-					.hasRole("ADMIN").and().formLogin().loginPage("/admin/login").loginProcessingUrl("/admin/signin")
-					.defaultSuccessUrl("/admin/index").and().logout().logoutUrl("/admin/logout")
-					.logoutSuccessUrl("/admin/login").and().httpBasic();
+			http.antMatcher("/admin/**")
+					.authorizeRequests()
+					.antMatchers("/admin/css/**", "/admin/img/**",
+							"/admin/js/**").permitAll().anyRequest()
+					.hasRole("USER").and().formLogin()
+					.loginPage("/admin/login").permitAll()
+					.loginProcessingUrl("/admin/signin")
+					.defaultSuccessUrl("/admin/index").and().logout()
+					.logoutUrl("/admin/logout")
+					.logoutSuccessUrl("/admin/login");
 
 		}
 
