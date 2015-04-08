@@ -136,6 +136,6 @@ Dependency
 1. more thymeleaf `tags & expressions` test.
 2. separate `logback.xml` into `dev&prod` two profiles environment.
 3. try to launch the webapp using `jar` package mode(by `inner tomcat` and run through `main` method).
-4. actuator endpoints url change, don't use default url.
 5. add spring security feature
 6. admin manager gui part
+7。  add database for user authentication 

@@ -3,6 +3,8 @@
  */
 package com.lhjz.portal;
 
+import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -20,26 +22,37 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @Configuration
 public class Config {
 
-	// @Bean
-	// public RequestDataValueProcessor csrfRequestDataValueProcessorBean() {
-	// return new CsrfRequestDataValueProcessor();
-	// }
-
 	@Configuration
 	@EnableWebSecurity
 	public static class SecurityConfiguration extends
 			WebSecurityConfigurerAdapter {
 
 		@Autowired
+		DataSource dataSource;
+
+		@Autowired
 		public void configureGlobal(AuthenticationManagerBuilder auth)
 				throws Exception {
-			auth.inMemoryAuthentication().withUser("xiwc").password("xiwc")
-					.roles("ADMIN");
+			// auth.inMemoryAuthentication().withUser("xiwc").password("xiwc")
+			// .roles("ADMIN");
+
+			auth.jdbcAuthentication().dataSource(dataSource).and().build();
+
+			// auth.jdbcAuthentication().dataSource(dataSource).and()
+			// .userDetailsService(new UserDetailsService() {
+			//
+			// @Override
+			// public UserDetails loadUserByUsername(String username)
+			// throws UsernameNotFoundException {
+			// return null;
+			// }
+			// });
+
 		}
 
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
-			http.authorizeRequests().antMatchers("/admin/**").hasRole("ADMIN")
+			http.authorizeRequests().antMatchers("/admin/**").hasRole("USER")
 					.and().formLogin().loginPage("/admin/login").permitAll()
 					.defaultSuccessUrl("/admin").and().logout()
 					.logoutUrl("/admin/logout")
