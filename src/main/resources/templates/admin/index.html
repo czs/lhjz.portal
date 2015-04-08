@@ -10,13 +10,45 @@
 	href="../../static/lib/semantic/semantic.min.css" />
 <script type="text/javascript" th:src="@{/lib/jquery-1.11.1.min.js}" src="../../static/lib/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" th:src="@{/lib/semantic/semantic.min.js}" src="../../static/lib/semantic/semantic.min.js"></script>
+<script type="text/javascript" th:src="@{/admin/js/admin.js}" src="../../static/admin/js/admin.js"></script>
 
 </head>
 
 <body>
-	<p th:text="'登录成功!'">登录成功!</p>
-	<form th:action="@{/admin/logout}" method="post">
-		<input type="submit" value="退出" /> <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-	</form>
+
+	<div class="ui left vertical inverted labeled icon sidebar menu ad-index-menu">
+		<a class="item"> <i class="home icon"></i> Home
+		</a> <a class="item"> <i class="block layout icon"></i> Topics
+		</a> <a class="item"> <i class="smile icon"></i> Friends
+		</a> <a class="item"> <i class="calendar icon"></i> History
+		</a> <a class="item"> <i class="mail icon"></i> Messages
+		</a> <a class="item"> <i class="chat icon"></i> Discussions
+		</a> <a class="item"> <i class="trophy icon"></i> Achievements
+		</a> <a class="item"> <i class="shop icon"></i> Store
+		</a> <a class="item"> <i class="settings icon"></i> Settings
+		</a>
+	</div>
+
+	<div class="ui fixed inverted main menu">
+		<div class="container">
+			<div class="ui button icon item ad-index-btn-menu">
+				<i class="content icon"></i> 菜单
+			</div>
+			<div class="title item">
+				<b>立恒脊柱</b> - 后台管理
+			</div>
+			<div class="right menu">
+				<form th:action="@{/admin/logout}" method="post">
+					<input class="title item ad-index-logout" type="submit" value="退出" /> <input type="hidden" th:name="${_csrf.parameterName}"
+						th:value="${_csrf.token}" />
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<div class="pusher">
+		<p th:text="'登录成功!'">登录成功!</p>
+	</div>
+
 </body>
 </html>

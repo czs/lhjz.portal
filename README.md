@@ -135,8 +135,8 @@ Dependency
 
 框架结构构建
 >
-1. add mysql database for user authenticatio
-2. add a Password Encoder
+1. add mysql database for user authentication
+2. add a Password Encoder(`BCryptPasswordEncoder`)
 3. tidy up the static resources
 
 # TODO
@@ -147,4 +147,4 @@ Dependency
 5. add spring security feature
 6. admin manager gui part
 7。  add database for user authentication 
-8. add a `BCryptPasswordEncoder` Password Encoder
+8. add a Password Encoder(`BCryptPasswordEncoder`)

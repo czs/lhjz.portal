@@ -3,3 +3,7 @@ div.admin.login {
 	max-width: 300px;
 	top: 50px;
 }
+
+input.ad-index-logout{
+	border: 0
+}
