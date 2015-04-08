@@ -16,6 +16,6 @@ public class UserDaoImplTest extends BaseDaoTest {
 	@Rollback(false)
 	@Test
 	public void save() {
-		userDao.save(new User("name_xiwc", "password"));
+		userDao.save(new User("name_xiwc", "password", true));
 	}
 }

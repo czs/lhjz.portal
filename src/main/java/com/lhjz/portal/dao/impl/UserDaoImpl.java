@@ -42,7 +42,7 @@ public class UserDaoImpl extends BaseDao implements UserDao {
 		entityManager.persist(user);
 		entityManager.flush();
 
-		User find = entityManager.find(User.class, user.getId());
+		User find = entityManager.find(User.class, user.getUsername());
 
 		logger.info(find.toString());
 
@@ -50,7 +50,7 @@ public class UserDaoImpl extends BaseDao implements UserDao {
 
 		userRepository.findAll().forEach(System.out::println);
 
-		List<User> users = userRepository.findByName("xiwc");
+		List<User> users = userRepository.findByUsername("xiwc");
 
 		users.stream().forEach(u -> logger.info(u.toString()));
 

@@ -18,5 +18,5 @@ import com.lhjz.portal.entity.User;
  */
 public interface UserRepository extends CrudRepository<User, Long> {
 
-	List<User> findByName(String name);
+	List<User> findByUsername(String username);
 }

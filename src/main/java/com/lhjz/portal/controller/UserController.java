@@ -37,7 +37,7 @@ public class UserController extends BaseController {
 	@RequestMapping(value = "register", method = { RequestMethod.POST })
 	@ResponseBody
 	public User register() {
-		User user = new User("张三", "password");
+		User user = new User();
 		return userService.save(user);
 	}
 }

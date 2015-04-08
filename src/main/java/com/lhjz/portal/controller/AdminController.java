@@ -26,6 +26,11 @@ public class AdminController extends BaseController {
 	}
 
 	@RequestMapping()
+	public String home(Model model) {
+		return "admin/index";
+	}
+
+	@RequestMapping("index")
 	public String index(Model model) {
 		return "admin/index";
 	}

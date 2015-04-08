@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
 
 /**
  * 
@@ -23,40 +23,27 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 public class Config {
 
 	@Configuration
-	@EnableWebSecurity
-	public static class SecurityConfiguration extends
-			WebSecurityConfigurerAdapter {
+	@EnableWebMvcSecurity
+	public static class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 		@Autowired
 		DataSource dataSource;
 
 		@Autowired
-		public void configureGlobal(AuthenticationManagerBuilder auth)
-				throws Exception {
-			// auth.inMemoryAuthentication().withUser("xiwc").password("xiwc")
-			// .roles("ADMIN");
+		public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+			// auth.inMemoryAuthentication().withUser("xiwc").password("xiwc").roles("ADMIN");
 
-			auth.jdbcAuthentication().dataSource(dataSource).and().build();
-
-			// auth.jdbcAuthentication().dataSource(dataSource).and()
-			// .userDetailsService(new UserDetailsService() {
-			//
-			// @Override
-			// public UserDetails loadUserByUsername(String username)
-			// throws UsernameNotFoundException {
-			// return null;
-			// }
-			// });
-
+			auth.jdbcAuthentication().dataSource(dataSource);
 		}
 
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
-			http.authorizeRequests().antMatchers("/admin/**").hasRole("USER")
-					.and().formLogin().loginPage("/admin/login").permitAll()
-					.defaultSuccessUrl("/admin").and().logout()
-					.logoutUrl("/admin/logout")
-					.logoutSuccessUrl("/admin/login");
+
+			http.antMatcher("/admin/**").authorizeRequests().antMatchers("/admin/login*").permitAll().anyRequest()
+					.hasRole("ADMIN").and().formLogin().loginPage("/admin/login").loginProcessingUrl("/admin/signin")
+					.defaultSuccessUrl("/admin/index").and().logout().logoutUrl("/admin/logout")
+					.logoutSuccessUrl("/admin/login").and().httpBasic();
+
 		}
 
 	}

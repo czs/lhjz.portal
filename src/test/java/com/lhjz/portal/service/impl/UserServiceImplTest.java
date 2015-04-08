@@ -14,6 +14,6 @@ public class UserServiceImplTest extends BaseServiceTest {
 
 	@Test
 	public void save() {
-		userService.save(new User("name_xiwc", "password"));
+		userService.save(new User("name_xiwc", "password", true));
 	}
 }
