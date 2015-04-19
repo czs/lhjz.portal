@@ -18,6 +18,7 @@ public class SecurityPasswordTest extends AbstractTestNGSpringContextTests {
 	public void generatePwd() {
 		System.out.println(bCryptPasswordEncoder.encode("xiwc"));
 		System.out.println(bCryptPasswordEncoder.encode("admin"));
+		System.out.println(bCryptPasswordEncoder.encode("lhjz"));
 	}
 
 }

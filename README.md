@@ -139,6 +139,12 @@ Dependency
 2. add a Password Encoder(`BCryptPasswordEncoder`)
 3. tidy up the static resources
 
+### 2015/4/20
+
+框架结构构建
+>
+1. add admin manager back-end UI framework(**semantic-ui**)
+
 # TODO
 >
 1. more thymeleaf `tags & expressions` test.

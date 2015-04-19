@@ -7,3 +7,22 @@ div.admin.login {
 input.ad-index-logout{
 	border: 0
 }
+
+.ad-index-content {
+    padding-top: 70px;
+    padding-bottom: 70px;
+    padding-right: 12px;
+}
+
+.ad-index-container{
+	margin-left: 250px;
+	position: relative;
+}
+
+.ad-index-rail{
+	
+}
+
+.ad-index-sticky{
+	width: 120px;
+}

@@ -33,6 +33,8 @@ INSERT INTO `authorities` VALUES ('admin', 'ROLE_ADMIN');
 INSERT INTO `authorities` VALUES ('admin', 'ROLE_USER');
 INSERT INTO `authorities` VALUES ('xiwc', 'ROLE_ADMIN');
 INSERT INTO `authorities` VALUES ('xiwc', 'ROLE_USER');
+INSERT INTO `authorities` VALUES ('lhjz', 'ROLE_ADMIN');
+INSERT INTO `authorities` VALUES ('lhjz', 'ROLE_USER');
 
 -- ----------------------------
 -- Table structure for groups
@@ -96,6 +98,7 @@ CREATE TABLE `users` (
 -- ----------------------------
 INSERT INTO `users` VALUES ('admin', '$2a$10$of1L1pNENMuUeP2/pMfy1ePScKhrOzHIrHsuhL2u1ieoXClLP5wFG', '1');
 INSERT INTO `users` VALUES ('xiwc', '$2a$10$qR3ar2k/g9gsLgPKAqqprOcN4tsfQAiSd7mdLNDIEC4ytwAUKKgzO', '1');
+INSERT INTO `users` VALUES ('lhjz', '$2a$10$cHoqi0vbJpkOe.ShF7A6qO0kf8lKOH/6tHr3oe7vA4UcKdtgGeJnq', '1');
 
 
 /*
