@@ -4,10 +4,6 @@ div.admin.login {
 	top: 50px;
 }
 
-input.ad-index-logout{
-	border: 0
-}
-
 .ad-index-content {
     padding-top: 70px;
     padding-bottom: 70px;
@@ -25,4 +21,15 @@ input.ad-index-logout{
 
 .ad-index-sticky{
 	width: 120px;
+}
+
+@media only screen and (max-width: 767px) {
+	
+	.ad-index-rail {
+		display: none;
+	}
+
+	.ad-index-container {
+		margin-left: 12px;
+	}
 }

@@ -8,6 +8,10 @@ jQuery(function() {
 	$('.ui.sticky').sticky({
 	    offset: 84,
 	    pushing: true
-	  });
+	});
+
+	$('.ad-index-logout').click(function(){
+		$(this).find('form').submit();
+	});
 
 });

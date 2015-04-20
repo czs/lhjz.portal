@@ -139,11 +139,17 @@ Dependency
 2. add a Password Encoder(`BCryptPasswordEncoder`)
 3. tidy up the static resources
 
-### 2015/4/20
+### 2015/4/19
 
 框架结构构建
 >
 1. add admin manager back-end UI framework(**semantic-ui**)
+
+### 2015/4/20
+
+框架结构构建
+>
+1. back-end admin `index.html` page enhancement
 
 # TODO
 >
