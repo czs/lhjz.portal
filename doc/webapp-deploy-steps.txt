@@ -148,6 +148,8 @@ tar不支付解压文件到指定的目录！
 
 解压.war .zip文件到指定目录：
 unzip web.war -d webapps/ROOT/
+以其他用户与运行命令
+sudo -H -u lhjz bash -c 'unzip lhjz.portal-0.0.3-SNAPSHOT.war -d webapps/ROOT/'
 
 注意: 
 1. 分配日志文件夹写权限
