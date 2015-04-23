@@ -28,7 +28,7 @@
 		</a> <a th:classappend="${#strings.contains(uri, '/admin/health')} ? 'active' : ''" class="item" th:href="@{/admin/health}" href="health.html"> <i class="heartbeat icon"></i> 脊柱健康
 		</a> <a th:classappend="${#strings.contains(uri, '/admin/diagnose')} ? 'active' : ''" class="item" th:href="@{/admin/diagnose}" href="diagnose.html"> <i class="treatment icon"></i> 在线诊断
 		</a> <a th:classappend="${#strings.contains(uri, '/admin/contact')} ? 'active' : ''" class="item" th:href="@{/admin/contact}" href="contact.html"> <i class="at icon"></i> 联系我们
-		</a> <a th:classappend="${#strings.contains(uri, '/admin/resource')} ? 'active' : ''" class="item" th:href="@{/admin/resource}" href="resource.html"> <i class="file image outline icon"></i> 文件管理
+		</a> <a th:classappend="${#strings.contains(uri, '/admin/resource')} ? 'active' : ''" class="item" th:href="@{/admin/resource}" href="resource.html"> <i class="file image outline icon"></i> 资源文件
 		</a>
 	</div>
 	<div th:fragment="top-fixed-menu" class="ui fixed inverted main menu">
@@ -84,7 +84,7 @@
                             <i class="at icon"></i> 联系我们
                         </a>
                         <a th:classappend="${#strings.contains(uri, '/admin/resource')} ? 'active' : ''" class="item" th:href="@{/admin/resource}" href="resource.html">
-                            <i class="file image outline icon"></i> 文件管理
+                            <i class="file image outline icon"></i> 资源文件
                         </a>
                     </div>
                 </div>
