@@ -151,6 +151,12 @@ Dependency
 >
 1. back-end admin `index.html` page enhancement
 
+### 2015/4/23
+
+框架结构构建
+>
+1. change `spring.thymeleaf.mode=LEGACYHTML5`
+
 # TODO
 >
 1. more thymeleaf `tags & expressions` test.
