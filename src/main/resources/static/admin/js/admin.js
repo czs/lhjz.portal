@@ -11,7 +11,7 @@ jQuery(function() {
 	});
 
 	$('.ad-index-logout').click(function(){
-		$(this).find('form').submit();
+		$(this).siblings('form').submit();
 	});
 
 });

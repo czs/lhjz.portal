@@ -158,6 +158,7 @@ Dependency
 1. change `spring.thymeleaf.mode=LEGACYHTML5`
 2. add admin pages
 3. active select menu
+4. logout form modification
 
 # TODO
 >

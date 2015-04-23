@@ -40,11 +40,8 @@
 				<b>立恒脊柱</b> - 后台管理
 			</div>
 			<div class="right menu">
-                <a class="ui item ad-index-logout">退出
-                    <form class="hidden" th:action="@{/admin/logout}" action="" method="post">
-                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-                    </form>
-                </a>
+				<a class="ui item ad-index-logout">退出 </a>
+				<form class="hidden" th:action="@{/admin/logout}" action="" method="post"></form>
 			</div>
 		</div>
 	</div>
