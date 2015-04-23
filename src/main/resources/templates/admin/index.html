@@ -1,6 +1,7 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
 <html lang="zh-cn" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
+<base th:href="@{/}" href="">
 <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -16,20 +17,21 @@
 
 <body>
 
-	<div class="ui left thin vertical inverted labeled icon sidebar menu ad-index-menu">
-		<a class="item"> <i class="home icon"></i> 主页
-		</a> <a class="item"> <i class="info circle icon"></i> 关于我们
-		</a> <a class="item"> <i class="dashboard icon"></i> 疗法特色
-		</a> <a class="item"> <i class="smile icon"></i> 康复案例
-		</a> <a class="item"> <i class="idea icon"></i> 专利产品
-		</a> <a class="item"> <i class="grid layout icon"></i> 店内环境
-		</a> <a class="item"> <i class="doctor icon"></i> 专家团队
-		</a> <a class="item"> <i class="heartbeat icon"></i> 脊柱健康
-		</a> <a class="item"> <i class="treatment icon"></i> 在线诊断
-		</a> <a class="item"> <i class="at icon"></i> 联系我们
+	<div th:with="uri=${#httpServletRequest.requestURI}" th:fragment="sidebar-menu" class="ui left thin vertical inverted labeled icon sidebar menu ad-index-menu">
+		<a th:classappend="(${#strings.contains(uri, '/admin/index')} or ${#strings.endsWith(uri,'/admin/')} or ${#strings.endsWith(uri,'/admin')}) ? 'active' : ''" class="item" th:href="@{/admin/index}" href="index.html"> <i class="home icon"></i> 主页
+		</a> <a th:classappend="${#strings.contains(uri, '/admin/about')} ? 'active' : ''" class="item" th:href="@{/admin/about}" href="about.html"> <i class="info circle icon"></i> 关于我们
+		</a> <a th:classappend="${#strings.contains(uri, '/admin/feature')} ? 'active' : ''" class="item" th:href="@{/admin/feature}" href="feature.html"> <i class="dashboard icon"></i> 疗法特色
+		</a> <a th:classappend="${#strings.contains(uri, '/admin/case')} ? 'active' : ''" class="item" th:href="@{/admin/case}" href="case.html"> <i class="smile icon"></i> 康复案例
+		</a> <a th:classappend="${#strings.contains(uri, '/admin/product')} ? 'active' : ''" class="item" th:href="@{/admin/product}" href="product.html"> <i class="idea icon"></i> 专利产品
+		</a> <a th:classappend="${#strings.contains(uri, '/admin/env')} ? 'active' : ''" class="item" th:href="@{/admin/env}" href="env.html"> <i class="grid layout icon"></i> 店内环境
+		</a> <a th:classappend="${#strings.contains(uri, '/admin/team')} ? 'active' : ''" class="item" th:href="@{/admin/team}" href="team.html"> <i class="doctor icon"></i> 专家团队
+		</a> <a th:classappend="${#strings.contains(uri, '/admin/health')} ? 'active' : ''" class="item" th:href="@{/admin/health}" href="health.html"> <i class="heartbeat icon"></i> 脊柱健康
+		</a> <a th:classappend="${#strings.contains(uri, '/admin/diagnose')} ? 'active' : ''" class="item" th:href="@{/admin/diagnose}" href="diagnose.html"> <i class="treatment icon"></i> 在线诊断
+		</a> <a th:classappend="${#strings.contains(uri, '/admin/contact')} ? 'active' : ''" class="item" th:href="@{/admin/contact}" href="contact.html"> <i class="at icon"></i> 联系我们
+		</a> <a th:classappend="${#strings.contains(uri, '/admin/resource')} ? 'active' : ''" class="item" th:href="@{/admin/resource}" href="resource.html"> <i class="file image outline icon"></i> 文件管理
 		</a>
 	</div>
-	<div class="ui fixed inverted main menu">
+	<div th:fragment="top-fixed-menu" class="ui fixed inverted main menu">
 		<div class="container">
 			<a class="ui button icon item ad-index-btn-menu">
 				<i class="content icon"></i> 菜单
@@ -39,7 +41,7 @@
 			</div>
 			<div class="right menu">
                 <a class="ui item ad-index-logout">退出
-                    <form class="hidden" th:action="@{/admin/logout}" method="post">
+                    <form class="hidden" th:action="@{/admin/logout}" action="" method="post">
                         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
                     </form>
                 </a>
@@ -48,88 +50,46 @@
 	</div>
     <div class="pusher ad-index-content">
         <div class="ad-index-container">
-            <div class="ui dividing close left rail ad-index-rail" style="width:210px;">
+            <div th:fragment="rail-menu" class="ui dividing close left rail ad-index-rail" style="width:210px;">
                 <div class="ui sticky ad-index-sticky">
-                    <div class="ui vertical pointing menu">
-                        <a class="active item">
+                    <div th:with="uri=${#httpServletRequest.requestURI}" class="ui vertical pointing menu">
+                        <a th:classappend="(${#strings.contains(uri, '/admin/index')} or ${#strings.endsWith(uri,'/admin/')} or ${#strings.endsWith(uri,'/admin')}) ? 'active' : ''" class="item" th:href="@{/admin/index}" href="index.html">
                             <i class="home icon"></i> 主页
                         </a>
-                        <a class="item">
+                        <a th:classappend="${#strings.contains(uri, '/admin/about')} ? 'active' : ''"  class="item" th:href="@{/admin/about}" href="about.html">
                             <i class="info circle icon"></i> 关于我们
                         </a>
-                        <a class="item">
+                        <a th:classappend="${#strings.contains(uri, '/admin/feature')} ? 'active' : ''" class="item" th:href="@{/admin/feature}" href="feature.html">
                             <i class="dashboard icon"></i> 疗法特色
                         </a>
-                        <a class="item">
+                        <a th:classappend="${#strings.contains(uri, '/admin/case')} ? 'active' : ''" class="item" th:href="@{/admin/case}" href="case.html">
                             <i class="smile icon"></i> 康复案例
                         </a>
-                        <a class="item">
+                        <a th:classappend="${#strings.contains(uri, '/admin/product')} ? 'active' : ''" class="item" th:href="@{/admin/product}" href="product.html">
                             <i class="idea icon"></i> 专利产品
                         </a>
-                        <a class="item">
+                        <a th:classappend="${#strings.contains(uri, '/admin/env')} ? 'active' : ''" class="item" th:href="@{/admin/env}" href="env.html">
                             <i class="grid layout icon"></i> 店内环境
                         </a>
-                        <a class="item">
+                        <a th:classappend="${#strings.contains(uri, '/admin/team')} ? 'active' : ''" class="item" th:href="@{/admin/team}" href="team.html">
                             <i class="doctor icon"></i> 专家团队
                         </a>
-                        <a class="item">
+                        <a th:classappend="${#strings.contains(uri, '/admin/health')} ? 'active' : ''" class="item" th:href="@{/admin/health}" href="health.html">
                             <i class="heartbeat icon"></i> 脊柱健康
                         </a>
-                        <a class="item">
+                        <a th:classappend="${#strings.contains(uri, '/admin/diagnose')} ? 'active' : ''" class="item" th:href="@{/admin/diagnose}" href="diagnose.html">
                             <i class="treatment icon"></i> 在线诊断
                         </a>
-                        <a class="item">
+                        <a th:classappend="${#strings.contains(uri, '/admin/contact')} ? 'active' : ''" class="item" th:href="@{/admin/contact}" href="contact.html">
                             <i class="at icon"></i> 联系我们
+                        </a>
+                        <a th:classappend="${#strings.contains(uri, '/admin/resource')} ? 'active' : ''" class="item" th:href="@{/admin/resource}" href="resource.html">
+                            <i class="file image outline icon"></i> 文件管理
                         </a>
                     </div>
                 </div>
             </div>
-            <div class="ui segment"></div>
-            <div class="ui segment"></div>
-            <div class="ui segment"></div>
-            <div class="ui segment"></div>
-            <div class="ui segment"></div>
-            <div class="ui segment"></div>
-            <div class="ui segment"></div>
-            <div class="ui segment"></div>
-            <div class="ui segment"></div>
-            <div class="ui segment"></div>
-            <div class="ui segment"></div>
-            <div class="ui segment"></div>
-            <div class="ui segment"></div>
-            <div class="ui segment"></div>
-            <div class="ui segment"></div>
-            <div class="ui segment"></div>
-            <div class="ui segment"></div>
-            <div class="ui segment"></div>
-            <div class="ui segment"></div>
-            <div class="ui segment"></div>
-            <div class="ui segment"></div>
-            <div class="ui segment"></div>
-            <div class="ui segment"></div>
-            <div class="ui segment"></div>
-            <div class="ui segment"></div>
-            <div class="ui segment"></div>
-            <div class="ui segment"></div>
-            <div class="ui segment"></div>
-            <div class="ui segment"></div>
-            <div class="ui segment"></div>
-            <div class="ui segment"></div>
-            <div class="ui segment"></div>
-            <div class="ui segment"></div>
-            <div class="ui segment"></div>
-            <div class="ui segment"></div>
-            <div class="ui segment"></div>
-            <div class="ui segment"></div>
-            <div class="ui segment"></div>
-            <div class="ui segment"></div>
-            <div class="ui segment"></div>
-            <div class="ui segment"></div>
-            <div class="ui segment"></div>
-            <div class="ui segment"></div>
-            <div class="ui segment"></div>
-            <div class="ui segment"></div>
-            <div class="ui segment"></div>
+            <div class="ui segment">主页</div>
         </div>
     </div>
 

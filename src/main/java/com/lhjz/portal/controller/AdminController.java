@@ -34,4 +34,54 @@ public class AdminController extends BaseController {
 	public String index(Model model) {
 		return "admin/index";
 	}
+	
+	@RequestMapping("about")
+	public String about(Model model) {
+		return "admin/about";
+	}
+	
+	@RequestMapping("case")
+	public String case_(Model model) {
+		return "admin/case";
+	}
+	
+	@RequestMapping("contact")
+	public String contact(Model model) {
+		return "admin/contact";
+	}
+	
+	@RequestMapping("diagnose")
+	public String diagnose(Model model) {
+		return "admin/diagnose";
+	}
+	
+	@RequestMapping("env")
+	public String env(Model model) {
+		return "admin/env";
+	}
+	
+	@RequestMapping("feature")
+	public String feature(Model model) {
+		return "admin/feature";
+	}
+	
+	@RequestMapping("health")
+	public String health(Model model) {
+		return "admin/health";
+	}
+	
+	@RequestMapping("product")
+	public String product(Model model) {
+		return "admin/product";
+	}
+	
+	@RequestMapping("team")
+	public String team(Model model) {
+		return "admin/team";
+	}
+
+	@RequestMapping("resource")
+	public String resource(Model model) {
+		return "admin/resource";
+	}
 }

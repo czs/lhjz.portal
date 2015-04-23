@@ -24,7 +24,7 @@
 <script th:src="@{/landing/js/custom.js}" src="../../static/landing/js/custom.js" charset="utf-8"></script>
 </head>
 <body>
-	<div th:replace="landing/common :: header">
+	<div th:replace="landing/index :: header">
 		<div class="lhjz-header">
 			<div class="container">
 				<div class="row">
@@ -96,6 +96,6 @@
 			</div>
 		</div>
 	</div>
-	<div th:include="landing/common :: footer"></div>
+	<div th:replace="landing/index :: footer"></div>
 </body>
 </html>
