@@ -6,12 +6,17 @@ package com.lhjz.portal.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
+
+import com.lhjz.portal.pojo.Enum.Status;
 
 /**
  * 
@@ -33,7 +38,10 @@ public class File implements Serializable {
 	private String name;
 	private String uuidName;
 	private String username;
-	private int status;
+
+	@Enumerated(EnumType.ORDINAL)
+	@Column(nullable = false)
+	private Status status = Status.NORMAL;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createDate;
@@ -73,11 +81,11 @@ public class File implements Serializable {
 		this.username = username;
 	}
 
-	public int getStatus() {
+	public Status getStatus() {
 		return status;
 	}
 
-	public void setStatus(int status) {
+	public void setStatus(Status status) {
 		this.status = status;
 	}
 
