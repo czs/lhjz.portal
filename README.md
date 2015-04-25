@@ -160,6 +160,16 @@ Dependency
 3. active select menu
 4. logout form modification
 
+### 2015/4/25
+
+框架结构构建
+>
+1. add static lib resources
+2. reconfigure security config
+3. impl file upload feature
+4. add some maven dependencies
+5. add some java helper util classes
+
 # TODO
 >
 1. more thymeleaf `tags & expressions` test.
