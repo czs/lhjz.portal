@@ -16,5 +16,5 @@ import com.lhjz.portal.entity.File;
  */
 public interface FileRepository extends CrudRepository<File, Long> {
 
-	File findTopByUuid(String uuid);
+	File findTopByUuidName(String uuidName);
 }

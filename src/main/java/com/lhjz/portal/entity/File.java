@@ -31,7 +31,7 @@ public class File implements Serializable {
 	private Long id;
 
 	private String name;
-	private String uuid;
+	private String uuidName;
 	private String username;
 	private int status;
 
@@ -57,12 +57,12 @@ public class File implements Serializable {
 		this.name = name;
 	}
 
-	public String getUuid() {
-		return uuid;
+	public String getUuidName() {
+		return uuidName;
 	}
 
-	public void setUuid(String uuid) {
-		this.uuid = uuid;
+	public void setUuidName(String uuidName) {
+		this.uuidName = uuidName;
 	}
 
 	public String getUsername() {

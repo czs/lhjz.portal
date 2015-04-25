@@ -7,11 +7,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>立衡脊柱-资源文件</title>
 <link rel="stylesheet" th:href="@{/lib/semantic/semantic.min.css}" href="../../static/lib/semantic/semantic.min.css" />
-<link rel="stylesheet" th:href="@{/lib/dropzone/dropzone.css}" href="../static/lib/dropzone/dropzone.css" />
+<link rel="stylesheet" th:href="@{/lib/dropzone/dropzone.css}" href="../../static/lib/dropzone/dropzone.css" />
 <link rel="stylesheet" type="text/css" th:href="@{/admin/css/admin.css}" href="../../static/admin/css/admin.css" />
 <script type="text/javascript" th:src="@{/lib/jquery-1.11.1.min.js}" src="../../static/lib/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" th:src="@{/lib/semantic/semantic.min.js}" src="../../static/lib/semantic/semantic.min.js"></script>
-<script th:src="@{/lib/dropzone/dropzone.js}" src="../static/lib/dropzone/dropzone.js"></script>
+<script th:src="@{/lib/dropzone/dropzone.js}" src="../../static/lib/dropzone/dropzone.js"></script>
 <script type="text/javascript" th:src="@{/admin/js/admin.js}" src="../../static/admin/js/admin.js"></script>
 
 </head>
@@ -29,6 +29,14 @@
 						<div class="dz-message">拖拽或者点击选择文件上传</div>
 						<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 					</form>
+				</div>
+			</div>
+			<div class="ui segment">
+				<div class="ui small images" th:remove="all-but-first">
+					<img th:each="img : ${imgs}" th:src="@{/{path}/{uuidName}(path=${path},uuidName=${img.uuidName})}" src="../../static/img/img01_b.jpg">
+					<img src="../../static/img/img02_b.jpg">
+					<img src="../../static/img/img03_b.jpg">
+					<img src="../../static/img/img04_b.jpg">
 				</div>
 			</div>
 		</div>

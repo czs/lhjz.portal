@@ -75,7 +75,7 @@ public class FileController extends BaseController {
 
 		String uuid = UUID.randomUUID().toString();
 
-		String fileName = StringUtil.replace("{?1}{?2}", uuid, type);
+		String uuidName = StringUtil.replace("{?1}{?2}", uuid, type);
 
 		String storePath = env.getProperty("lhjz.upload.img.store.path");
 		int sizeOriginal = env.getProperty(
@@ -86,9 +86,9 @@ public class FileController extends BaseController {
 				Integer.class);
 
 		// relative file path
-		String path = storePath + sizeOriginal + "/" + fileName;// 原始图片存放
-		String pathLarge = storePath + sizeLarge + "/" + fileName;// 缩放图片存放
-		String pathHuge = storePath + sizeHuge + "/" + fileName;// 缩放图片存放
+		String path = storePath + sizeOriginal + "/" + uuidName;// 原始图片存放
+		String pathLarge = storePath + sizeLarge + "/" + uuidName;// 缩放图片存放
+		String pathHuge = storePath + sizeHuge + "/" + uuidName;// 缩放图片存放
 
 		// absolute file path
 		String filePath = realPath + path;
@@ -116,7 +116,7 @@ public class FileController extends BaseController {
 			file2.setCreateDate(new Date());
 			file2.setName(originalFilename);
 			file2.setUsername(WebUtil.getUsername());
-			file2.setUuid(uuid);
+			file2.setUuidName(uuidName);
 			fileRepository.save(file2);
 
 		} catch (Exception e) {
@@ -126,6 +126,6 @@ public class FileController extends BaseController {
 		}
 
 		// back relative file path
-		return RespBody.succeed(storePath + sizeOriginal + "/" + fileName);
+		return RespBody.succeed(storePath + sizeOriginal + "/" + uuidName);
 	}
 }
