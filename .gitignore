@@ -10,8 +10,8 @@ test-output/
 log/
 .README.md.html
 
-src/main/webapp/upload/
-
+!src/main/webapp/upload/img/0/
+src/main/webapp/upload/img/0/*
 !src/main/webapp/upload/img/0/0c590fa7-430f-428a-aa38-fa29227caa43.jpg
 !src/main/webapp/upload/img/0/4dfa871e-6cc1-480c-a1a8-2a56dae30b51.jpg
 !src/main/webapp/upload/img/0/66170316-4b4c-45fe-bc55-9f25459a2072.jpg
@@ -21,6 +21,8 @@ src/main/webapp/upload/
 !src/main/webapp/upload/img/0/b1e70aa4-2013-4150-9d71-47ebaca5963d.jpg
 !src/main/webapp/upload/img/0/ba77d88a-3a9f-4afc-bafe-27f05be65114.jpg
 
+!src/main/webapp/upload/img/120/
+src/main/webapp/upload/img/120/*
 !src/main/webapp/upload/img/120/0c590fa7-430f-428a-aa38-fa29227caa43.jpg
 !src/main/webapp/upload/img/120/4dfa871e-6cc1-480c-a1a8-2a56dae30b51.jpg
 !src/main/webapp/upload/img/120/66170316-4b4c-45fe-bc55-9f25459a2072.jpg
@@ -30,6 +32,8 @@ src/main/webapp/upload/
 !src/main/webapp/upload/img/120/b1e70aa4-2013-4150-9d71-47ebaca5963d.jpg
 !src/main/webapp/upload/img/120/ba77d88a-3a9f-4afc-bafe-27f05be65114.jpg
 
+!src/main/webapp/upload/img/640/
+src/main/webapp/upload/img/640/*
 !src/main/webapp/upload/img/640/0c590fa7-430f-428a-aa38-fa29227caa43.jpg
 !src/main/webapp/upload/img/640/4dfa871e-6cc1-480c-a1a8-2a56dae30b51.jpg
 !src/main/webapp/upload/img/640/66170316-4b4c-45fe-bc55-9f25459a2072.jpg
