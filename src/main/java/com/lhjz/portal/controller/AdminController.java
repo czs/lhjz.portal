@@ -95,9 +95,15 @@ public class AdminController extends BaseController {
 		String storePath = env.getProperty("lhjz.upload.img.store.path");
 		int sizeLarge = env.getProperty("lhjz.upload.img.scale.size.large",
 				Integer.class);
+		int sizeHuge = env.getProperty("lhjz.upload.img.scale.size.huge",
+				Integer.class);
+		int sizeOriginal = env.getProperty(
+				"lhjz.upload.img.scale.size.original", Integer.class);
 
 		// img relative path (eg:'upload/img/' & 640 & '/' )
-		model.addAttribute("path", storePath + sizeLarge + "/");
+		model.addAttribute("path", storePath + sizeOriginal + "/");
+		model.addAttribute("pathLarge", storePath + sizeLarge + "/");
+		model.addAttribute("pathHuge", storePath + sizeHuge + "/");
 		// list all files
 		model.addAttribute("imgs", fileRepository.findAll());
 

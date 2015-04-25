@@ -4,7 +4,10 @@
 package com.lhjz.portal.controller;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
@@ -26,6 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.lhjz.portal.base.BaseController;
 import com.lhjz.portal.model.RespBody;
+import com.lhjz.portal.pojo.Enum.Status;
 import com.lhjz.portal.repository.FileRepository;
 import com.lhjz.portal.util.ImageUtil;
 import com.lhjz.portal.util.StringUtil;
@@ -50,32 +54,31 @@ public class FileController extends BaseController {
 	@Autowired
 	FileRepository fileRepository;
 
+	@RequestMapping(value = "delete", method = RequestMethod.POST)
+	@ResponseBody
+	public RespBody delete(HttpServletRequest request,
+			HttpServletResponse response, Model model, Locale locale,
+			@RequestParam(value = "id", required = true) Long id) {
+
+		com.lhjz.portal.entity.File file = fileRepository.findOne(id);
+		if (file.getStatus() == Status.BULTIN) {
+			return RespBody.failed("内置文件，不能删除！");
+		}
+
+		fileRepository.delete(id);
+
+		return RespBody.succeed();
+	}
+
 	@RequestMapping(value = "upload", method = RequestMethod.POST)
 	@ResponseBody
 	public RespBody upload(HttpServletRequest request,
 			HttpServletResponse response, Model model, Locale locale,
-			@RequestParam("file") MultipartFile file) {
+			@RequestParam("file") MultipartFile[] files) {
 
 		logger.debug("upload file start...");
 
 		String realPath = WebUtil.getRealPath(request);
-
-		if (file == null || file.isEmpty()) {
-			return RespBody.failed("上传文件为空！");
-		}
-
-		String originalFilename = file.getOriginalFilename();
-
-		if (!ImageUtil.isImage(originalFilename)) {
-			return RespBody.failed("上传文件不是图片！");
-		}
-
-		String type = originalFilename.substring(originalFilename
-				.lastIndexOf("."));
-
-		String uuid = UUID.randomUUID().toString();
-
-		String uuidName = StringUtil.replace("{?1}{?2}", uuid, type);
 
 		String storePath = env.getProperty("lhjz.upload.img.store.path");
 		int sizeOriginal = env.getProperty(
@@ -85,47 +88,76 @@ public class FileController extends BaseController {
 		int sizeHuge = env.getProperty("lhjz.upload.img.scale.size.huge",
 				Integer.class);
 
-		// relative file path
-		String path = storePath + sizeOriginal + "/" + uuidName;// 原始图片存放
-		String pathLarge = storePath + sizeLarge + "/" + uuidName;// 缩放图片存放
-		String pathHuge = storePath + sizeHuge + "/" + uuidName;// 缩放图片存放
-
-		// absolute file path
-		String filePath = realPath + path;
-
 		try {
-
 			// make upload dir if not exists
 			FileUtils.forceMkdir(new File(realPath + storePath + sizeOriginal));
 			FileUtils.forceMkdir(new File(realPath + storePath + sizeLarge));
 			FileUtils.forceMkdir(new File(realPath + storePath + sizeHuge));
-
-			// store into webapp dir
-			file.transferTo(new File(filePath));
-
-			// scale image size as thumbnail
-			// 图片缩放处理.120*120
-			ImageUtil.scale2(filePath, realPath + pathLarge, sizeLarge,
-					sizeLarge, true);
-			// 图片缩放处理.640*640
-			ImageUtil.scale2(filePath, realPath + pathHuge, sizeHuge, sizeHuge,
-					true);
-
-			// 保存记录到数据库
-			com.lhjz.portal.entity.File file2 = new com.lhjz.portal.entity.File();
-			file2.setCreateDate(new Date());
-			file2.setName(originalFilename);
-			file2.setUsername(WebUtil.getUsername());
-			file2.setUuidName(uuidName);
-			fileRepository.save(file2);
-
-		} catch (Exception e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 			logger.error(e.getMessage(), e);
 			return RespBody.failed(e.getMessage());
 		}
 
+		List<com.lhjz.portal.entity.File> saveFiles = new ArrayList<com.lhjz.portal.entity.File>();
+
+		RespBody respBody = RespBody.succeedInstance();
+
+		for (MultipartFile file : files) {
+
+			String originalFileName = file.getOriginalFilename();
+
+			if (!ImageUtil.isImage(originalFileName)) {
+				logger.error("上传文件不是图片！ 文件名: {}", originalFileName);
+				respBody.status(false).addMsg(
+						String.format("上传文件不是图片！ 文件名: %s", originalFileName));
+				continue;
+			}
+
+			String type = originalFileName.substring(originalFileName
+					.lastIndexOf("."));
+
+			String uuid = UUID.randomUUID().toString();
+
+			String uuidName = StringUtil.replace("{?1}{?2}", uuid, type);
+
+			// relative file path
+			String path = storePath + sizeOriginal + "/" + uuidName;// 原始图片存放
+			String pathLarge = storePath + sizeLarge + "/" + uuidName;// 缩放图片存放
+			String pathHuge = storePath + sizeHuge + "/" + uuidName;// 缩放图片存放
+
+			// absolute file path
+			String filePath = realPath + path;
+
+			try {
+
+				// store into webapp dir
+				file.transferTo(new File(filePath));
+
+				// scale image size as thumbnail
+				// 图片缩放处理.120*120
+				ImageUtil.scale2(filePath, realPath + pathLarge, sizeLarge,
+						sizeLarge, true);
+				// 图片缩放处理.640*640
+				ImageUtil.scale2(filePath, realPath + pathHuge, sizeHuge,
+						sizeHuge, true);
+
+				// 保存记录到数据库
+				com.lhjz.portal.entity.File file2 = new com.lhjz.portal.entity.File();
+				file2.setCreateDate(new Date());
+				file2.setName(originalFileName);
+				file2.setUsername(WebUtil.getUsername());
+				file2.setUuidName(uuidName);
+				saveFiles.add(fileRepository.save(file2));
+
+			} catch (Exception e) {
+				e.printStackTrace();
+				logger.error(e.getMessage(), e);
+				return RespBody.failed(e.getMessage());
+			}
+		}
+
 		// back relative file path
-		return RespBody.succeed(storePath + sizeOriginal + "/" + uuidName);
+		return respBody.data(saveFiles);
 	}
 }

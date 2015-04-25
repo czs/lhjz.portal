@@ -169,6 +169,11 @@ Dependency
 3. impl file upload feature
 4. add some maven dependencies
 5. add some java helper util classes
+6. 图片删除 
+7. 幻灯图片展示 
+8. 图片上传
+9. upload multiple support
+10.页面在移动浏览器下禁止缩放
 
 # TODO
 >

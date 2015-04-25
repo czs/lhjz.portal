@@ -103,14 +103,14 @@ INSERT INTO `users` VALUES ('lhjz', '$2a$10$cHoqi0vbJpkOe.ShF7A6qO0kf8lKOH/6tHr3
 -- ----------------------------
 -- Records of file
 -- ----------------------------
-INSERT INTO `file` VALUES ('1', '2015-04-25 10:01:51', 'img08_b.jpg', '0', 'lhjz', '4dfa871e-6cc1-480c-a1a8-2a56dae30b51.jpg', '0');
-INSERT INTO `file` VALUES ('2', '2015-04-25 10:01:51', 'img07_b.jpg', '0', 'lhjz', '91baaaf6-237f-47c1-80d1-6af3abd267a3.jpg', '0');
-INSERT INTO `file` VALUES ('3', '2015-04-25 10:01:52', 'img04_b.jpg', '0', 'lhjz', '8734d1cc-0c69-4ab2-9611-3c86e7ca2c58.jpg', '0');
-INSERT INTO `file` VALUES ('4', '2015-04-25 10:01:52', 'img01_b.jpg', '0', 'lhjz', 'b1e70aa4-2013-4150-9d71-47ebaca5963d.jpg', '0');
-INSERT INTO `file` VALUES ('5', '2015-04-25 10:01:52', 'img02_b.jpg', '0', 'lhjz', '66170316-4b4c-45fe-bc55-9f25459a2072.jpg', '0');
-INSERT INTO `file` VALUES ('6', '2015-04-25 10:01:52', 'img06_b.jpg', '0', 'lhjz', '94947a26-3c39-495e-8c65-62e7a7ade429.jpg', '0');
-INSERT INTO `file` VALUES ('7', '2015-04-25 10:01:52', 'img05_b.jpg', '0', 'lhjz', 'ba77d88a-3a9f-4afc-bafe-27f05be65114.jpg', '0');
-INSERT INTO `file` VALUES ('8', '2015-04-25 10:01:53', 'img03_b.jpg', '0', 'lhjz', '0c590fa7-430f-428a-aa38-fa29227caa43.jpg', '0');
+INSERT INTO `file` VALUES ('1', '2015-04-25 10:01:51', 'img08_b.jpg', '2', 'lhjz', '4dfa871e-6cc1-480c-a1a8-2a56dae30b51.jpg', '0');
+INSERT INTO `file` VALUES ('2', '2015-04-25 10:01:51', 'img07_b.jpg', '2', 'lhjz', '91baaaf6-237f-47c1-80d1-6af3abd267a3.jpg', '0');
+INSERT INTO `file` VALUES ('3', '2015-04-25 10:01:52', 'img04_b.jpg', '2', 'lhjz', '8734d1cc-0c69-4ab2-9611-3c86e7ca2c58.jpg', '0');
+INSERT INTO `file` VALUES ('4', '2015-04-25 10:01:52', 'img01_b.jpg', '2', 'lhjz', 'b1e70aa4-2013-4150-9d71-47ebaca5963d.jpg', '0');
+INSERT INTO `file` VALUES ('5', '2015-04-25 10:01:52', 'img02_b.jpg', '2', 'lhjz', '66170316-4b4c-45fe-bc55-9f25459a2072.jpg', '0');
+INSERT INTO `file` VALUES ('6', '2015-04-25 10:01:52', 'img06_b.jpg', '2', 'lhjz', '94947a26-3c39-495e-8c65-62e7a7ade429.jpg', '0');
+INSERT INTO `file` VALUES ('7', '2015-04-25 10:01:52', 'img05_b.jpg', '2', 'lhjz', 'ba77d88a-3a9f-4afc-bafe-27f05be65114.jpg', '0');
+INSERT INTO `file` VALUES ('8', '2015-04-25 10:01:53', 'img03_b.jpg', '2', 'lhjz', '0c590fa7-430f-428a-aa38-fa29227caa43.jpg', '0');
 
 /*
 DROP TABLE IF EXISTS `users`;

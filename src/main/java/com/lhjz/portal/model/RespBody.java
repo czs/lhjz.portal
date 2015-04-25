@@ -1,20 +1,59 @@
 package com.lhjz.portal.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RespBody implements Serializable {
 
 	/** serialVersionUID long */
 	private static final long serialVersionUID = -1965817463440121331L;
-	public boolean success;
-	public Object data;
+	private boolean success;
+	private Object data = "";
+	private List<Object> msgs = new ArrayList<>();
+
+	public static RespBody succeedInstance() {
+		return new RespBody(true);
+	}
+
+	public static RespBody failedInstance() {
+		return new RespBody(false);
+	}
+
+	public RespBody addMsg(Object msg) {
+		this.msgs.add(msg);
+		return this;
+	}
+
+	public RespBody data(Object data) {
+		this.data = data;
+		return this;
+	}
+
+	public RespBody status(boolean success) {
+		this.success = success;
+		return this;
+	}
+
+	public RespBody toggle() {
+		this.success = !success;
+		return this;
+	}
 
 	public static RespBody succeed(Object data) {
 		return new RespBody(true, data);
 	}
 
+	public static RespBody succeed() {
+		return new RespBody(true, null);
+	}
+
 	public static RespBody failed(Object data) {
 		return new RespBody(false, data);
+	}
+
+	public static RespBody failed() {
+		return new RespBody(false, null);
 	}
 
 	public RespBody(boolean success) {
@@ -40,6 +79,14 @@ public class RespBody implements Serializable {
 
 	public void setData(Object data) {
 		this.data = data;
+	}
+
+	public List<Object> getMsgs() {
+		return msgs;
+	}
+
+	public void setMsgs(List<Object> msgs) {
+		this.msgs = msgs;
 	}
 
 }
