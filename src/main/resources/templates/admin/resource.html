@@ -47,24 +47,21 @@
 					</form>
 				</div>
 			</div>
-			<!-- <div class="ui segment">
-				<div class="ui small images" th:remove="all-but-first">
-					<img th:each="img : ${imgs}" th:src="@{/{path}/{uuidName}(path=${path},uuidName=${img.uuidName})}"
-						src="../../static/img/img01_b.jpg"> <img src="../../static/img/img02_b.jpg"> <img
-						src="../../static/img/img03_b.jpg"> <img src="../../static/img/img04_b.jpg"> <img
-						src="../../static/img/img05_b.jpg"> <img src="../../static/img/img06_b.jpg"> <img
-						src="../../static/img/img07_b.jpg"> <img src="../../static/img/img08_b.jpg">
-				</div>
-			</div> -->
 			<div class="ui segment">
-				<div class="ui six doubling cards">
+				<div class="ui six doubling cards ad-img-cards">
 					<div class="card ad-img-card" th:each="img : ${imgs}">
-						<a class="image fancybox" data-fancybox-group="gallery"
+						<a class="image fancybox" data-fancybox-group="gallery" th:title="${T(com.lhjz.portal.util.FileUtil).getName(img.name)}"
 							th:href="@{/{path}/{uuidName}(path=${path},uuidName=${img.uuidName})}"> <img
 							th:src="@{/{path}/{uuidName}(path=${pathLarge},uuidName=${img.uuidName})}" src="../../static/img/img01_b.jpg">
 						</a>
 						<div class="content">
-							<a class="header" th:text="${img.name}">img01_b.jpg</a>
+							<a class="header" th:text="${T(com.lhjz.portal.util.FileUtil).getName(img.name)}">img01_b</a>
+							<div class="ui action mini fluid input">
+								<input type="text" placeholder="输入名称">
+								<button class="ui icon button" th:attr="data-id=${img.id}">
+									<i class="checkmark icon"></i>
+								</button>
+							</div>
 						</div>
 						<a class="ui top right red attached label ad-img-del" th:attr="data-id=${img.id}">删除</a>
 					</div>
@@ -76,6 +73,61 @@
 	<script type="text/javascript" th:inline="javascript">
 		// dropzone file uploader
 		jQuery(document).ready(function($) {
+			
+			// 图片名称修改
+			$('.ad-img-cards .ui.input').hide();
+			
+			$('.ad-img-cards').delegate('.ad-img-card .ui.button', 'click', function(){
+				$(this).prevAll('input').val('').parents('.ui.input').hide().prevAll('.header').show();
+			})
+			
+			$('.ad-img-cards').delegate('.content > .header', 'click', function(){
+				$(this).hide().nextAll('.ui.input').show().find('input').val(Utils.removeFileType($(this).text())).select().focus();
+			})
+			
+			$('.ad-img-cards .ui.input input').keydown(function(evt){
+				if(!evt.ctrlKey && !evt.altKey && !evt.shiftKey && evt.keyCode == 13){
+					$(this).nextAll('.ui.button').click();
+					evt.preventDefault();
+				}
+			});
+			
+			$('.ad-img-cards .ad-img-card .ui.button')
+			  .api({
+			    action: 'updateFileName',
+			    method: 'post',
+			    //stateContext: '.ad-img-cards',
+		        data: {
+		            /*[+ [[${_csrf.parameterName}]] : [[${_csrf.token}]] +]*/
+		        },
+			    beforeSend: function(settings) {
+			        settings.urlData = {
+			          name: $(this).prevAll('input').val()
+			        };
+			        return settings;
+			    },
+			    successTest: function(resp) {
+		            return resp.success || false;
+		        },
+		        onSuccess: function(resp, elem) {
+		            toastr['success']("修改成功！");
+		            $(this).prevAll('input').val('').parent().prevAll('.header').text(Utils.removeFileType(resp.data.name));
+		            $(this).closest('.ad-img-card').find('a.fancybox').attr('title', Utils.removeFileType(resp.data.name));
+		        },
+		        onFailure: function(resp, elem) {
+		            toastr['error'](resp.data, "修改失败！");
+		        },
+		        onError: function(errMsg, elem) {
+		            toastr['error'](errMsg, "操作失败");
+		        },
+		        onAbort: function(errMsg, elem) {
+		            toastr['error'](errMsg, "操作失败");
+		        },
+		        onComplete: function(resp, elem) {
+		        	$(this).parents('.ui.input').hide().prevAll('.header').show();
+		        }
+			  });
+			
 		    // 图片上传
 		    Dropzone.options.myDropzone = {
 		        paramName: function(){return "file";},

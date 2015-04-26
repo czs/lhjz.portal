@@ -41,4 +41,21 @@ public class FileUtil {
 		return filePath;
 	}
 
+	/**
+	 * get file type, eg: .jpg
+	 * 
+	 * @param name
+	 * @return
+	 */
+	public static String getType(String name) {
+
+		if (StringUtil.isEmpty(name)) {
+			return StringUtil.EMPTY;
+		}
+
+		int i = name.lastIndexOf(".");
+
+		return (i != -1) ? name.substring(i) : StringUtil.EMPTY;
+	}
+
 }

@@ -16,6 +16,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 import com.lhjz.portal.pojo.Enum.Status;
 
 /**
@@ -35,8 +37,11 @@ public class File implements Serializable {
 	@GeneratedValue
 	private Long id;
 
+	@NotBlank
 	private String name;
+	@NotBlank
 	private String uuidName;
+	@NotBlank
 	private String username;
 
 	@Enumerated(EnumType.ORDINAL)

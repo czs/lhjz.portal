@@ -175,6 +175,16 @@ Dependency
 9. upload multiple support
 10.页面在移动浏览器下禁止缩放
 
+### 2015/4/26
+
+功能设计开发
+>
+1. 文件名修改
+2. js自定义工具方法 `indow.Utils.*()`
+3. @Entity 属性注解验证
+4. Action Form属性注解验证
+5. java `FileUtil.java`添加工具方法
+
 # TODO
 >
 1. more thymeleaf `tags & expressions` test.

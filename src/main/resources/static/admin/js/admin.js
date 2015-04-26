@@ -1,4 +1,4 @@
-jQuery(function() {
+jQuery(function($) {
 
 	$('.ad-index-btn-menu').click(function() {
 		$('.ad-index-menu').sidebar('toggle');
@@ -15,7 +15,8 @@ jQuery(function() {
 
 	// semantic-ui ajax api
 	$.fn.api.settings.api = {
-		'deleteFileById' : 'admin/file/delete?id={id}'
+		'deleteFileById' : 'admin/file/delete?id={id}',
+		'updateFileName' : 'admin/file/update?id={id}&name={name}'
 	};
 
 	// toastr notification options
@@ -38,3 +39,21 @@ jQuery(function() {
 	};
 
 });
+
+jQuery(function($) {
+	// custom helper utils
+	window.Utils = window.Utils || {};
+	
+	$.extend(window.Utils, {
+		removeFileType: function(name){
+			var i = name.lastIndexOf('.');
+			return (i != -1) ? name.substring(0, i) : name;
+		},
+		getFileType: function(name){
+			var i = name.lastIndexOf('.');
+			return (i != -1) ? name.substring(i) : '';
+		}
+	});
+});
+
+

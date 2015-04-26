@@ -10,9 +10,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
@@ -21,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,7 +33,9 @@ import org.springframework.web.multipart.MultipartFile;
 import com.lhjz.portal.base.BaseController;
 import com.lhjz.portal.model.RespBody;
 import com.lhjz.portal.pojo.Enum.Status;
+import com.lhjz.portal.pojo.FileForm;
 import com.lhjz.portal.repository.FileRepository;
+import com.lhjz.portal.util.FileUtil;
 import com.lhjz.portal.util.ImageUtil;
 import com.lhjz.portal.util.StringUtil;
 import com.lhjz.portal.util.WebUtil;
@@ -53,6 +58,29 @@ public class FileController extends BaseController {
 
 	@Autowired
 	FileRepository fileRepository;
+
+	@RequestMapping(value = "update", method = RequestMethod.POST)
+	@ResponseBody
+	public RespBody update(HttpServletRequest request,
+			HttpServletResponse response, Model model, Locale locale,
+			@Valid FileForm fileForm, BindingResult bindingResult) {
+
+		if (bindingResult.hasErrors()) {
+			return RespBody.failed(bindingResult.getAllErrors().stream()
+					.map(err -> err.getDefaultMessage())
+					.collect(Collectors.joining("<br/>")));
+		}
+
+		com.lhjz.portal.entity.File file = fileRepository.findOne(fileForm
+				.getId());
+		if (file.getStatus() == Status.BULTIN) {
+			return RespBody.failed("内置文件，不能修改！");
+		}
+
+		file.setName(fileForm.getName() + FileUtil.getType(file.getName()));
+
+		return RespBody.succeed(fileRepository.save(file));
+	}
 
 	@RequestMapping(value = "delete", method = RequestMethod.POST)
 	@ResponseBody
