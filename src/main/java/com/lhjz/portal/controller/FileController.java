@@ -101,7 +101,7 @@ public class FileController extends BaseController {
 
 		List<com.lhjz.portal.entity.File> saveFiles = new ArrayList<com.lhjz.portal.entity.File>();
 
-		RespBody respBody = RespBody.succeedInstance();
+		RespBody respBody = RespBody.succeed();
 
 		for (MultipartFile file : files) {
 

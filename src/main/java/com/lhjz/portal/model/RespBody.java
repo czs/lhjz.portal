@@ -12,14 +12,6 @@ public class RespBody implements Serializable {
 	private Object data = "";
 	private List<Object> msgs = new ArrayList<>();
 
-	public static RespBody succeedInstance() {
-		return new RespBody(true);
-	}
-
-	public static RespBody failedInstance() {
-		return new RespBody(false);
-	}
-
 	public RespBody addMsg(Object msg) {
 		this.msgs.add(msg);
 		return this;
@@ -45,7 +37,7 @@ public class RespBody implements Serializable {
 	}
 
 	public static RespBody succeed() {
-		return new RespBody(true, null);
+		return new RespBody(true);
 	}
 
 	public static RespBody failed(Object data) {
@@ -53,7 +45,7 @@ public class RespBody implements Serializable {
 	}
 
 	public static RespBody failed() {
-		return new RespBody(false, null);
+		return new RespBody(false);
 	}
 
 	public RespBody(boolean success) {
