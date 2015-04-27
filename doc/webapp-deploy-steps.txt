@@ -141,29 +141,36 @@
 
 # 部署war包
 >
-解压.tar.gz文件：
+#清空webapps/ROOT/
+rm -rf webapps/ROOT/*
+ 
+#解压.tar.gz文件：
 tar -zxvf web.tar.gz
+#Note:tar不支持解压文件到指定的目录！
 
-tar不支付解压文件到指定的目录！
 
 解压.war .zip文件到指定目录：
 unzip web.war -d webapps/ROOT/
 以其他用户与运行命令
-sudo -H -u lhjz bash -c 'unzip lhjz.portal-0.0.3-SNAPSHOT.war -d webapps/ROOT/'
+sudo -H -u lhjz bash -c 'unzip lhjz.portal-0.0.4-SNAPSHOT.war -d webapps/ROOT/'
 
-注意: 
+#注意: 
 1. 分配日志文件夹写权限
 2. 停用端口被占用的进程
 
-/home/lhjz/webapps/ROOT (webapp content)
+#webapp content
+/home/lhjz/webapps/ROOT
 
-service tocmat start | stop (exec tomcat cmd)
+#exec tomcat cmd
+service tocmat start | stop
 
-tail -f /usr/tomcat/logs/catalina.out (tomcat startup log)
+#tomcat startup log
+tail -f /usr/tomcat/logs/catalina.out
 
-usr/tomcat/log/lhjz (web app log dir)
+#lhjz log dir
+usr/tomcat/log/lhjz
 
-问题:
+#问题:
 >
 1. 以安全用户启动tomcat失败
 

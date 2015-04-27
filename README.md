@@ -185,6 +185,14 @@ Dependency
 4. Action Form属性注解验证
 5. java `FileUtil.java`添加工具方法
 
+### 2015/4/27
+
+框架结构构建
+>
+1. `maven-tomcat7-plugin` for deploying to remote server
+2. clean `webapp/upload/` and include `resources/` to package war.
+3. `springloaded` plugin for hot java class deploy
+
 # TODO
 >
 1. more thymeleaf `tags & expressions` test.
