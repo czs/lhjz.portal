@@ -6,7 +6,9 @@ jQuery(function($) {
 
 	$('.ui.sticky').sticky({
 		offset : 84,
-		pushing : true
+		pushing : true,
+		bottomOffset: 84,
+		context: '.ad-index-container'
 	});
 
 	$('.ad-index-logout').click(function() {
