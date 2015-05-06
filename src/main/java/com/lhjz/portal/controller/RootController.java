@@ -3,13 +3,11 @@
  */
 package com.lhjz.portal.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.lhjz.portal.base.BaseController;
-import com.lhjz.portal.service.UserService;
 
 /**
  * 
@@ -21,9 +19,6 @@ import com.lhjz.portal.service.UserService;
 @Controller
 @RequestMapping()
 public class RootController extends BaseController {
-
-	@Autowired
-	UserService userService;
 
 	@RequestMapping()
 	public String home(Model model) {
