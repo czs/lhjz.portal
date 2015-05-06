@@ -193,12 +193,14 @@ Dependency
 2. clean `webapp/upload/` and include `resources/` to package war.
 3. `springloaded` plugin for hot java class deploy
 
+### 2015/5/6
+
+框架结构构建
+>
+1. 使用java entity定义用户验证授权的数据库表结构
+
 # TODO
 >
 1. more thymeleaf `tags & expressions` test.
-2. separate `logback.xml` into `dev&prod` two profiles environment.
 3. try to launch the webapp using `jar` package mode(by `inner tomcat` and run through `main` method).
-5. add spring security feature
 6. admin manager gui part
-7。  add database for user authentication 
-8. add a Password Encoder(`BCryptPasswordEncoder`)
