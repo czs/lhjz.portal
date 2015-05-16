@@ -61,3 +61,26 @@
 	display: inline-block;
 	width: 40px;
 }
+
+.lhjz-container-fluid{
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.lhjz-content{
+    margin-top: 0px;
+    margin-bottom: 60px;
+}
+
+.thumbnail:hover{
+    border-color: #4089ca;
+}
+
+.lhjz-media-div{
+    float: left;
+    padding-right: 10px;
+}
+
+.lhjz-media-img{
+    max-width: 200px;
+}
