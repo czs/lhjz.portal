@@ -18,7 +18,8 @@ jQuery(function($) {
 	// semantic-ui ajax api
 	$.fn.api.settings.api = {
 		'deleteFileById' : 'admin/file/delete?id={id}',
-		'updateFileName' : 'admin/file/update?id={id}&name={name}'
+		'updateFileName' : 'admin/file/update?id={id}&name={name}',
+		'saveArticle' : 'admin/article/save'
 	};
 
 	// toastr notification options

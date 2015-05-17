@@ -43,6 +43,8 @@ public class File implements Serializable {
 	private String uuidName;
 	@NotBlank
 	private String username;
+	@NotBlank
+	private String path;
 
 	@Enumerated(EnumType.ORDINAL)
 	@Column(nullable = false)
@@ -108,6 +110,14 @@ public class File implements Serializable {
 
 	public void setVersion(long version) {
 		this.version = version;
+	}
+
+	public String getPath() {
+		return path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
 	}
 
 }

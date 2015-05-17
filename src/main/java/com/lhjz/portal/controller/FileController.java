@@ -176,6 +176,7 @@ public class FileController extends BaseController {
 				file2.setName(originalFileName);
 				file2.setUsername(WebUtil.getUsername());
 				file2.setUuidName(uuidName);
+				file2.setPath(storePath + sizeOriginal + "/");
 				saveFiles.add(fileRepository.save(file2));
 
 			} catch (Exception e) {
@@ -188,4 +189,5 @@ public class FileController extends BaseController {
 		// back relative file path
 		return respBody.data(saveFiles);
 	}
+
 }

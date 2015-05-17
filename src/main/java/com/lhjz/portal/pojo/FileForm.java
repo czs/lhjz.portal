@@ -10,7 +10,7 @@ public class FileForm {
 	@NotNull(message = "文件ID不能为空！")
 	private Long id;
 	@NotBlank(message = "文件名不能为空！")
-	@Length(max = 255, message = "文件名长度不能超过50！")
+	@Length(max = 255, message = "文件名长度不能超过225！")
 	private String name;
 
 	public Long getId() {

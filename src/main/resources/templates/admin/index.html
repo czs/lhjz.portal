@@ -19,7 +19,7 @@
 <body>
 
 	<div th:with="uri=${#httpServletRequest.requestURI}" th:fragment="sidebar-menu" class="ui left thin vertical inverted labeled icon sidebar menu ad-index-menu">
-		<a th:classappend="(${#strings.contains(uri, '/admin/index')} or ${#strings.endsWith(uri,'/admin/')} or ${#strings.endsWith(uri,'/admin')}) ? 'active' : ''" class="item" th:href="@{/admin/index}" href="index.html"> <i class="home icon"></i> 主页
+		<a th:classappend="(${#strings.contains(uri, '/admin/index')} or ${#strings.endsWith(uri,'/admin/')} or ${#strings.endsWith(uri,'/admin')}) ? 'active' : ''" class="item" th:href="@{/admin/index}" href="index.html"> <i class="home icon"></i> 门户主页
 		</a> <a th:classappend="${#strings.contains(uri, '/admin/about')} ? 'active' : ''" class="item" th:href="@{/admin/about}" href="about.html"> <i class="info circle icon"></i> 关于我们
 		</a> <a th:classappend="${#strings.contains(uri, '/admin/feature')} ? 'active' : ''" class="item" th:href="@{/admin/feature}" href="feature.html"> <i class="dashboard icon"></i> 疗法特色
 		</a> <a th:classappend="${#strings.contains(uri, '/admin/case')} ? 'active' : ''" class="item" th:href="@{/admin/case}" href="case.html"> <i class="smile icon"></i> 康复案例
@@ -30,6 +30,7 @@
 		</a> <a th:classappend="${#strings.contains(uri, '/admin/diagnose')} ? 'active' : ''" class="item" th:href="@{/admin/diagnose}" href="diagnose.html"> <i class="treatment icon"></i> 在线诊断
 		</a> <a th:classappend="${#strings.contains(uri, '/admin/contact')} ? 'active' : ''" class="item" th:href="@{/admin/contact}" href="contact.html"> <i class="at icon"></i> 联系我们
 		</a> <a th:classappend="${#strings.contains(uri, '/admin/resource')} ? 'active' : ''" class="item" th:href="@{/admin/resource}" href="resource.html"> <i class="file image outline icon"></i> 资源文件
+        </a> <a th:classappend="${#strings.contains(uri, '/admin/article')} ? 'active' : ''" class="item" th:href="@{/admin/article}" href="article.html"> <i class="file text outline icon"></i> 文章管理
 		</a>
 	</div>
 	<div th:fragment="top-fixed-menu" class="ui fixed inverted main menu">
@@ -52,7 +53,7 @@
                 <div class="ui sticky ad-index-sticky">
                     <div th:with="uri=${#httpServletRequest.requestURI}" class="ui vertical pointing menu">
                         <a th:classappend="(${#strings.contains(uri, '/admin/index')} or ${#strings.endsWith(uri,'/admin/')} or ${#strings.endsWith(uri,'/admin')}) ? 'active' : ''" class="item" th:href="@{/admin/index}" href="index.html">
-                            <i class="home icon"></i> 主页
+                            <i class="home icon"></i> 门户主页
                         </a>
                         <a th:classappend="${#strings.contains(uri, '/admin/about')} ? 'active' : ''"  class="item" th:href="@{/admin/about}" href="about.html">
                             <i class="info circle icon"></i> 关于我们
@@ -83,11 +84,14 @@
                         </a>
                         <a th:classappend="${#strings.contains(uri, '/admin/resource')} ? 'active' : ''" class="item" th:href="@{/admin/resource}" href="resource.html">
                             <i class="file image outline icon"></i> 资源文件
+                        </a>                        
+                        <a th:classappend="${#strings.contains(uri, '/admin/article')} ? 'active' : ''" class="item" th:href="@{/admin/article}" href="article.html">
+                            <i class="file text outline icon"></i> 文章管理
                         </a>
                     </div>
                 </div>
             </div>
-            <div class="ui segment">主页</div>
+            <div class="ui segment">门户主页</div>
         </div>
     </div>
 

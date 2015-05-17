@@ -430,4 +430,16 @@ public final class StringUtil {
 		return html;
 	}
 
+	/**
+	 * 使用textarea包裹返回到前端的json body
+	 * 
+	 * @param jsonBody
+	 * @return
+	 */
+	public static String wrapByTextarea(String jsonBody) {
+		return String.format(
+				"<textarea data-type='application/json'>%s</textarea>",
+				jsonBody);
+	}
+
 }

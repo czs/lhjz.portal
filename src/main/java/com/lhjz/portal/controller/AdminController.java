@@ -109,4 +109,9 @@ public class AdminController extends BaseController {
 
 		return "admin/resource";
 	}
+
+	@RequestMapping("article")
+	public String article(Model model) {
+		return "admin/article";
+	}
 }

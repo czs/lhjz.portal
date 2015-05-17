@@ -84,3 +84,10 @@
 .lhjz-media-img{
     max-width: 200px;
 }
+
+.lhjz-logo-img{
+    width: 20px;
+    height: 20px; 
+    float: left;
+    margin-right: 5px;
+}
