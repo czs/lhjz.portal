@@ -62,6 +62,51 @@ public class ArticleController extends BaseController {
 	@Autowired
 	ArticleRepository articleRepository;
 
+	@RequestMapping(value = "list", method = RequestMethod.POST)
+	@ResponseBody
+	public RespBody list(HttpServletRequest request,
+			HttpServletResponse response, Model model, Locale locale) {
+
+		return RespBody.succeed(articleRepository.findAll());
+	}
+
+	@RequestMapping(value = "delete", method = RequestMethod.POST)
+	@ResponseBody
+	public RespBody delete(HttpServletRequest request,
+			HttpServletResponse response,
+			@RequestParam(value = "id", required = true) Long id, Model model,
+			Locale locale) {
+
+		if (articleRepository.exists(id)) {
+			articleRepository.delete(id);
+
+			return RespBody.succeed("删除文章成功！");
+		} else {
+			return RespBody.failed("删除文章不存在，或许已经被删除！");
+		}
+	}
+
+	@RequestMapping(value = "update", method = RequestMethod.POST)
+	@ResponseBody
+	public RespBody update(HttpServletRequest request,
+			HttpServletResponse response,
+			@RequestParam(value = "id", required = true) Long id,
+			@Valid ArticleForm articleForm, Model model, Locale locale) {
+
+		Article article = articleRepository.findOne(id);
+
+		if (article != null) {
+			article.setName(articleForm.getName());
+			article.setContent(articleForm.getContent());
+
+			articleRepository.saveAndFlush(article);
+		} else {
+			return RespBody.failed("修改文章不存在，或许已经被删除！");
+		}
+
+		return RespBody.succeed("修改文章成功！");
+	}
+
 	@RequestMapping(value = "save", method = RequestMethod.POST)
 	@ResponseBody
 	public RespBody save(HttpServletRequest request,
@@ -90,7 +135,7 @@ public class ArticleController extends BaseController {
 
 		articleRepository.save(article);
 
-		return RespBody.succeed();
+		return RespBody.succeed("保存文章成功！");
 	}
 
 	@RequestMapping(value = "upload", method = RequestMethod.POST)
