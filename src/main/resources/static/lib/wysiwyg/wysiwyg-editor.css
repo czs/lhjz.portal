@@ -15,7 +15,7 @@
     -webkit-border-radius: 3px;
     -o-border-radius: 3px;
     border-radius: 3px;
-    height: 100%;
+    /* height: 100%; */
 }
 .wysiwyg-textarea {
     display: block;
@@ -31,7 +31,7 @@
     /* min-height: 5em; */
     /* max-height: 25em; */
     /* max-height: 100%; */
-    height: 437px;
+    height: 400px;
     padding: 10px;
     overflow: auto;
     outline: none;
@@ -40,7 +40,7 @@
 }
 .wysiwyg-toolbar {
     overflow: hidden;
-    white-space: nowrap;
+    /* white-space: nowrap; */
 }
 .wysiwyg-toolbar-top {
     border-bottom: 1px solid #cccccc;
