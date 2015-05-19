@@ -70,6 +70,15 @@ public class ArticleController extends BaseController {
 		return RespBody.succeed(articleRepository.findAll());
 	}
 
+	@RequestMapping(value = "page/list", method = RequestMethod.GET)
+	public String listPage(HttpServletRequest request,
+			HttpServletResponse response, Model model, Locale locale) {
+
+		model.addAttribute("articles", articleRepository.findAll());
+
+		return "admin/article-list";
+	}
+
 	@RequestMapping(value = "delete", method = RequestMethod.POST)
 	@ResponseBody
 	public RespBody delete(HttpServletRequest request,

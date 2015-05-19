@@ -19,7 +19,9 @@ jQuery(function($) {
 	$.fn.api.settings.api = {
 		'deleteFileById' : 'admin/file/delete?id={id}',
 		'updateFileName' : 'admin/file/update?id={id}&name={name}',
-		'saveArticle' : 'admin/article/save'
+		'saveArticle' : 'admin/article/save',
+		'updateArticle' : 'admin/article/update',
+		'deleteArticleById' : 'admin/article/delete?id={id}'
 	};
 
 	// toastr notification options
