@@ -28,64 +28,143 @@
     <div class="pusher ad-index-content">
         <div class="ad-index-container">
             <div th:replace="admin/index :: rail-menu"></div>
-            <table class="ui sortable celled striped table segment lhjz-table-artilce">
-                <thead><th>名称</th><th>内容</th><th>发布日期</th><th>操作</th></thead>
+            <table class="ui sortable celled striped compact table segment lhjz-table-artilce">
+                <thead>
+                    <th>名称</th>
+                    <th>内容</th>
+                    <th>发布日期</th>
+                    <th>操作</th>
+                </thead>
                 <tbody th:remove="all-but-first">
                     <tr th:each="article : ${articles}" th:attrappend="data-id=${article.id}">
-                    <td th:text="${#strings.abbreviate(article.name,20)}">xxxx</td>
-                    <td th:text="${#strings.abbreviate(article.content,50)}">yyyyyyyyyyyyyyyyyyyyyy</td>
-                    <td th:text="${#calendars.format(article.createDate,'yyyy/MM/dd HH:mm:ss')}">2015/05/12 12:00:00</td>
-                    <td>
-                        <div class="ui button lhjz-btn-edit">编辑</div>
-                        <div class="ui red button lhjz-btn-del">删除</div>
-                    </td>
+                        <td th:text="${#strings.abbreviate(article.name,20)}">xxxx</td>
+                        <td th:text="${#strings.abbreviate(article.content,50)}">yyyyyyyyyyyyyyyyyyyyyy</td>
+                        <td th:text="${#calendars.format(article.createDate,'yyyy/MM/dd HH:mm:ss')}">2015/05/12 12:00:00</td>
+                        <td>
+                            <div class="ui compact tiny button lhjz-btn-edit">编辑</div>
+                            <div class="ui compact tiny red button lhjz-btn-del">删除</div>
+                        </td>
                     </tr>
-                    <tr><td>xxxx</td><td>yyyyyyyyyyyyyyyyyyyyyy</td><td>2015/05/12 12:00:00</td><td><div class="ui button">编辑</div><div class="ui red button">删除</div></td></tr>
-                    <tr><td>xxxx</td><td>yyyyyyyyyyyyyyyyyyyyyy</td><td>2015/05/12 12:00:00</td><td><div class="ui button">编辑</div><div class="ui red button">删除</div></td></tr>
-                    <tr><td>xxxx</td><td>yyyyyyyyyyyyyyyyyyyyyy</td><td>2015/05/12 12:00:00</td><td><div class="ui button">编辑</div><div class="ui red button">删除</div></td></tr>
-                    <tr><td>xxxx</td><td>yyyyyyyyyyyyyyyyyyyyyy</td><td>2015/05/12 12:00:00</td><td><div class="ui button">编辑</div><div class="ui red button">删除</div></td></tr>
-                    <tr><td>xxxx</td><td>yyyyyyyyyyyyyyyyyyyyyy</td><td>2015/05/12 12:00:00</td><td><div class="ui button">编辑</div><div class="ui red button">删除</div></td></tr>
+                    <tr>
+                        <td>xxxx</td>
+                        <td>yyyyyyyyyyyyyyyyyyyyyy</td>
+                        <td>2015/05/12 12:00:00</td>
+                        <td>
+                            <div class="ui button lhjz-btn-edit">编辑</div>
+                            <div class="ui red button lhjz-btn-del">删除</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>xxxx</td>
+                        <td>yyyyyyyyyyyyyyyyyyyyyy</td>
+                        <td>2015/05/12 12:00:00</td>
+                        <td>
+                            <div class="ui button lhjz-btn-edit">编辑</div>
+                            <div class="ui red button lhjz-btn-del">删除</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>xxxx</td>
+                        <td>yyyyyyyyyyyyyyyyyyyyyy</td>
+                        <td>2015/05/12 12:00:00</td>
+                        <td>
+                            <div class="ui button lhjz-btn-edit">编辑</div>
+                            <div class="ui red button lhjz-btn-del">删除</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>xxxx</td>
+                        <td>yyyyyyyyyyyyyyyyyyyyyy</td>
+                        <td>2015/05/12 12:00:00</td>
+                        <td>
+                            <div class="ui button lhjz-btn-edit">编辑</div>
+                            <div class="ui red button lhjz-btn-del">删除</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>xxxx</td>
+                        <td>yyyyyyyyyyyyyyyyyyyyyy</td>
+                        <td>2015/05/12 12:00:00</td>
+                        <td>
+                            <div class="ui button lhjz-btn-edit">编辑</div>
+                            <div class="ui red button lhjz-btn-del">删除</div>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
-
+        </div>
+    </div>
+    <div class="ui small test modal">
+        <!-- <i class="close icon"></i> -->
+        <div class="header">
+            删除文章
+        </div>
+        <div class="content">
+            <p>确认要删除文章吗？</p>
+        </div>
+        <div class="actions">
+            <div class="ui negative button">
+                取消
+            </div>
+            <div class="ui positive right labeled icon button">
+                确认
+                <i class="checkmark icon"></i>
+            </div>
         </div>
     </div>
     <script type="text/javascript" th:inline="javascript">
     jQuery(document).ready(function($) {
 
+        var btnDel;
+
+        $('.ui.modal').modal({
+            /*closable: false,*/
+            onDeny: function() {
+                return true;
+            },
+            onApprove: function() {
+                btnDel.triggerHandler('lhjz:yes');
+            }
+        });
+
+        $('.lhjz-btn-del').click(function() {
+            btnDel = $(this);
+            $('.ui.modal').modal('show');
+        });
+
         $('.lhjz-btn-del').api({
-                action: 'deleteArticleById',
-                method: 'post',
-                data: {
-                    /*[+ [[${_csrf.parameterName}]] : [[${_csrf.token}]] +]*/
-                },
-                beforeSend: function(settings) {
-                    settings.urlData = {
-                      id: $(this).closest('tr').attr('data-id')
-                    };
-                    return settings;
-                },
-                successTest: function(resp) {
-                    return resp.success || false;
-                },
-                onSuccess: function(resp, elem) {
-                    toastr['success']("删除成功！");
-                    $(elem).closest('tr').remove();
-                },
-                onFailure: function(resp, elem) {
-                    toastr['error'](resp.data, "删除失败！");
-                },
-                onError: function(errMsg, elem) {
-                    toastr['error'](errMsg, "操作失败");
-                },
-                onAbort: function(errMsg, elem) {
-                    toastr['error'](errMsg, "操作失败");
-                },
-                onComplete: function(resp, elem) {}
-            });
+            action: 'deleteArticleById',
+            method: 'post',
+            on: 'lhjz:yes',
+            data: {
+                /*[+ [[${_csrf.parameterName}]] : [[${_csrf.token}]] +]*/
+            },
+            beforeSend: function(settings) {
+                settings.urlData = {
+                    id: $(this).closest('tr').attr('data-id')
+                };
+                return settings;
+            },
+            onSuccess: function(resp, elem) {
+                toastr['success']("删除成功！");
+                $(elem).closest('tr').remove();
+            },
+            onFailure: function(resp, elem) {
+                toastr['error'](resp.data, "删除失败！");
+            },
+            onError: function(errMsg, elem) {
+                toastr['error'](errMsg, "操作失败");
+            },
+            onAbort: function(errMsg, elem) {
+                toastr['error'](errMsg, "操作失败");
+            },
+            onComplete: function(resp, elem) {}
+        });
     });
 
     //TODO
+    // 1. 删除确认
+    // 2. 编辑文章
     </script>
 </body>
 

@@ -106,9 +106,6 @@
 			        };
 			        return settings;
 			    },
-			    successTest: function(resp) {
-		            return resp.success || false;
-		        },
 		        onSuccess: function(resp, elem) {
 		            toastr['success']("修改成功！");
 		            $(this).prevAll('input').val('').parent().prevAll('.header').text(Utils.removeFileType(resp.data.name));
@@ -203,9 +200,6 @@
 		        method: 'post',
 		        data: {
 		            /*[+ [[${_csrf.parameterName}]] : [[${_csrf.token}]] +]*/
-		        },
-		        successTest: function(resp) {
-		            return resp.success || false;
 		        },
 		        onSuccess: function(resp, elem) {
 		            toastr['success']("删除成功！");
