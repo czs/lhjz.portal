@@ -1,151 +1,148 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
 <html lang="zh-cn" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-<meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
-<meta name="description" content="" />
-<meta name="author" content="" />
-<title>立衡脊柱- 疗法特色</title>
-<link rel="icon" th:href="@{/favicon.ico}" href="../../static/favicon.ico" type="image/x-icon" />
-<link rel="shortcut icon" th:href="@{/favicon.ico}" href="../../static/favicon.ico" type="image/x-icon" />
-<!-- Bootstrap core CSS -->
-<link th:href="@{/lib/bootstrap/css/bootstrap.min.css}" href="../../static/lib/bootstrap/css/bootstrap.min.css"
-	rel="stylesheet" type="text/css" />
-<link th:href="@{/lib/scrollup/css/themes/image.css}" href="../../static/lib/scrollup/css/themes/image.css"
-	rel="stylesheet" type="text/css" />
-<!-- Add custom CSS here -->
-<link th:href="@{/landing/css/custom.css}" href="../../static/landing/css/custom.css" rel="stylesheet" />
-<!-- JavaScript -->
-<script th:src="@{/lib/jquery-1.11.1.min.js}" src="../../static/lib/jquery-1.11.1.min.js" charset="utf-8"></script>
-<script th:src="@{/lib/bootstrap/js/bootstrap.min.js}" src="../../static/lib/bootstrap/js/bootstrap.min.js"
-	charset="utf-8"></script>
-<script th:src="@{/lib/scrollup/js/jquery.scrollUp.min.js}" src="../../static/lib/scrollup/js/jquery.scrollUp.min.js"
-	charset="utf-8"></script>
-<script th:src="@{/landing/js/custom.js}" src="../../static/landing/js/custom.js" charset="utf-8"></script>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>立衡脊柱- 疗法特色</title>
+    <link rel="icon" th:href="@{/favicon.ico}" href="../../static/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" th:href="@{/favicon.ico}" href="../../static/favicon.ico" type="image/x-icon" />
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{/lib/bootstrap/css/bootstrap.min.css}" href="../../static/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link th:href="@{/lib/scrollup/css/themes/image.css}" href="../../static/lib/scrollup/css/themes/image.css" rel="stylesheet" type="text/css" />
+    <!-- Add custom CSS here -->
+    <link th:href="@{/landing/css/custom.css}" href="../../static/landing/css/custom.css" rel="stylesheet" />
+    <!-- JavaScript -->
+    <script th:src="@{/lib/jquery-1.11.1.min.js}" src="../../static/lib/jquery-1.11.1.min.js" charset="utf-8"></script>
+    <script th:src="@{/lib/bootstrap/js/bootstrap.min.js}" src="../../static/lib/bootstrap/js/bootstrap.min.js" charset="utf-8"></script>
+    <script th:src="@{/lib/scrollup/js/jquery.scrollUp.min.js}" src="../../static/lib/scrollup/js/jquery.scrollUp.min.js" charset="utf-8"></script>
+    <script th:src="@{/landing/js/custom.js}" src="../../static/landing/js/custom.js" charset="utf-8"></script>
 </head>
+
 <body>
-	<div th:replace="landing/index :: header"></div>
-	<div class="lhjz-body">
-		<div class="container">
-			<div class="row clearfix" id="about">
-				<div class="col-md-12 column">
-					<div class="jumbotron lhjz-jumbotron">
-						<h2>疗法特色</h2>
-						<p>目前我国很多保守疗法其主要原理是缓解周围组织使其适应脊柱不正常形态从而减轻症状来缓解或者掩盖病情，此类疗法无远期效果，复发率较高。而立衡脊柱平衡矫正疗法是矫正脊柱不正常形态，塑造周围组织再生的健康环境，使其整个系统恢复到健康状态，是一套从根本上解除病患的疗法。还您一副健康的脊梁！立衡脊柱特色矫正疗法是目前唯一一套可用X线对比疗效的疗法，享誉国内外。立衡脊柱分院曾担任河南省青少年脊柱变形定点矫正单位，并担任中小学脊柱健康普查工作，有效率100%。</p>
-						<p>
-							<a class="btn btn-primary btn-large" href="#more">查看更多 &gt;&gt;</a>
-						</p>
-						<div id="more"></div>
-					</div>
-				</div>
-			</div>
-			<div class="row" id="more">
-				<div class="col-md-6">
-					<div class="thumbnail">
-						<img alt="300x200" th:src="@{/landing/img/img1.jpg}" src="../../static/landing/img/img1.jpg" />
-						<div class="caption">
-							<h3>国内外唯一可用X线对比治疗疗效的方法</h3>
-							<p>来院治疗时我院会备录患者治疗前的影像图片和影像诊断报告，并在治疗结束后患者可做新的影像检查来对比疗效。</p>
-							<p>
-								<a class="btn btn-primary" href="#">浏览</a> <a class="btn" href="#">更多 »</a>
-							</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-6">
-					<div class="thumbnail">
-						<img alt="300x200" th:src="@{/landing/img/img2.jpg}" src="../../static/landing/img/img2.jpg" />
-						<div class="caption">
-							<h3>世界颈、腰椎研究会、世界骨伤学会全力推荐疗法</h3>
-							<p>本疗法曾多次刊登在各大杂志以及学术报告，并受到广泛认可。</p>
-							<p>
-								<a class="btn btn-primary" href="#">浏览</a> <a class="btn" href="#">更多 »</a>
-							</p>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-6">
-					<div class="thumbnail">
-						<img alt="300x200" th:src="@{/landing/img/img3.jpg}" src="../../static/landing/img/img3.jpg" />
-						<div class="caption">
-							<h3>可治疗其病源根本的矫正疗法</h3>
-							<p>本疗法注重改变脊柱的病理形态，为周围组织营造一个良好的自我修复环境。</p>
-							<p>
-								<a class="btn btn-primary" href="#">浏览</a> <a class="btn" href="#">更多 »</a>
-							</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-6">
-					<div class="thumbnail">
-						<img alt="300x200" th:src="@{/landing/img/img2.jpg}" src="../../static/landing/img/img2.jpg" />
-						<div class="caption">
-							<h3>纯绿色治疗，不开刀。保守治疗，安全可靠</h3>
-							<p>本疗法革命了大部分脊柱病非开刀治疗不可的历史，突破了保守疗法的新疗效。</p>
-							<p>
-								<a class="btn btn-primary" href="#">浏览</a> <a class="btn" href="#">更多 »</a>
-							</p>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="row" id="more">
-				<div class="col-md-6">
-					<div class="thumbnail">
-						<img alt="300x200" th:src="@{/landing/img/img1.jpg}" src="../../static/landing/img/img1.jpg" />
-						<div class="caption">
-							<h3>专利技术，独树一帜，受国家知识产权保护支持</h3>
-							<p>本院拥有多项专利，并被多家三甲医院采用。</p>
-							<p>
-								<a class="btn btn-primary" href="#">浏览</a> <a class="btn" href="#">更多 »</a>
-							</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-6">
-					<div class="thumbnail">
-						<img alt="300x200" th:src="@{/landing/img/img2.jpg}" src="../../static/landing/img/img2.jpg" />
-						<div class="caption">
-							<h3>为患者提供全程跟踪服务，为您一生的脊柱健康保驾护航</h3>
-							<p>本院会关注每位患者的病情变化，无论是在治疗中或是治疗后，我们都会根据病情发展提供最好的康复、稳定方案和建议。</p>
-							<p>
-								<a class="btn btn-primary" href="#">浏览</a> <a class="btn" href="#">更多 »</a>
-							</p>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-6">
-					<div class="thumbnail">
-						<img alt="300x200" th:src="@{/landing/img/img3.jpg}" src="../../static/landing/img/img3.jpg" />
-						<div class="caption">
-							<h3>专人专案，专家组根据患情量身制定治疗方案</h3>
-							<p>本院会根据每位患者的不同患情和治疗进度以及个人耐受能力随时调整治疗方案来提供最高效的康复服务。</p>
-							<p>
-								<a class="btn btn-primary" href="#">浏览</a> <a class="btn" href="#">更多 »</a>
-							</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-6">
-					<div class="thumbnail">
-						<img alt="300x200" th:src="@{/landing/img/img2.jpg}" src="../../static/landing/img/img2.jpg" />
-						<div class="caption">
-							<h3>远期疗效极其显著</h3>
-							<p>本疗法的远期效果明显、复发率低（是优于其他任何疗法最突出之处，远远优于手术治疗）。</p>
-							<p>
-								<a class="btn btn-primary" href="#">浏览</a> <a class="btn" href="#">更多 »</a>
-							</p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div th:replace="landing/index :: footer"></div>
+    <div th:replace="landing/index :: header"></div>
+    <div class="container">
+        <div class="row clearfix" id="about">
+            <div class="col-md-12 column">
+                <div class="jumbotron lhjz-jumbotron">
+                    <h2>疗法特色</h2>
+                    <p>目前我国很多保守疗法其主要原理是缓解周围组织使其适应脊柱不正常形态从而减轻症状来缓解或者掩盖病情，此类疗法无远期效果，复发率较高。而立衡脊柱平衡矫正疗法是矫正脊柱不正常形态，塑造周围组织再生的健康环境，使其整个系统恢复到健康状态，是一套从根本上解除病患的疗法。还您一副健康的脊梁！立衡脊柱特色矫正疗法是目前唯一一套可用X线对比疗效的疗法，享誉国内外。立衡脊柱分院曾担任河南省青少年脊柱变形定点矫正单位，并担任中小学脊柱健康普查工作，有效率100%。</p>
+                    <p>
+                        <a class="btn btn-primary btn-large" href="#more">查看更多 &gt;&gt;</a>
+                    </p>
+                    <div id="more"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row" id="more">
+            <div class="col-md-6">
+                <div class="thumbnail">
+                    <img alt="300x200" th:src="@{/landing/img/img1.jpg}" src="../../static/landing/img/img1.jpg" />
+                    <div class="caption">
+                        <h3>国内外唯一可用X线对比治疗疗效的方法</h3>
+                        <p>来院治疗时我院会备录患者治疗前的影像图片和影像诊断报告，并在治疗结束后患者可做新的影像检查来对比疗效。</p>
+                        <p>
+                            <a class="btn btn-primary" href="#">浏览</a> <a class="btn" href="#">更多 »</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="thumbnail">
+                    <img alt="300x200" th:src="@{/landing/img/img2.jpg}" src="../../static/landing/img/img2.jpg" />
+                    <div class="caption">
+                        <h3>世界颈、腰椎研究会、世界骨伤学会全力推荐疗法</h3>
+                        <p>本疗法曾多次刊登在各大杂志以及学术报告，并受到广泛认可。</p>
+                        <p>
+                            <a class="btn btn-primary" href="#">浏览</a> <a class="btn" href="#">更多 »</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="thumbnail">
+                    <img alt="300x200" th:src="@{/landing/img/img3.jpg}" src="../../static/landing/img/img3.jpg" />
+                    <div class="caption">
+                        <h3>可治疗其病源根本的矫正疗法</h3>
+                        <p>本疗法注重改变脊柱的病理形态，为周围组织营造一个良好的自我修复环境。</p>
+                        <p>
+                            <a class="btn btn-primary" href="#">浏览</a> <a class="btn" href="#">更多 »</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="thumbnail">
+                    <img alt="300x200" th:src="@{/landing/img/img2.jpg}" src="../../static/landing/img/img2.jpg" />
+                    <div class="caption">
+                        <h3>纯绿色治疗，不开刀。保守治疗，安全可靠</h3>
+                        <p>本疗法革命了大部分脊柱病非开刀治疗不可的历史，突破了保守疗法的新疗效。</p>
+                        <p>
+                            <a class="btn btn-primary" href="#">浏览</a> <a class="btn" href="#">更多 »</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" id="more">
+            <div class="col-md-6">
+                <div class="thumbnail">
+                    <img alt="300x200" th:src="@{/landing/img/img1.jpg}" src="../../static/landing/img/img1.jpg" />
+                    <div class="caption">
+                        <h3>专利技术，独树一帜，受国家知识产权保护支持</h3>
+                        <p>本院拥有多项专利，并被多家三甲医院采用。</p>
+                        <p>
+                            <a class="btn btn-primary" href="#">浏览</a> <a class="btn" href="#">更多 »</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="thumbnail">
+                    <img alt="300x200" th:src="@{/landing/img/img2.jpg}" src="../../static/landing/img/img2.jpg" />
+                    <div class="caption">
+                        <h3>为患者提供全程跟踪服务，为您一生的脊柱健康保驾护航</h3>
+                        <p>本院会关注每位患者的病情变化，无论是在治疗中或是治疗后，我们都会根据病情发展提供最好的康复、稳定方案和建议。</p>
+                        <p>
+                            <a class="btn btn-primary" href="#">浏览</a> <a class="btn" href="#">更多 »</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="thumbnail">
+                    <img alt="300x200" th:src="@{/landing/img/img3.jpg}" src="../../static/landing/img/img3.jpg" />
+                    <div class="caption">
+                        <h3>专人专案，专家组根据患情量身制定治疗方案</h3>
+                        <p>本院会根据每位患者的不同患情和治疗进度以及个人耐受能力随时调整治疗方案来提供最高效的康复服务。</p>
+                        <p>
+                            <a class="btn btn-primary" href="#">浏览</a> <a class="btn" href="#">更多 »</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="thumbnail">
+                    <img alt="300x200" th:src="@{/landing/img/img2.jpg}" src="../../static/landing/img/img2.jpg" />
+                    <div class="caption">
+                        <h3>远期疗效极其显著</h3>
+                        <p>本疗法的远期效果明显、复发率低（是优于其他任何疗法最突出之处，远远优于手术治疗）。</p>
+                        <p>
+                            <a class="btn btn-primary" href="#">浏览</a> <a class="btn" href="#">更多 »</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:replace="landing/index :: footer"></div>
 </body>
+
 </html>

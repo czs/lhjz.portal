@@ -3,6 +3,11 @@
     padding-top: 10px;
     padding-bottom: 10px;
 }
+.lhjz-navbar{
+    width: 100%;
+    z-index: 25;
+    position: relative;
+}
 #footer h3 {
     font-size: 17px;
 }
