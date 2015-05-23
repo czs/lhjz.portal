@@ -32,6 +32,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.lhjz.portal.base.BaseController;
 import com.lhjz.portal.entity.Article;
+import com.lhjz.portal.model.Message;
 import com.lhjz.portal.model.RespBody;
 import com.lhjz.portal.pojo.ArticleForm;
 import com.lhjz.portal.repository.ArticleRepository;
@@ -62,12 +63,40 @@ public class ArticleController extends BaseController {
 	@Autowired
 	ArticleRepository articleRepository;
 
+	@RequestMapping(value = "page/view", method = RequestMethod.GET)
+	public String viewPage(HttpServletRequest request,
+			HttpServletResponse response,
+			@RequestParam(value = "id", required = true) Long id, Model model,
+			Locale locale) {
+
+		Article article = articleRepository.findOne(id);
+
+		if (article == null) {
+			model.addAttribute("error", Message.error("您查看的文章不存在，权限不足或已经被删除！"));
+			return "admin/error";
+		} else {
+			model.addAttribute("article", article);
+		}
+
+		return "admin/article-view";
+	}
+
 	@RequestMapping(value = "list", method = RequestMethod.POST)
 	@ResponseBody
 	public RespBody list(HttpServletRequest request,
 			HttpServletResponse response, Model model, Locale locale) {
 
 		return RespBody.succeed(articleRepository.findAll());
+	}
+
+	@RequestMapping(value = "get", method = RequestMethod.GET)
+	@ResponseBody
+	public RespBody get(HttpServletRequest request,
+			HttpServletResponse response,
+			@RequestParam(value = "id", required = true) Long id,
+			Locale locale) {
+
+		return RespBody.succeed(articleRepository.findOne(id));
 	}
 
 	@RequestMapping(value = "page/list", method = RequestMethod.GET)
@@ -91,7 +120,7 @@ public class ArticleController extends BaseController {
 
 			return RespBody.succeed("删除文章成功！");
 		} else {
-			return RespBody.failed("删除文章不存在，或许已经被删除！");
+			return RespBody.failed("删除文章不存在，权限不足或已经被删除！");
 		}
 	}
 
@@ -110,10 +139,31 @@ public class ArticleController extends BaseController {
 
 			articleRepository.saveAndFlush(article);
 		} else {
-			return RespBody.failed("修改文章不存在，或许已经被删除！");
+			return RespBody.failed("修改文章不存在，权限不足或已经被删除！");
 		}
 
 		return RespBody.succeed("修改文章成功！");
+	}
+
+	@RequestMapping(value = "page/update", method = RequestMethod.GET)
+	public String updatePage(HttpServletRequest request,
+			HttpServletResponse response,
+			@RequestParam(value = "id", required = true) Long id, Model model,
+			Locale locale) {
+
+		Article article = articleRepository.findOne(id);
+
+		if (article != null) {
+			model.addAttribute("article", article);
+
+			articleRepository.saveAndFlush(article);
+
+			return "admin/article-update";
+		} else {
+			model.addAttribute("error", Message.error("更新文章不存在，权限不足或已经被删除！"));
+
+			return "admin/error";
+		}
 	}
 
 	@RequestMapping(value = "save", method = RequestMethod.POST)

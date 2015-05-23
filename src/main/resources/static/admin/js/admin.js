@@ -7,8 +7,8 @@ jQuery(function($) {
     $('.ui.sticky').sticky({
         offset: 84,
         pushing: true
-        // bottomOffset: 84,
-        // context: '.ad-index-container'
+            // bottomOffset: 84,
+            // context: '.ad-index-container'
     });
 
     $('.ad-index-logout').click(function() {
@@ -20,7 +20,7 @@ jQuery(function($) {
         'deleteFileById': 'admin/file/delete?id={id}',
         'updateFileName': 'admin/file/update?id={id}&name={name}',
         'saveArticle': 'admin/article/save',
-        'updateArticle': 'admin/article/update',
+        'updateArticle': 'admin/article/update?id={id}',
         'deleteArticleById': 'admin/article/delete?id={id}'
     };
 
@@ -32,23 +32,25 @@ jQuery(function($) {
     };
 
     // toastr notification options
-    toastr.options = {
-        "closeButton": true,
-        "debug": false,
-        "newestOnTop": true,
-        "progressBar": false,
-        "positionClass": "toast-bottom-center",
-        "preventDuplicates": false,
-        "onclick": null,
-        "showDuration": "300",
-        "hideDuration": "1000",
-        "timeOut": "5000",
-        "extendedTimeOut": "1000",
-        "showEasing": "swing",
-        "hideEasing": "linear",
-        "showMethod": "fadeIn",
-        "hideMethod": "fadeOut"
-    };
+    if("undefined" != typeof toastr) {
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "newestOnTop": true,
+            "progressBar": false,
+            "positionClass": "toast-bottom-center",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        };
+    }
 
 });
 

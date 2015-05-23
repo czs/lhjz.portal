@@ -8,7 +8,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="file-upload-url" th:content="@{/admin/article/upload}">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
-    <title>立衡脊柱-文章管理</title>
+    <title>立衡脊柱-文章更新</title>
     <link rel="stylesheet" type="text/css" th:href="@{/lib/semantic/semantic.min.css}" href="../../static/lib/semantic/semantic.min.css" />
     <link rel="stylesheet" th:href="@{/lib/awesome/css/font-awesome.css}" href="../../static/lib/awesome/css/font-awesome.css" />
     <link rel="stylesheet" th:href="@{/lib/wysiwyg/wysiwyg-editor.css}" href="../../static/lib/wysiwyg/wysiwyg-editor.css" />
@@ -32,14 +32,17 @@
             <div th:replace="admin/index :: rail-menu"></div>
             <div class="ui segment">
                 <div class="ui left icon input">
-                    <input id="inputFileName" type="text" placeholder="文章标题">
+                    <input id="inputFileName" type="text" placeholder="文章标题" th:value="${article.name}" value="文章标题">
                     <i class="file icon"></i>
                 </div>
-                <div id="btnSave" class="ui primary button">保存</div>
-                <a class="ui primary button" th:href="@{/admin/article/page/list}" href="article-list.html">全部文章</a>
+                <div id="btnSave" class="ui primary button" th:attrappend="data-id=${article.id}">保存</div>
+                <div class="ui basic buttons">
+                    <a class="ui left attached primary button" href="#" th:href="@{/admin/article/page/view(id=${article.id})}">查看文章</a>
+                    <a class="ui right attached primary button" th:href="@{/admin/article/page/list}" href="article-list.html">全部文章</a>
+                </div>
             </div>
             <div class="ui segment lhjz-article-editor">
-                <textarea id="lhjz-textarea-wysiwyg" style="width: 100%; height: 200px;"></textarea>
+                <textarea id="lhjz-textarea-wysiwyg" style="width: 100%; height: 200px;" th:text="${article.content}">文章内容</textarea>
             </div>
         </div>
     </div>
@@ -398,14 +401,16 @@
 
         $('#btnSave')
             .api({
-                action: 'saveArticle',
+                action: 'updateArticle',
                 method: 'post',
                 //stateContext: '.ad-img-cards',
                 data: {
                     /*[+ [[${_csrf.parameterName}]] : [[${_csrf.token}]] +]*/
                 },
                 beforeSend: function(settings) {
-                    //settings.urlData = {};
+                    settings.urlData = {
+                        id: $(this).attr('data-id')
+                    };
                     $.extend(settings.data, {
                         name: $('#inputFileName').val(),
                         content: $('#lhjz-textarea-wysiwyg').wysiwyg('shell').getHTML()
@@ -413,10 +418,10 @@
                     return settings;
                 },
                 onSuccess: function(resp, elem) {
-                    toastr['success']("保存成功！");
+                    toastr['success']("更新成功！");
                 },
                 onFailure: function(resp, elem) {
-                    toastr['error'](resp.data, "保存失败！");
+                    toastr['error'](resp.data, "更新失败！");
                 },
                 onError: function(errMsg, elem) {
                     toastr['error'](errMsg, "操作失败");
