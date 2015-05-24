@@ -46,9 +46,9 @@ public class Article implements Serializable {
 	private String username;
 	private String path;
 
-	@Enumerated(EnumType.ORDINAL)
+	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
-	private Status status = Status.NORMAL;
+	private Status status = Status.Normal;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createDate;

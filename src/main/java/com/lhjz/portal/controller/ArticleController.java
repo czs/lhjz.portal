@@ -123,7 +123,7 @@ public class ArticleController extends BaseController {
 
 		if (article != null) {
 
-			if (article.getStatus() == Status.BULTIN) {
+			if (article.getStatus() == Status.Bultin) {
 				return RespBody.failed("系统内置文章，不能删除！");
 			}
 
@@ -154,7 +154,8 @@ public class ArticleController extends BaseController {
 
 			articleRepository.saveAndFlush(article);
 
-			log(Action.Update, Target.Article, articleForm, article);
+			logWithProperties(Action.Update, Target.Article, "name, content",
+					articleForm, article);
 
 		} else {
 			logger.error("Entity[{}] does not exists, ID:{}",

@@ -75,7 +75,7 @@ public class FileController extends BaseController {
 
 		com.lhjz.portal.entity.File file = fileRepository.findOne(fileForm
 				.getId());
-		if (file.getStatus() == Status.BULTIN) {
+		if (file.getStatus() == Status.Bultin) {
 			return RespBody.failed("内置文件，不能修改！");
 		}
 
@@ -83,7 +83,8 @@ public class FileController extends BaseController {
 
 		file.setName(fileForm.getName() + FileUtil.getType(file.getName()));
 
-		log(Action.Update, Target.File, file.getName(), oldName);
+		logWithProperties(Action.Update, Target.File, "name", file.getName(),
+				oldName);
 
 		return RespBody.succeed(fileRepository.save(file));
 	}
@@ -95,7 +96,7 @@ public class FileController extends BaseController {
 			@RequestParam(value = "id", required = true) Long id) {
 
 		com.lhjz.portal.entity.File file = fileRepository.findOne(id);
-		if (file.getStatus() == Status.BULTIN) {
+		if (file.getStatus() == Status.Bultin) {
 			return RespBody.failed("内置文件，不能删除！");
 		}
 

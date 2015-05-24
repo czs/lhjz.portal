@@ -12,17 +12,7 @@ public class Enum {
 
 	public static enum Status {
 
-		NORMAL(0), DELETED(1), BULTIN(2);
-
-		private int status;
-
-		private Status(int status) {
-			this.status = status;
-		}
-
-		public int getStatus() {
-			return status;
-		}
+		Normal, Deleted, Bultin;
 
 	}
 

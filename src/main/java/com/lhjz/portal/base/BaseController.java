@@ -27,10 +27,19 @@ public abstract class BaseController {
 
 	protected Log log(Action action, Target target, Object... vals) {
 
+		return logWithProperties(action, target, null, vals);
+
+	}
+
+	protected Log logWithProperties(Action action, Target target,
+			String properties,
+			Object... vals) {
+
 		Log log = new Log();
 		log.setAction(action);
 		log.setTarget(target);
 		log.setCreateDate(new Date());
+		log.setProperties(properties);
 
 		if (vals.length > 0) {
 			log.setNewValue(String.valueOf(vals[0]));
