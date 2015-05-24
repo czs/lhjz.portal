@@ -35,6 +35,9 @@ import com.lhjz.portal.entity.Article;
 import com.lhjz.portal.model.Message;
 import com.lhjz.portal.model.RespBody;
 import com.lhjz.portal.pojo.ArticleForm;
+import com.lhjz.portal.pojo.Enum.Action;
+import com.lhjz.portal.pojo.Enum.Status;
+import com.lhjz.portal.pojo.Enum.Target;
 import com.lhjz.portal.repository.ArticleRepository;
 import com.lhjz.portal.repository.FileRepository;
 import com.lhjz.portal.util.ImageUtil;
@@ -95,8 +98,7 @@ public class ArticleController extends BaseController {
 	@ResponseBody
 	public RespBody get(HttpServletRequest request,
 			HttpServletResponse response,
-			@RequestParam(value = "id", required = true) Long id,
-			Locale locale) {
+			@RequestParam(value = "id", required = true) Long id, Locale locale) {
 
 		return RespBody.succeed(articleRepository.findOne(id));
 	}
@@ -117,8 +119,17 @@ public class ArticleController extends BaseController {
 			@RequestParam(value = "id", required = true) Long id, Model model,
 			Locale locale) {
 
-		if (articleRepository.exists(id)) {
+		Article article = articleRepository.findOne(id);
+
+		if (article != null) {
+
+			if (article.getStatus() == Status.BULTIN) {
+				return RespBody.failed("系统内置文章，不能删除！");
+			}
+
 			articleRepository.delete(id);
+
+			log(Action.Delete, Target.Article, id);
 
 			return RespBody.succeed("删除文章成功！");
 		} else {
@@ -142,6 +153,9 @@ public class ArticleController extends BaseController {
 			article.setContent(articleForm.getContent());
 
 			articleRepository.saveAndFlush(article);
+
+			log(Action.Update, Target.Article, articleForm, article);
+
 		} else {
 			logger.error("Entity[{}] does not exists, ID:{}",
 					Article.class.getName(), id);
@@ -193,7 +207,7 @@ public class ArticleController extends BaseController {
 		if (articles.size() > 0) {
 			logger.error("Entity[{}] has exist, ID:{}",
 					Article.class.getName(), articles.get(0).getId());
-			return RespBody.failed("该文章已经存在！");
+			return RespBody.failed("相同文章内容的文章已经存在！");
 		}
 
 		Article article = new Article();
@@ -202,7 +216,9 @@ public class ArticleController extends BaseController {
 		article.setCreateDate(new Date());
 		article.setUsername(WebUtil.getUsername());
 
-		articleRepository.save(article);
+		Article article2 = articleRepository.save(article);
+
+		log(Action.Create, Target.Article, article2);
 
 		return RespBody.succeed("保存文章成功！");
 	}
@@ -288,6 +304,8 @@ public class ArticleController extends BaseController {
 				file2.setUuidName(uuidName);
 				file2.setPath(storePath + sizeOriginal + "/");
 				saveFiles.add(fileRepository.save(file2));
+
+				log(Action.Upload, Target.Article, file2);
 
 			} catch (Exception e) {
 				e.printStackTrace();

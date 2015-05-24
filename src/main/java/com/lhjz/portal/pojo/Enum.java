@@ -25,4 +25,12 @@ public class Enum {
 		}
 
 	}
+
+	public static enum Action {
+		Create, Read, Update, Delete, Upload;
+	}
+
+	public static enum Target {
+		Article, File;
+	}
 }

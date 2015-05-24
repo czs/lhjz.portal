@@ -18,7 +18,9 @@ import javax.persistence.Version;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+import com.lhjz.portal.pojo.Enum.Action;
 import com.lhjz.portal.pojo.Enum.Status;
+import com.lhjz.portal.pojo.Enum.Target;
 
 /**
  * 
@@ -28,7 +30,7 @@ import com.lhjz.portal.pojo.Enum.Status;
  * 
  */
 @Entity
-public class Article implements Serializable {
+public class Log implements Serializable {
 
 	/** serialVersionUID (long) */
 	private static final long serialVersionUID = 4730479799042412659L;
@@ -37,14 +39,19 @@ public class Article implements Serializable {
 	@GeneratedValue
 	private Long id;
 
+	@Enumerated
+	@Column(nullable = false)
+	private Action action;
+	@Enumerated(EnumType.STRING)
+	@Column(nullable = false)
+	private Target target;
+	@Column(length = 16777216)
+	private String oldValue;
+	@Column(length = 16777216)
+	private String newValue;
 	@NotBlank
-	private String name;
-	@NotBlank
-	@Column(nullable = false, length = 16777216)
-	private String content;
-	@NotBlank
+	@Column(nullable = false)
 	private String username;
-	private String path;
 
 	@Enumerated(EnumType.ORDINAL)
 	@Column(nullable = false)
@@ -64,20 +71,36 @@ public class Article implements Serializable {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public Action getAction() {
+		return action;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setAction(Action action) {
+		this.action = action;
 	}
 
-	public String getContent() {
-		return content;
+	public Target getTarget() {
+		return target;
 	}
 
-	public void setContent(String content) {
-		this.content = content;
+	public void setTarget(Target target) {
+		this.target = target;
+	}
+
+	public String getOldValue() {
+		return oldValue;
+	}
+
+	public void setOldValue(String oldValue) {
+		this.oldValue = oldValue;
+	}
+
+	public String getNewValue() {
+		return newValue;
+	}
+
+	public void setNewValue(String newValue) {
+		this.newValue = newValue;
 	}
 
 	public String getUsername() {
@@ -110,22 +133,6 @@ public class Article implements Serializable {
 
 	public void setVersion(long version) {
 		this.version = version;
-	}
-
-	public String getPath() {
-		return path;
-	}
-
-	public void setPath(String path) {
-		this.path = path;
-	}
-
-	@Override
-	public String toString() {
-		return "Article [id=" + id + ", name=" + name + ", content=" + content
-				+ ", username=" + username + ", path=" + path + ", status="
-				+ status + ", createDate=" + createDate + ", version="
-				+ version + "]";
 	}
 
 }

@@ -32,7 +32,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.lhjz.portal.base.BaseController;
 import com.lhjz.portal.model.RespBody;
+import com.lhjz.portal.pojo.Enum.Action;
 import com.lhjz.portal.pojo.Enum.Status;
+import com.lhjz.portal.pojo.Enum.Target;
 import com.lhjz.portal.pojo.FileForm;
 import com.lhjz.portal.repository.FileRepository;
 import com.lhjz.portal.util.FileUtil;
@@ -77,7 +79,11 @@ public class FileController extends BaseController {
 			return RespBody.failed("内置文件，不能修改！");
 		}
 
+		String oldName = file.getName();
+
 		file.setName(fileForm.getName() + FileUtil.getType(file.getName()));
+
+		log(Action.Update, Target.File, file.getName(), oldName);
 
 		return RespBody.succeed(fileRepository.save(file));
 	}
@@ -94,6 +100,8 @@ public class FileController extends BaseController {
 		}
 
 		fileRepository.delete(id);
+
+		log(Action.Delete, Target.File, id);
 
 		return RespBody.succeed();
 	}
@@ -178,6 +186,8 @@ public class FileController extends BaseController {
 				file2.setUuidName(uuidName);
 				file2.setPath(storePath + sizeOriginal + "/");
 				saveFiles.add(fileRepository.save(file2));
+
+				log(Action.Upload, Target.File, file2);
 
 			} catch (Exception e) {
 				e.printStackTrace();
