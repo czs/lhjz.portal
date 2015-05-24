@@ -121,4 +121,9 @@ public class AdminController extends BaseController {
 	public String article(Model model) {
 		return "admin/article";
 	}
+
+	@RequestMapping("feedback")
+	public String feedback(Model model) {
+		return "admin/feedback";
+	}
 }

@@ -18,9 +18,7 @@ import javax.persistence.Version;
 
 import org.hibernate.validator.constraints.NotBlank;
 
-import com.lhjz.portal.pojo.Enum.Action;
 import com.lhjz.portal.pojo.Enum.Status;
-import com.lhjz.portal.pojo.Enum.Target;
 
 /**
  * 
@@ -30,7 +28,7 @@ import com.lhjz.portal.pojo.Enum.Target;
  * 
  */
 @Entity
-public class Log implements Serializable {
+public class Feedback implements Serializable {
 
 	/** serialVersionUID (long) */
 	private static final long serialVersionUID = 4730479799042412659L;
@@ -39,24 +37,21 @@ public class Log implements Serializable {
 	@GeneratedValue
 	private Long id;
 
-	@Enumerated(EnumType.STRING)
-	@Column(nullable = false)
-	private Action action;
-	@Enumerated(EnumType.STRING)
-	@Column(nullable = false)
-	private Target target;
-	private String properties;
+	private String name;
+	private String mail;
+	private String phone;
+
+	private String url;
+
 	@Column(length = 16777216)
-	private String oldValue;
-	@Column(length = 16777216)
-	private String newValue;
+	private String content;
 	@NotBlank
 	@Column(nullable = false)
 	private String username;
 
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
-	private Status status = Status.Normal;
+	private Status status = Status.New;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createDate;
@@ -72,44 +67,44 @@ public class Log implements Serializable {
 		this.id = id;
 	}
 
-	public Action getAction() {
-		return action;
+	public String getName() {
+		return name;
 	}
 
-	public void setAction(Action action) {
-		this.action = action;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public Target getTarget() {
-		return target;
+	public String getMail() {
+		return mail;
 	}
 
-	public void setTarget(Target target) {
-		this.target = target;
+	public void setMail(String mail) {
+		this.mail = mail;
 	}
 
-	public String getProperties() {
-		return properties;
+	public String getPhone() {
+		return phone;
 	}
 
-	public void setProperties(String properties) {
-		this.properties = properties;
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
-	public String getOldValue() {
-		return oldValue;
+	public String getContent() {
+		return content;
 	}
 
-	public void setOldValue(String oldValue) {
-		this.oldValue = oldValue;
+	public void setContent(String content) {
+		this.content = content;
 	}
 
-	public String getNewValue() {
-		return newValue;
+	public String getUrl() {
+		return url;
 	}
 
-	public void setNewValue(String newValue) {
-		this.newValue = newValue;
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 	public String getUsername() {
@@ -146,11 +141,10 @@ public class Log implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Log [id=" + id + ", action=" + action + ", target=" + target
-				+ ", properties=" + properties + ", oldValue=" + oldValue
-				+ ", newValue=" + newValue + ", username=" + username
-				+ ", status=" + status + ", createDate=" + createDate
-				+ ", version=" + version + "]";
+		return "Feedback [id=" + id + ", name=" + name + ", mail=" + mail
+				+ ", phone=" + phone + ", url=" + url + ", content=" + content
+				+ ", username=" + username + ", status=" + status
+				+ ", createDate=" + createDate + ", version=" + version + "]";
 	}
 
 }

@@ -21,7 +21,8 @@ jQuery(function($) {
         'updateFileName': 'admin/file/update?id={id}&name={name}',
         'saveArticle': 'admin/article/save',
         'updateArticle': 'admin/article/update?id={id}',
-        'deleteArticleById': 'admin/article/delete?id={id}'
+        'deleteArticleById': 'admin/article/delete?id={id}',
+        'saveFeedback': 'admin/feedback/save'
     };
 
     $.fn.api.settings.successTest = function(resp) {
@@ -32,7 +33,7 @@ jQuery(function($) {
     };
 
     // toastr notification options
-    if("undefined" != typeof toastr) {
+    if ("undefined" != typeof toastr) {
         toastr.options = {
             "closeButton": true,
             "debug": false,
@@ -51,6 +52,11 @@ jQuery(function($) {
             "hideMethod": "fadeOut"
         };
     }
+
+    $('.ad-item-feedback').click(function(event) {
+        event.stopImmediatePropagation();
+        $(this).find('form').find(':hidden[name="name"]').val($('title').text()).end().submit();
+    });
 
 });
 

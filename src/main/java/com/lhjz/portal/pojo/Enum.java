@@ -12,7 +12,7 @@ public class Enum {
 
 	public static enum Status {
 
-		Normal, Deleted, Bultin;
+		Normal, Deleted, Bultin, New, Opening, Analyzing, Accepted, Processing, Resolved, Closed;
 
 	}
 

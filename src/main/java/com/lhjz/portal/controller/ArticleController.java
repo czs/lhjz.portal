@@ -144,7 +144,14 @@ public class ArticleController extends BaseController {
 	public RespBody update(HttpServletRequest request,
 			HttpServletResponse response,
 			@RequestParam(value = "id", required = true) Long id,
-			@Valid ArticleForm articleForm, Model model, Locale locale) {
+			@Valid ArticleForm articleForm, BindingResult bindingResult,
+			Model model, Locale locale) {
+
+		if (bindingResult.hasErrors()) {
+			return RespBody.failed(bindingResult.getAllErrors().stream()
+					.map(err -> err.getDefaultMessage())
+					.collect(Collectors.joining("<br/>")));
+		}
 
 		Article article = articleRepository.findOne(id);
 
