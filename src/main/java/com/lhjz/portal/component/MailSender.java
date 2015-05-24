@@ -126,6 +126,12 @@ public class MailSender {
 					mailInfo.getProperties(), authenticator));
 			message.setFrom(new InternetAddress(mailInfo.getFromAddress()));
 
+			if (mailInfo.getToAddresses() == null
+					|| mailInfo.getToAddresses().length == 0) {
+				logger.error("邮件发送目标地址不存在！");
+				return false;
+			}
+
 			List<Address> toAddresses = new ArrayList<Address>();
 			for (String toAddr : mailInfo.getToAddresses()) {
 				toAddresses.add(new InternetAddress(toAddr));
@@ -133,7 +139,13 @@ public class MailSender {
 
 			message.addRecipients(Message.RecipientType.TO,
 					toAddresses.toArray(new Address[] {}));
-			message.setSubject(mailInfo.getSubject());
+			try {
+				message.setSubject(MimeUtility.encodeText(
+						mailInfo.getSubject(), "UTF-8", "B"));
+			} catch (UnsupportedEncodingException e1) {
+				e1.printStackTrace();
+				logger.error("邮件附件设置主题，Error:" + e1.getMessage(), e1);
+			}
 			message.setSentDate(new Date());
 
 			Multipart multipart = new MimeMultipart();
@@ -144,7 +156,8 @@ public class MailSender {
 				contentBodyPart.setContent(mailInfo.getContent(),
 						"text/html; charset=utf-8");
 			} else {
-				contentBodyPart.setText(mailInfo.getContent());
+				contentBodyPart.setContent(mailInfo.getContent(),
+						"text/plain; charset=utf-8");
 			}
 
 			multipart.addBodyPart(contentBodyPart);
@@ -167,7 +180,7 @@ public class MailSender {
 								fileDataSource.getName(), "UTF-8", "B"));
 					} catch (UnsupportedEncodingException e) {
 						e.printStackTrace();
-						logger.error(e.getMessage(), e);
+						logger.error("邮件附件设置失败，Error:" + e.getMessage(), e);
 					}
 
 					multipart.addBodyPart(fileBodyPart);
@@ -183,6 +196,7 @@ public class MailSender {
 
 		} catch (MessagingException ex) {
 			ex.printStackTrace();
+			logger.error("邮件发送失败，Error:" + ex.getMessage(), ex);
 		}
 
 		return false;
