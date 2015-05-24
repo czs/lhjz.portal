@@ -39,12 +39,13 @@ public class Log implements Serializable {
 	@GeneratedValue
 	private Long id;
 
-	@Enumerated
+	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
 	private Action action;
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
 	private Target target;
+	private String properties;
 	@Column(length = 16777216)
 	private String oldValue;
 	@Column(length = 16777216)
@@ -53,9 +54,9 @@ public class Log implements Serializable {
 	@Column(nullable = false)
 	private String username;
 
-	@Enumerated(EnumType.ORDINAL)
+	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
-	private Status status = Status.NORMAL;
+	private Status status = Status.Normal;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createDate;
@@ -85,6 +86,14 @@ public class Log implements Serializable {
 
 	public void setTarget(Target target) {
 		this.target = target;
+	}
+
+	public String getProperties() {
+		return properties;
+	}
+
+	public void setProperties(String properties) {
+		this.properties = properties;
 	}
 
 	public String getOldValue() {

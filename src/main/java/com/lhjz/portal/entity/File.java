@@ -120,4 +120,12 @@ public class File implements Serializable {
 		this.path = path;
 	}
 
+	@Override
+	public String toString() {
+		return "File [id=" + id + ", name=" + name + ", uuidName=" + uuidName
+				+ ", username=" + username + ", path=" + path + ", status="
+				+ status + ", createDate=" + createDate + ", version="
+				+ version + "]";
+	}
+
 }
