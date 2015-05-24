@@ -3,6 +3,8 @@
  */
 package com.lhjz.portal.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
@@ -23,6 +25,8 @@ import com.lhjz.portal.repository.FileRepository;
 @RequestMapping("admin")
 public class AdminController extends BaseController {
 
+	static final Logger logger = LoggerFactory.getLogger(AdminController.class);
+
 	@Autowired
 	FileRepository fileRepository;
 
@@ -31,6 +35,9 @@ public class AdminController extends BaseController {
 
 	@RequestMapping("login")
 	public String login(Model model) {
+
+		logger.debug("Enter method: {}", "login");
+
 		return "admin/login";
 	}
 

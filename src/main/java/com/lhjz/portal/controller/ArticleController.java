@@ -72,6 +72,8 @@ public class ArticleController extends BaseController {
 		Article article = articleRepository.findOne(id);
 
 		if (article == null) {
+			logger.error("Entity[{}] does not exists, ID:{}",
+					Article.class.getName(), id);
 			model.addAttribute("error", Message.error("您查看的文章不存在，权限不足或已经被删除！"));
 			return "admin/error";
 		} else {
@@ -120,6 +122,8 @@ public class ArticleController extends BaseController {
 
 			return RespBody.succeed("删除文章成功！");
 		} else {
+			logger.error("Entity[{}] does not exists, ID:{}",
+					Article.class.getName(), id);
 			return RespBody.failed("删除文章不存在，权限不足或已经被删除！");
 		}
 	}
@@ -139,6 +143,8 @@ public class ArticleController extends BaseController {
 
 			articleRepository.saveAndFlush(article);
 		} else {
+			logger.error("Entity[{}] does not exists, ID:{}",
+					Article.class.getName(), id);
 			return RespBody.failed("修改文章不存在，权限不足或已经被删除！");
 		}
 
@@ -160,6 +166,8 @@ public class ArticleController extends BaseController {
 
 			return "admin/article-update";
 		} else {
+			logger.error("Entity[{}] does not exists, ID:{}",
+					Article.class.getName(), id);
 			model.addAttribute("error", Message.error("更新文章不存在，权限不足或已经被删除！"));
 
 			return "admin/error";
@@ -183,6 +191,8 @@ public class ArticleController extends BaseController {
 				.getContent());
 
 		if (articles.size() > 0) {
+			logger.error("Entity[{}] has exist, ID:{}",
+					Article.class.getName(), articles.get(0).getId());
 			return RespBody.failed("该文章已经存在！");
 		}
 
@@ -222,7 +232,7 @@ public class ArticleController extends BaseController {
 			FileUtils.forceMkdir(new File(realPath + storePath + sizeHuge));
 		} catch (IOException e) {
 			e.printStackTrace();
-			logger.error(e.getMessage(), e);
+			logger.error("Upload error: " + e.getMessage(), e);
 			return StringUtil.wrapByTextarea(JsonUtil.toJson(RespBody.failed(e
 					.getMessage())));
 		}
