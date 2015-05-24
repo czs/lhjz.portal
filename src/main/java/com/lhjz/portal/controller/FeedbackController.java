@@ -12,6 +12,8 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,10 +21,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.lhjz.portal.base.BaseController;
+import com.lhjz.portal.component.MailSender;
 import com.lhjz.portal.entity.Feedback;
 import com.lhjz.portal.model.RespBody;
+import com.lhjz.portal.pojo.Enum.Action;
+import com.lhjz.portal.pojo.Enum.Target;
 import com.lhjz.portal.pojo.FeedbackForm;
 import com.lhjz.portal.repository.FeedbackRepository;
+import com.lhjz.portal.util.ThreadUtil;
 import com.lhjz.portal.util.WebUtil;
 
 /**
@@ -41,6 +47,15 @@ public class FeedbackController extends BaseController {
 
 	@Autowired
 	FeedbackRepository feedbackRepository;
+
+	@Autowired
+	MailSender mailSender;
+
+	@Autowired
+	Environment env;
+
+	@Value("${lhjz.mail.switch}")
+	private String mailSwitch;
 
 	@RequestMapping(value = "save", method = RequestMethod.POST)
 	@ResponseBody
@@ -71,7 +86,17 @@ public class FeedbackController extends BaseController {
 		feedback.setUsername(WebUtil.getUsername());
 		feedback.setUrl(feedbackForm.getUrl());
 
-		feedbackRepository.saveAndFlush(feedback);
+		final Feedback feedback2 = feedbackRepository.saveAndFlush(feedback);
+
+		log(Action.Create, Target.Feedback, feedback2);
+
+		ThreadUtil.exec(() -> {
+			if (mailSender.sendText("立恒脊柱(LHJZ)用户反馈", feedback2.toString())) {
+				logger.info("反馈邮件发送成功！ID:{}", feedback2.getId());
+			} else {
+				logger.error("反馈邮件发送失败！ID:{}", feedback2.getId());
+			}
+		});
 
 		return RespBody.succeed("反馈提交成功，谢谢！");
 	}
