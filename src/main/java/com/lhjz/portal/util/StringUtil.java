@@ -38,6 +38,30 @@ public final class StringUtil {
 	}
 
 	/**
+	 * 判断是否为正确的邮件格式
+	 * 
+	 * @param str
+	 * @return boolean
+	 */
+	public static boolean isEmail(String str) {
+		if (isEmpty(str))
+			return false;
+		return str.matches("^[\\w-]+(\\.[\\w-]+)*@[\\w-]+(\\.[\\w-]+)+$");
+	}
+
+	/**
+	 * 判断字符串是否为合法手机号 11位 13 14 15 18开头
+	 * 
+	 * @param str
+	 * @return boolean
+	 */
+	public static boolean isMobile(String str) {
+		if (isEmpty(str))
+			return false;
+		return str.matches("^(13|14|15|18)\\d{9}$");
+	}
+
+	/**
 	 * 裁剪字符串到指定长度.
 	 * 
 	 * @param string
@@ -99,7 +123,8 @@ public final class StringUtil {
 		if (tpl != null && map != null && map.size() > 0) {
 
 			for (String key : map.keySet()) {
-				tpl = tpl.replace("{" + key + "}", String.valueOf(map.get(key)));
+				tpl = tpl
+						.replace("{" + key + "}", String.valueOf(map.get(key)));
 			}
 		}
 
@@ -147,7 +172,8 @@ public final class StringUtil {
 		}
 
 		if (sBuffer.length() > 0) {
-			sBuffer.delete(sBuffer.length() - connector.length(), sBuffer.length());
+			sBuffer.delete(sBuffer.length() - connector.length(),
+					sBuffer.length());
 		}
 
 		return sBuffer.toString();
@@ -169,7 +195,8 @@ public final class StringUtil {
 		}
 
 		if (sBuffer.length() > 0) {
-			sBuffer.delete(sBuffer.length() - connector.length(), sBuffer.length());
+			sBuffer.delete(sBuffer.length() - connector.length(),
+					sBuffer.length());
 		}
 
 		return sBuffer.toString();
@@ -191,7 +218,8 @@ public final class StringUtil {
 		}
 
 		if (sBuffer.length() > 0) {
-			sBuffer.delete(sBuffer.length() - connector.length(), sBuffer.length());
+			sBuffer.delete(sBuffer.length() - connector.length(),
+					sBuffer.length());
 		}
 
 		return sBuffer.toString();
@@ -213,7 +241,8 @@ public final class StringUtil {
 		}
 
 		if (sBuffer.length() > 0) {
-			sBuffer.delete(sBuffer.length() - connector.length(), sBuffer.length());
+			sBuffer.delete(sBuffer.length() - connector.length(),
+					sBuffer.length());
 		}
 
 		return sBuffer.toString();

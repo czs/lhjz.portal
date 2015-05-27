@@ -21,6 +21,6 @@ public class Enum {
 	}
 
 	public static enum Target {
-		Article, File, Feedback;
+		Article, File, Feedback, Diagnose;
 	}
 }

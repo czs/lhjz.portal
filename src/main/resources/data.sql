@@ -14,7 +14,7 @@ Date: 2015-04-08 20:05:57
 */
 
 SET FOREIGN_KEY_CHECKS=0;
-SET NAMES 'utf8'; 
+SET NAMES 'utf8';
 
 -- ----------------------------
 -- Table structure for authorities

@@ -20,7 +20,6 @@ import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -57,9 +56,6 @@ import com.lhjz.portal.util.WebUtil;
 public class ArticleController extends BaseController {
 
 	static Logger logger = LoggerFactory.getLogger(ArticleController.class);
-
-	@Autowired
-	Environment env;
 
 	@Autowired
 	FileRepository fileRepository;

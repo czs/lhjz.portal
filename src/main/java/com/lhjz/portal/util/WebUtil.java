@@ -419,13 +419,18 @@ public final class WebUtil {
 	 */
 	public static String getUsername() {
 
-		Object principal = SecurityContextHolder.getContext()
-				.getAuthentication().getPrincipal();
+		try {
+			Object principal = SecurityContextHolder.getContext()
+					.getAuthentication().getPrincipal();
 
-		if (principal instanceof UserDetails) {
-			return ((UserDetails) principal).getUsername();
-		} else {
-			return principal.toString();
+			if (principal instanceof UserDetails) {
+				return ((UserDetails) principal).getUsername();
+			} else {
+				return principal.toString();
+			}
+		} catch (Exception e) {
+			logger.warn("获取登录用户名错误，将返回空字符串。 错误信息 ：{}", e.getMessage());
+			return StringUtil.EMPTY;
 		}
 	}
 
