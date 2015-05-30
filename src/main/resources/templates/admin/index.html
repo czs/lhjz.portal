@@ -11,8 +11,22 @@
     <link rel="stylesheet" type="text/css" th:href="@{/admin/css/admin.css}" href="../../static/admin/css/admin.css" />
     <link rel="stylesheet" type="text/css" th:href="@{/lib/semantic/semantic.min.css}" href="../../static/lib/semantic/semantic.min.css" />
     <script type="text/javascript" th:src="@{/lib/jquery-1.11.1.min.js}" src="../../static/lib/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" th:src="@{/lib/jquery.tmpl.min.js}" src="../../static/lib/jquery.tmpl.min.js"></script>
     <script type="text/javascript" th:src="@{/lib/semantic/semantic.min.js}" src="../../static/lib/semantic/semantic.min.js"></script>
     <script type="text/javascript" th:src="@{/admin/js/admin.js}" src="../../static/admin/js/admin.js"></script>
+    <script id="imageItemTpl" type="text/x-jquery-tmpl">
+        <div class="card">
+            <a class="image">
+                <img src="{{html path}}{{html uuidName}}">
+            </a>
+            <div class="content">
+                <div class="ui radio checkbox">
+                    <input type="radio" name="image" checked="checked">
+                    <label>{{html name}}</label>
+                </div>
+            </div>
+        </div>
+    </script>
 </head>
 
 <body>
@@ -109,7 +123,105 @@
                     </div>
                 </div>
             </div>
-            <div class="ui segment">门户主页</div>
+            <div class="ui styled fluid accordion">
+                <div class="title">
+                    <i class="dropdown icon"></i> 主页 - 使用指导
+                </div>
+                <div class="content">
+                    <p>A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.</p>
+                </div>
+            </div>
+            <h2 class="ui header">
+              <i class="settings icon"></i>
+              <div class="content">
+                主页设置
+                <div class="sub header">设置门户主页各模块的内容</div>
+              </div>
+            </h2>
+            <div class="ui styled fluid accordion">
+                <div class="active title">
+                    <i class="dropdown icon"></i> 轮动图
+                </div>
+                <div class="active content">
+                    <div class="ui segment">
+                        <div class="ui primary button ad-add-image">添加</div>
+                    </div>
+                    <div class="ui divided list">
+                        <div class="item">
+                            <div class="ui segment">
+                                <img class="ui image" src="../../static/landing/img/img-b1.jpg">
+                                <div class="ui divider"></div>
+                                <div class="right floated compact ui red button">删除</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="title">
+                    <i class="dropdown icon"></i> 热门动态
+                </div>
+                <div class="content">
+                    <p>There are many breeds of dogs. Each breed varies in size and temperament. Owners often select a breed of dog that they find to be compatible with their own lifestyle and desires from a companion.</p>
+                </div>
+                <div class="title">
+                    <i class="dropdown icon"></i> 更多动态
+                </div>
+                <div class="content">
+                    <p>Three common ways for a prospective owner to acquire a dog is from pet shops, private owners, or shelters.</p>
+                    <p>A pet shop may be the most convenient way to buy a dog. Buying a dog from a private owner allows you to assess the pedigree and upbringing of your dog before choosing to take it home. Lastly, finding your dog from a shelter, helps give a good home to a dog who may not find one so readily.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- hidden form for getting csrf -->
+    <form class="hidden ad-csrf">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+    </form>
+    <!-- modal -->
+    <div class="ui modal ad-images">
+        <i class="close icon"></i>
+        <div class="header">
+            图片选择
+        </div>
+        <div class="content">
+            <div class="ui cards grouped">
+                <div class="card">
+                    <a class="image">
+                        <img src="../../static/landing/img/img-b1.jpg">
+                    </a>
+                    <div class="content">
+                        <div class="ui radio checkbox">
+                            <input type="radio" name="image" checked="checked">
+                            <label>图片1</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <a class="image">
+                        <img src="../../static/landing/img/img-b2.jpg">
+                    </a>
+                    <div class="content">
+                        <div class="ui radio checkbox">
+                            <input type="radio" name="image" checked="checked">
+                            <label>图片1</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <a class="image">
+                        <img src="../../static/landing/img/img-b3.jpg">
+                    </a>
+                    <div class="content">
+                        <div class="ui radio checkbox">
+                            <input type="radio" name="image" checked="checked">
+                            <label>图片1</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="actions">
+            <div class="ui cancel button">Cancel</div>
+            <div class="ui ok button">OK</div>
         </div>
     </div>
 </body>

@@ -15,6 +15,9 @@ jQuery(function($) {
         $(this).siblings('form').submit();
     });
 
+    $('.ui.accordion').accordion();
+    $('.ui.checkbox').checkbox();
+
     // semantic-ui ajax api
     $.fn.api.settings.api = {
         'deleteFileById': 'admin/file/delete?id={id}',
@@ -56,6 +59,30 @@ jQuery(function($) {
     $('.ad-item-feedback').click(function(event) {
         event.stopImmediatePropagation();
         $(this).find('form').find(':hidden[name="name"]').val($('title').text()).end().submit();
+    });
+
+    $('.ad-add-image').click(function(event) {
+        $('.ad-images').modal('show');
+    });
+
+    $('.ad-images.modal').modal({
+        closable: false,
+        onDeny: function() {
+            return true;
+        },
+        onApprove: function() {
+            var imgSrc = $('.cards').find('input:checked').parents('.card').find('img').attr('src');
+            alert(imgSrc);
+        },
+        onShow: function() {
+            var data = {};
+            data[$('.ad-csrf input:hidden').attr('name')] = $('.ad-csrf input:hidden').attr('value');
+            $.post('admin/file/list', data,
+                function(data, textStatus, xhr) {
+                    $("#imageItemTpl").tmpl(data.data.imgs).appendTo($('.ad-images .cards').empty());
+                    $('.ui.checkbox').checkbox();
+                });
+        }
     });
 
 });

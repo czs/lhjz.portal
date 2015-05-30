@@ -22,6 +22,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -56,6 +57,29 @@ public class FileController extends BaseController {
 
 	@Autowired
 	FileRepository fileRepository;
+
+	@RequestMapping(value = "list", method = RequestMethod.POST)
+	@ResponseBody
+	public RespBody list(HttpServletRequest request,
+			HttpServletResponse response, ModelMap model, Locale locale) {
+		
+		String storePath = env.getProperty("lhjz.upload.img.store.path");
+		int sizeLarge = env.getProperty("lhjz.upload.img.scale.size.large",
+				Integer.class);
+		int sizeHuge = env.getProperty("lhjz.upload.img.scale.size.huge",
+				Integer.class);
+		int sizeOriginal = env.getProperty(
+				"lhjz.upload.img.scale.size.original", Integer.class);
+
+		// img relative path (eg:'upload/img/' & 640 & '/' )
+		model.addAttribute("path", storePath + sizeOriginal + "/");
+		model.addAttribute("pathLarge", storePath + sizeLarge + "/");
+		model.addAttribute("pathHuge", storePath + sizeHuge + "/");
+		// list all files
+		model.addAttribute("imgs", fileRepository.findAll());
+
+		return RespBody.succeed(model);
+	}
 
 	@RequestMapping(value = "update", method = RequestMethod.POST)
 	@ResponseBody
