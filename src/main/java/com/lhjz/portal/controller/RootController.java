@@ -99,6 +99,11 @@ public class RootController extends BaseController {
 		return "landing/product";
 	}
 
+	@RequestMapping("job")
+	public String job(Model model) {
+		return "landing/job";
+	}
+
 	@RequestMapping(value = "diagnose/save", method = RequestMethod.POST)
 	@ResponseBody
 	public RespBody save(@Valid DiagnoseForm diagnoseForm,

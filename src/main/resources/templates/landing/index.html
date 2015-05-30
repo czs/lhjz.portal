@@ -63,13 +63,13 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <nav class="navbar navbar-inverse" role="navigation">
+                    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
                         <div class="container">
                             <div class="navbar-header">
                                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                                     <span class="sr-only">切换导航</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
                                 </button>
-                                <a class="navbar-brand" th:href="@{/index}" href="index.html">
+                                <a class="navbar-brand" th:href="@{/}" href="index.html">
                                     <img class="lhjz-logo-img" th:src="@{/landing/img/logo_128.jpg}" src="../../static/landing/img/logo_128.jpg" alt="立恒脊柱" /> 立衡脊柱
                                 </a>
                             </div>
@@ -80,7 +80,8 @@
                                     <li><a th:href="@{/case}" href="case.html">案例</a></li>
                                     <li><a th:href="@{/product}" href="product.html">专利</a></li>
                                     <li><a th:href="@{/env}" href="env.html">环境</a></li>
-                                    <li><a th:href="@{/team}" href="team.html">团队</a></li>
+                                    <!-- <li><a th:href="@{/team}" href="team.html">团队</a></li> -->
+                                    <li><a th:href="@{/job}" href="job.html">招聘</a></li>
                                     <li><a th:href="@{/health}" href="health.html">健康</a></li>
                                     <li><a th:href="@{/diagnose}" href="diagnose.html">诊断</a></li>
                                     <li><a th:href="@{/contact}" href="contact.html">联系</a></li>
@@ -262,7 +263,7 @@
 
     <script type="text/javascript">
     jQuery(document).ready(function($) {
-        $('.lhjz-navbar').stickUp();
+        //$('.lhjz-navbar').stickUp();
     });
     </script>
 
