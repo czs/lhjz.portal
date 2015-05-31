@@ -14,7 +14,7 @@ public class SettingsForm {
 
 	private String imgUrl;
 	private String title;
-	private String conent;
+	private String content;
 	private String detail;
 	private String link;
 	private String more;
@@ -73,12 +73,12 @@ public class SettingsForm {
 		this.title = title;
 	}
 
-	public String getConent() {
-		return conent;
+	public String getContent() {
+		return content;
 	}
 
-	public void setConent(String conent) {
-		this.conent = conent;
+	public void setContent(String content) {
+		this.content = content;
 	}
 
 	public String getDetail() {
@@ -109,7 +109,7 @@ public class SettingsForm {
 	public String toString() {
 		return "SettingsForm [page=" + page + ", module=" + module
 				+ ", imgUrl=" + imgUrl + ", title=" + title + ", conent="
-				+ conent + ", detail=" + detail + ", link=" + link + ", more="
+				+ content + ", detail=" + detail + ", link=" + link + ", more="
 				+ more + "]";
 	}
 

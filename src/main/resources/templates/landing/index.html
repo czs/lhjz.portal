@@ -19,7 +19,6 @@
     <script th:src="@{/lib/jquery-1.11.1.min.js}" src="../../static/lib/jquery-1.11.1.min.js" charset="utf-8"></script>
     <script th:src="@{/lib/bootstrap/js/bootstrap.min.js}" src="../../static/lib/bootstrap/js/bootstrap.min.js" charset="utf-8"></script>
     <script th:src="@{/lib/scrollup/js/jquery.scrollUp.min.js}" src="../../static/lib/scrollup/js/jquery.scrollUp.min.js" charset="utf-8"></script>
-    <script th:src="@{/lib/stickUp.min.js}" src="../../static/lib/stickUp.min.js" charset="utf-8"></script>
     <!-- custom js -->
     <script th:src="@{/landing/js/custom.js}" src="../../static/landing/js/custom.js" charset="utf-8"></script>
 </head>
@@ -97,13 +96,13 @@
         <div class="page-header">
             <h1><small>热门动态</small></h1>
         </div>
-        <div class="row">
-            <div class="col-xs-6 col-md-3">
-                <div class="thumbnail">
-                    <img alt="300x200" th:src="@{/landing/img/thumb/1.png}" src="../../static/landing/img/thumb/1.png" />
+        <div class="row" th:remove="all-but-first">
+            <div class="col-xs-6 col-md-3" th:each="hotNew : ${hotNews}">
+                <div class="thumbnail lhzj-thumbnail">
+                    <a th:href="@{/article(id=${hotNew.link})}" target="_blank"><img alt="300x200" th:src="${hotNew.imgUrl}" src="../../static/landing/img/thumb/1.png" /></a>
                     <div class="caption">
-                        <h3>标题一</h3>
-                        <p>简单的介绍！</p>
+                        <h4 class="lhjz-news-title" th:text="${hotNew.title}">标题一</h4>
+                        <p class="lhzj-news-content" th:text="${#strings.abbreviate(hotNew.content,65)}">简单的介绍！</p>
                     </div>
                 </div>
             </div>
@@ -112,7 +111,7 @@
                     <img alt="300x200" th:src="@{/landing/img/thumb/2.png}" src="../../static/landing/img/thumb/2.png" />
                     <div class="caption">
                         <h3>标题二</h3>
-                        <p>简单的介绍！</p>
+                        <p>简单的介绍！fffffffffffffffffggggggggfffffffffffffffgggggggggggggggfffffffffffffffffffffffffffff</p>
                     </div>
                 </div>
             </div>

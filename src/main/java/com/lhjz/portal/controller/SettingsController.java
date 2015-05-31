@@ -81,5 +81,47 @@ public class SettingsController extends BaseController {
 
 		return RespBody.succeed(id);
 	}
+	
+	@RequestMapping(value = "update", method = RequestMethod.POST)
+	@ResponseBody
+	public RespBody update(
+			@RequestParam(value = "id", required = true) Long id,
+			SettingsForm settingsForm) {
 
+		logger.debug("Enter method: {}", "update");
+
+		Settings settings = settingsRepository.findOne(id);
+
+		if (settings == null) {
+			return RespBody.failed("更新设置不存在,或已经被删除!");
+		}
+
+		settings.setTitle(settingsForm.getTitle());
+		settings.setContent(settingsForm.getContent());
+		settings.setLink(settingsForm.getLink());
+		settings.setMore(settingsForm.getMore());
+
+		Settings settings2 = settingsRepository.saveAndFlush(settings);
+
+		log(Action.Update, Target.Settings, settings);
+
+		return RespBody.succeed(settings2);
+	}
+
+	@RequestMapping(value = "find", method = RequestMethod.POST)
+	@ResponseBody
+	public RespBody find(@RequestParam(value = "id", required = true) Long id) {
+
+		logger.debug("Enter method: {}", "find");
+
+		Settings settings = settingsRepository.findOne(id);
+
+		if (settings == null) {
+			return RespBody.failed("更新设置不存在,或已经被删除!");
+		}
+
+		log(Action.Read, Target.Settings, id);
+
+		return RespBody.succeed(settings);
+	}
 }

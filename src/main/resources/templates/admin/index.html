@@ -45,7 +45,7 @@
             </div>
             <div class="content">
                 <div class="header"></div>
-                <div class="description"></div>
+                <div class="description ad-hot-news-content"></div>
             </div>
             <div class="extra content">
                 <span class="right floated">
@@ -187,21 +187,21 @@
                             </div>
                         </div>
                     </div>
-                    <div class="active title">
+                    <div class="title">
                         <i class="dropdown icon"></i> 热门动态
                     </div>
-                    <div class="active content">
+                    <div class="content">
                         <div class="ui segment">
                             <div class="ui primary button ad-add-image" data-for="hotNews">添加</div>
                         </div>
                         <div class="ui link cards ad-hot-news-list" th:remove="all-but-first">
                             <div class="card" th:each="hotNew : ${hotNews}">
                                 <div class="image">
-                                    <img src="../../static/landing/img/img1.jpg" th:src="${hotNew.imgUrl}">
+                                    <img th:title="${hotNew.more}" th:alt="${hotNew.link}" src="../../static/landing/img/img1.jpg" title="" th:src="${hotNew.imgUrl}">
                                 </div>
                                 <div class="content">
                                     <div class="header" th:text="${hotNew.title}"></div>
-                                    <div class="description" th:text="${hotNew.conent}"></div>
+                                    <div class="description ad-hot-news-content" th:text="${#strings.abbreviate(hotNew.content,65)}"></div>
                                 </div>
                                 <div class="extra content">
                                     <span class="right floated">
@@ -290,10 +290,50 @@
             <div class="ui ok positive button">确定</div>
         </div>
     </div>
+    <!-- hot news edit modal -->
+    <div class="ui small modal ad-news-edit">
+        <!-- <i class="close icon"></i> -->
+        <div class="header">
+            热点动态编辑
+        </div>
+        <div class="content">
+            <div class="ui form segment">
+                <div class="field">
+                    <label>链接</label>
+                    <div class="ui selection dropdown ad-article-list">
+                        <div class="default text">动态详细链接</div>
+                        <i class="dropdown icon"></i>
+                        <input type="hidden" name="link">
+                        <div class="menu">
+                            <div class="item" data-value="1">文章1</div>
+                            <div class="item" data-value="2">文章2</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
+                    <label>标题</label>
+                    <input type="text" name="title" placeholder="动态标题">
+                </div>
+                <div class="field">
+                    <label>描述</label>
+                    <textarea name="content" placeholder="动态描述"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="actions">
+            <div class="ui cancel negative button">取消</div>
+            <div class="ui ok positive button">确定</div>
+        </div>
+    </div>
     <script type="text/javascript">
     jQuery(document).ready(function($) {
         $('.ad-images > .content').on('click', '.image', function(event) {
             $(this).parents('.card').find('.ui.checkbox').checkbox("toggle");
+        });
+        $('.ui.dropdown.ad-article-list').dropdown({
+            onChange: function(value, text, $choice){
+                $('.ad-news-edit input[name="title"]').val(text);
+            }
         });
         $('.big-img-list').on('click', '.btn-del', function(event) {
             var $btn = $(this);
@@ -313,6 +353,60 @@
             }).modal('show');
         });
 
+        $('.ad-hot-news-list').on('click', '.btn-hot-news-edit', function(event) {
+            var $btn = $(this);
+
+            $('.ad-news-edit').modal({
+                onApprove: function() {
+                    $.post('admin/settings/update', {
+                        id: $btn.attr('data-id'),
+                        title: $('.ad-news-edit input[name="title"]').val(),
+                        content: $('.ad-news-edit textarea[name="content"]').val(),
+                        link: $('.ui.dropdown.ad-article-list').dropdown('get value'),
+                        more: $('.ui.dropdown.ad-article-list').dropdown('get text')
+                    }, function(data, textStatus, xhr) {
+                        if (data.success) {
+                            $btn.parents(".card").find('.content .header').text(data.data.title);
+                            $btn.parents(".card").find('.content .description').text(Utils.abbreviate(data.data.content, 65));
+                            $btn.parents(".card").find('.image img').attr({
+                                "title": data.data.more,
+                                'alt': data.data.link
+                            });
+                            toastr.success('更新成功!');
+                        } else {
+                            toastr.error('更新失败!');
+                        }
+                    });
+                },
+                onShow: function() {
+                    $.post('admin/article/list', {
+                            timestamp: new Date().getTime()
+                        },
+                        function(data, textStatus, xhr) {
+                            if (data.success) {
+                                $.tmpl('<div class="item" data-value="${id}">${name}</div>', data.data).appendTo($('.ad-article-list .menu').empty());
+                                //$('.ui.dropdown.ad-article-list').dropdown();
+
+                                $.post('admin/settings/find', {
+                                    id: $btn.attr('data-id')
+                                }, function(data, textStatus, xhr) {
+                                    if (data.success) {
+                                        $('.ui.dropdown.ad-article-list').dropdown('set selected', data.data.link);
+                                        $('.ad-news-edit input[name="title"]').val(data.data.title);
+                                        $('.ad-news-edit textarea[name="content"]').val(data.data.content);
+                                    } else {
+                                        toastr.error('查询设置失败!');
+                                        return false;
+                                    }
+                                });
+                            } else {
+                                toastr.error('查询文章失败!');
+                                return false;
+                            }
+                        });
+                }
+            }).modal('show');
+        });
         $('.ad-hot-news-list').on('click', '.btn-hot-news-del', function(event) {
             var $btn = $(this);
             $('.ad-delete-confirm').modal({

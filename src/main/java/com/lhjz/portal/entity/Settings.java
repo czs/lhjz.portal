@@ -48,7 +48,7 @@ public class Settings implements Serializable {
 	private String imgUrl;
 	private String title;
 	@Column(length = 10000)
-	private String conent;
+	private String content;
 	@Column(length = 16777216)
 	private String detail;
 	private String link;
@@ -108,12 +108,12 @@ public class Settings implements Serializable {
 		this.title = title;
 	}
 
-	public String getConent() {
-		return conent;
+	public String getContent() {
+		return content;
 	}
 
-	public void setConent(String conent) {
-		this.conent = conent;
+	public void setContent(String content) {
+		this.content = content;
 	}
 
 	public String getDetail() {
@@ -175,8 +175,8 @@ public class Settings implements Serializable {
 	@Override
 	public String toString() {
 		return "Settings [id=" + id + ", page=" + page + ", module=" + module
-				+ ", imgUrl=" + imgUrl + ", title=" + title + ", conent="
-				+ conent + ", detail=" + detail + ", link=" + link + ", more="
+				+ ", imgUrl=" + imgUrl + ", title=" + title + ", content="
+				+ content + ", detail=" + detail + ", link=" + link + ", more="
 				+ more + ", username=" + username + ", status=" + status
 				+ ", createDate=" + createDate + ", version=" + version + "]";
 	}

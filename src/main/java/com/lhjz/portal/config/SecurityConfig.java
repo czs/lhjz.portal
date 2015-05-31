@@ -57,7 +57,7 @@ public class SecurityConfig {
 					.authenticated().and().formLogin()
 					.loginPage("/admin/login").permitAll()
 					.loginProcessingUrl("/admin/signin")
-					.defaultSuccessUrl("/admin/index").and().logout()
+					.defaultSuccessUrl("/admin").and().logout()
 					.logoutUrl("/admin/logout")
 					.logoutSuccessUrl("/admin/login");
 

@@ -127,6 +127,11 @@ jQuery(function($) {
         getFileType: function(name) {
             var i = name.lastIndexOf('.');
             return (i != -1) ? name.substring(i) : '';
+        },
+        abbreviate: function(str, len) {
+            if (!!str && str.length > len) {
+                return str.substring(0, len - 3) + "...";
+            }
         }
     });
 });

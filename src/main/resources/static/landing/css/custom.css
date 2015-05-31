@@ -1,4 +1,4 @@
-body{
+body {
     padding-top: 50px;
 }
 
@@ -150,3 +150,21 @@ body{
     border-color: #4089ca;
 }
 
+.lhzj-news-content {
+    word-wrap: break-word;
+    overflow-y: hidden;
+}
+
+.lhzj-thumbnail {
+    height: 300px;
+    overflow: hidden;
+}
+
+.lhjz-news-title {
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.lhjz-article-body{
+    margin-top: 30px;
+}

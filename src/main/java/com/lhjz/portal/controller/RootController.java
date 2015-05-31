@@ -19,17 +19,21 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.lhjz.portal.base.BaseController;
+import com.lhjz.portal.entity.Article;
 import com.lhjz.portal.entity.Diagnose;
 import com.lhjz.portal.entity.Settings;
+import com.lhjz.portal.model.Message;
 import com.lhjz.portal.model.RespBody;
 import com.lhjz.portal.pojo.DiagnoseForm;
 import com.lhjz.portal.pojo.Enum.Action;
 import com.lhjz.portal.pojo.Enum.Module;
 import com.lhjz.portal.pojo.Enum.Page;
 import com.lhjz.portal.pojo.Enum.Target;
+import com.lhjz.portal.repository.ArticleRepository;
 import com.lhjz.portal.repository.DiagnoseRepository;
 import com.lhjz.portal.repository.SettingsRepository;
 import com.lhjz.portal.util.StringUtil;
@@ -52,6 +56,9 @@ public class RootController extends BaseController {
 
 	@Autowired
 	SettingsRepository settingsRepository;
+
+	@Autowired
+	ArticleRepository articleRepository;
 
 	@RequestMapping()
 	public String home(HttpServletRequest request, Model model) {
@@ -130,6 +137,22 @@ public class RootController extends BaseController {
 	@RequestMapping("product")
 	public String product(Model model) {
 		return "landing/product";
+	}
+
+	@RequestMapping("article")
+	public String article(@RequestParam(value = "id", required = true) Long id,
+			Model model) {
+
+		Article article = articleRepository.findOne(id);
+
+		if (article == null) {
+			model.addAttribute("error", Message.error("您查看的文章不存在,或已经被删除!"));
+			return "landing/error";
+		}
+
+		model.addAttribute("article", article);
+
+		return "landing/article";
 	}
 
 	@RequestMapping("job")
