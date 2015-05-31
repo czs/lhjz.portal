@@ -6,9 +6,9 @@ jQuery(function($) {
 
     $('.ui.sticky').sticky({
         offset: 84,
-        pushing: true
-            // bottomOffset: 84,
-            // context: '.ad-index-container'
+        pushing: true,
+        bottomOffset: 84,
+        context: '.ad-index-container'
     });
 
     $('.ad-index-logout').click(function() {
@@ -56,6 +56,18 @@ jQuery(function($) {
         };
     }
 
+    $(document).ajaxSend(function(event, jqxhr, settings) {
+
+        var csrf = {};
+        csrf[$('.ad-csrf input:hidden').attr('name')] = $('.ad-csrf input:hidden').attr('value');
+
+        if(!!settings.data){
+            settings.data = settings.data + "&" + $.param(csrf);
+        }else{
+            settings.data = $.param(csrf);
+        }
+    });
+
     $('.ad-item-feedback').click(function(event) {
         event.stopImmediatePropagation();
         $(this).find('form').find(':hidden[name="name"]').val($('title').text()).end().submit();
@@ -72,7 +84,15 @@ jQuery(function($) {
         },
         onApprove: function() {
             var imgSrc = $('.cards').find('input:checked').parents('.card').find('img').attr('src');
-            alert(imgSrc);
+            if (!!imgSrc) {
+                if (!!imgSelectedCallback) {
+                    imgSelectedCallback(imgSrc);
+                }
+            } else {
+                toastr.error('您没有选择图片!');
+                return false;
+            }
+
         },
         onShow: function() {
             var data = {};
@@ -82,6 +102,9 @@ jQuery(function($) {
                     $("#imageItemTpl").tmpl(data.data.imgs).appendTo($('.ad-images .cards').empty());
                     $('.ui.checkbox').checkbox();
                 });
+        },
+        onVisible: function() {
+            $('.ad-images.modal').modal('refresh');
         }
     });
 

@@ -8,30 +8,41 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
     <title>立衡脊柱-门户主页</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/admin/css/admin.css}" href="../../static/admin/css/admin.css" />
     <link rel="stylesheet" type="text/css" th:href="@{/lib/semantic/semantic.min.css}" href="../../static/lib/semantic/semantic.min.css" />
+    <link rel="stylesheet" th:href="@{/lib/toastr/toastr.css}" href="../../static/lib/toastr/toastr.css" />
+    <link rel="stylesheet" type="text/css" th:href="@{/admin/css/admin.css}" href="../../static/admin/css/admin.css" />
     <script type="text/javascript" th:src="@{/lib/jquery-1.11.1.min.js}" src="../../static/lib/jquery-1.11.1.min.js"></script>
     <script type="text/javascript" th:src="@{/lib/jquery.tmpl.min.js}" src="../../static/lib/jquery.tmpl.min.js"></script>
     <script type="text/javascript" th:src="@{/lib/semantic/semantic.min.js}" src="../../static/lib/semantic/semantic.min.js"></script>
+    <script th:src="@{/lib/toastr/toastr.js}" src="../../static/lib/toastr/toastr.js"></script>
     <script type="text/javascript" th:src="@{/admin/js/admin.js}" src="../../static/admin/js/admin.js"></script>
     <script id="imageItemTpl" type="text/x-jquery-tmpl">
         <div class="card">
             <a class="image">
-                <img src="{{html path}}{{html uuidName}}">
+                <img src="${path}${uuidName}">
             </a>
             <div class="content">
                 <div class="ui radio checkbox">
-                    <input type="radio" name="image" checked="checked">
-                    <label>{{html name}}</label>
+                    <input type="radio" name="image">
+                    <label>${name}</label>
                 </div>
+            </div>
+        </div>
+    </script>
+    <script id="bigImgItem" type="text/x-jquery-tmpl">
+        <div class="item">
+            <div class="ui segment">
+                <img class="ui image" src="${imgUrl}">
+                <div class="ui divider"></div>
+                <div class="right floated compact ui red button">删除</div>
             </div>
         </div>
     </script>
 </head>
 
-<body>
+<body class="admin-index">
     <div th:with="uri=${#httpServletRequest.requestURI}" th:fragment="sidebar-menu" class="ui left thin vertical inverted labeled icon sidebar menu ad-index-menu">
-        <a th:classappend="(${#strings.contains(uri, '/admin/index')} or ${#strings.endsWith(uri,'/admin/')} or ${#strings.endsWith(uri,'/admin')}) ? 'active' : ''" class="item" th:href="@{/admin/index}" href="index.html"> <i class="home icon"></i> 门户主页
+        <a th:classappend="(${#strings.contains(uri, '/admin/index')} or ${#strings.endsWith(uri,'/admin/')} or ${#strings.endsWith(uri,'/admin')}) ? 'active' : ''" class="item" th:href="@{/admin}" href="index.html"> <i class="home icon"></i> 门户主页
         </a>
         <a th:classappend="${#strings.contains(uri, '/admin/about')} ? 'active' : ''" class="item" th:href="@{/admin/about}" href="about.html"> <i class="info circle icon"></i> 关于我们
         </a>
@@ -84,7 +95,7 @@
             <div th:fragment="rail-menu" class="ui dividing close left rail ad-index-rail" style="width:210px;">
                 <div class="ui sticky ad-index-sticky">
                     <div th:with="uri=${#httpServletRequest.requestURI}" class="ui vertical pointing menu">
-                        <a th:classappend="(${#strings.contains(uri, '/admin/index')} or ${#strings.endsWith(uri,'/admin/')} or ${#strings.endsWith(uri,'/admin')}) ? 'active' : ''" class="item" th:href="@{/admin/index}" href="index.html">
+                        <a th:classappend="(${#strings.contains(uri, '/admin/index')} or ${#strings.endsWith(uri,'/admin/')} or ${#strings.endsWith(uri,'/admin')}) ? 'active' : ''" class="item" th:href="@{/admin}" href="index.html">
                             <i class="home icon"></i> 门户主页
                         </a>
                         <a th:classappend="${#strings.contains(uri, '/admin/about')} ? 'active' : ''" class="item" th:href="@{/admin/about}" href="about.html">
@@ -146,10 +157,10 @@
                     <div class="ui segment">
                         <div class="ui primary button ad-add-image">添加</div>
                     </div>
-                    <div class="ui divided list">
-                        <div class="item">
+                    <div class="ui divided list big-img-list" th:remove="all-but-first">
+                        <div class="item" th:each="bigImg : ${bigImgs}">
                             <div class="ui segment">
-                                <img class="ui image" src="../../static/landing/img/img-b1.jpg">
+                                <img class="ui image" th:src="${bigImg.imgUrl}">
                                 <div class="ui divider"></div>
                                 <div class="right floated compact ui red button">删除</div>
                             </div>
@@ -178,12 +189,12 @@
     </form>
     <!-- modal -->
     <div class="ui modal ad-images">
-        <i class="close icon"></i>
+        <!-- <i class="close icon"></i> -->
         <div class="header">
             图片选择
         </div>
         <div class="content">
-            <div class="ui cards grouped">
+            <div class="ui cards grouped" th:remove="body">
                 <div class="card">
                     <a class="image">
                         <img src="../../static/landing/img/img-b1.jpg">
@@ -220,10 +231,33 @@
             </div>
         </div>
         <div class="actions">
-            <div class="ui cancel button">Cancel</div>
-            <div class="ui ok button">OK</div>
+            <div class="ui cancel negative button">取消</div>
+            <div class="ui ok positive button">确定</div>
         </div>
     </div>
+    <script type="text/javascript">
+    jQuery(document).ready(function($) {
+        window.imgSelectedCallback = function(imgUrl) {
+            var m = [{
+                imgUrl: imgUrl
+            }];
+            $("#bigImgItem").tmpl(m).appendTo($('.big-img-list'));
+
+            // save to server db.
+            $.post('admin/settings/save', {
+                page:'index',
+                module: 'bigImg',
+                imgUrl: imgUrl
+            }, function(data, textStatus, xhr) {
+                if(data.success){
+                    toastr.success('设置成功!');
+                }else{
+                    toastr.error('设置失败!');
+                }
+            });
+        }
+    });
+    </script>
 </body>
 
 </html>

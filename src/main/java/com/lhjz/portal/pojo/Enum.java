@@ -1,4 +1,3 @@
-
 package com.lhjz.portal.pojo;
 
 /**
@@ -21,6 +20,14 @@ public class Enum {
 	}
 
 	public static enum Target {
-		Article, File, Feedback, Diagnose;
+		Article, File, Feedback, Diagnose, Settings;
+	}
+
+	public static enum Page {
+		Unknow, Index;
+	}
+
+	public static enum Module {
+		Unknow, BigImg, HotNews, MoreNews;
 	}
 }
