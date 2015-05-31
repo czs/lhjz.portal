@@ -84,23 +84,26 @@ jQuery(function($) {
             return true;
         },
         onApprove: function() {
-            var imgSrc = $('.cards').find('input:checked').parents('.card').find('img').attr('src');
-            if (!!imgSrc) {
+            var imgSrcArr = [];
+            $('.cards').find('input:checked').parents('.card').find('img').each(function(index, el) {
+                imgSrcArr.push($(el).attr('data-src'));
+            });
+
+            if (imgSrcArr.length > 0) {
                 if (!!imgSelectedCallback) {
-                    imgSelectedCallback(imgSrc);
+                    imgSelectedCallback(imgSrcArr);
                 }
             } else {
                 toastr.error('您没有选择图片!');
                 return false;
             }
-
         },
         onShow: function() {
             var data = {};
             data[$('.ad-csrf input:hidden').attr('name')] = $('.ad-csrf input:hidden').attr('value');
             $.post('admin/file/list', data,
                 function(data, textStatus, xhr) {
-                    $("#imageItemTpl").tmpl(data.data.imgs).appendTo($('.ad-images .cards').empty());
+                    $("#imageItemTpl").tmpl(data.data.imgs, data.data).appendTo($('.ad-images .cards').empty());
                     $('.ui.checkbox').checkbox();
                 });
         },

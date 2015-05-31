@@ -38,8 +38,10 @@ public class Settings implements Serializable {
 	private Long id;
 
 	@Column(nullable = false)
+	@Enumerated(EnumType.STRING)
 	private Page page;
 	@Column(nullable = false)
+	@Enumerated(EnumType.STRING)
 	private Module module;
 
 	@Column(length = 1000)
@@ -61,7 +63,7 @@ public class Settings implements Serializable {
 	private Status status = Status.Normal;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date createDate;
+	private Date createDate = new Date();
 
 	@Version
 	private long version;
