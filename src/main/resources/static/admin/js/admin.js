@@ -5,10 +5,11 @@ jQuery(function($) {
     });
 
     $('.ui.sticky').sticky({
-        offset: 84,
-        pushing: true,
-        bottomOffset: 84,
-        context: '.ad-index-container'
+        offset: 70,
+        //pushing: true,
+        //ottomOffset: 84,
+        //context: '.ad-index-container'
+        //context: '.context'
     });
 
     $('.ad-index-logout').click(function() {
@@ -61,9 +62,9 @@ jQuery(function($) {
         var csrf = {};
         csrf[$('.ad-csrf input:hidden').attr('name')] = $('.ad-csrf input:hidden').attr('value');
 
-        if(!!settings.data){
+        if (!!settings.data) {
             settings.data = settings.data + "&" + $.param(csrf);
-        }else{
+        } else {
             settings.data = $.param(csrf);
         }
     });

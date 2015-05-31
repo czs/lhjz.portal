@@ -16,11 +16,11 @@ public class Enum {
 	}
 
 	public static enum Action {
-		Create, Read, Update, Delete, Upload;
+		Create, Read, Update, Delete, Upload, Visit;
 	}
 
 	public static enum Target {
-		Article, File, Feedback, Diagnose, Settings;
+		Article, File, Feedback, Diagnose, Settings, Page;
 	}
 
 	public static enum Page {

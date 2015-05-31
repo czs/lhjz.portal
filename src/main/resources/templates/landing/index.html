@@ -27,17 +27,17 @@
 <body>
     <div class="container-fluid lhjz-container-fluid">
         <div class="carousel slide" id="carousel-lhjz">
-            <ol class="carousel-indicators">
-                <li class="active" data-slide-to="0" data-target="#carousel-lhjz"></li>
+            <ol class="carousel-indicators" th:remove="all-but-first">
+                <li th:each="bigImg,sts : ${bigImgs}" th:classappend="${sts.index} == 0 ? 'active' : ''" th:attrappend="data-slide-to=${sts.index}" data-target="#carousel-lhjz"></li>
                 <li data-slide-to="1" data-target="#carousel-lhjz"></li>
                 <li data-slide-to="2" data-target="#carousel-lhjz"></li>
             </ol>
-            <div class="carousel-inner">
-                <div class="item active">
-                    <img alt="" th:src="@{/landing/img/img-b1.jpg}" src="../../static/landing/img/img-b1.jpg" width="100%" />
+            <div class="carousel-inner" th:remove="all-but-first">
+                <div class="item" th:each="bigImg,sts : ${bigImgs}" th:classappend="${sts.index} == 0 ? 'active' : ''">
+                    <img alt="" th:src="${bigImg.imgUrl}" src="../../static/landing/img/img-b1.jpg" width="100%" />
                     <div class="carousel-caption">
-                        <h4>焦点图一</h4>
-                        <p>焦点图一的描述</p>
+                        <!-- <h4>焦点图一</h4>
+                        <p>焦点图一的描述</p> -->
                     </div>
                 </div>
                 <div class="item">

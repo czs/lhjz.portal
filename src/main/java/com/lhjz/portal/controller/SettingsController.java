@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.lhjz.portal.base.BaseController;
@@ -65,7 +66,20 @@ public class SettingsController extends BaseController {
 
 		log(Action.Create, Target.Settings, settings2);
 
-		return RespBody.succeed("设置保存成功！");
+		return RespBody.succeed(settings2);
+	}
+
+	@RequestMapping(value = "delete", method = RequestMethod.POST)
+	@ResponseBody
+	public RespBody delete(@RequestParam(value = "id", required = true) Long id) {
+
+		logger.debug("Enter method: {}", "delete");
+
+		settingsRepository.delete(id);
+
+		log(Action.Delete, Target.Settings, id);
+
+		return RespBody.succeed(id);
 	}
 
 }

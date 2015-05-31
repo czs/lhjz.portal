@@ -127,6 +127,11 @@ INSERT INTO `file` (id, create_date, name, path, status, username, uuid_name, ve
 INSERT INTO `file` (id, create_date, name, path, status, username, uuid_name, version) VALUES ('6', '2015-04-25 10:01:52', 'img06_b.jpg', 'upload/img/0/', 'Bultin', 'lhjz', '94947a26-3c39-495e-8c65-62e7a7ade429.jpg', '0');
 INSERT INTO `file` (id, create_date, name, path, status, username, uuid_name, version) VALUES ('7', '2015-04-25 10:01:52', 'img05_b.jpg', 'upload/img/0/', 'Bultin', 'lhjz', 'ba77d88a-3a9f-4afc-bafe-27f05be65114.jpg', '0');
 INSERT INTO `file` (id, create_date, name, path, status, username, uuid_name, version) VALUES ('8', '2015-04-25 10:01:53', 'img03_b.jpg', 'upload/img/0/', 'Bultin', 'lhjz', '0c590fa7-430f-428a-aa38-fa29227caa43.jpg', '0');
+INSERT INTO `file` (id, create_date, name, path, status, username, uuid_name, version) VALUES ('10', '2015-05-31 14:27:58', '1.jpg', 'upload/img/0/', 'Bultin', 'lhjz', '09c2ec3a-3afc-43ff-af20-3828f0744446.jpg', '0');
+INSERT INTO `file` (id, create_date, name, path, status, username, uuid_name, version) VALUES ('11', '2015-05-31 14:27:58', '2.jpg', 'upload/img/0/', 'Bultin', 'lhjz', '749727e8-d955-4652-adf2-1ef217ee64b8.jpg', '0');
+INSERT INTO `file` (id, create_date, name, path, status, username, uuid_name, version) VALUES ('12', '2015-05-31 14:27:58', '3.jpg', 'upload/img/0/', 'Bultin', 'lhjz', 'bc2b78b3-e808-420e-a156-5ef54887d714.jpg', '0');
+INSERT INTO `file` (id, create_date, name, path, status, username, uuid_name, version) VALUES ('13', '2015-05-31 14:27:59', 'img-b1.jpg', 'upload/img/0/', 'Bultin', 'lhjz', '0a6bc830-91d4-4675-a413-4d93823f5ba0.jpg', '0');
+INSERT INTO `file` (id, create_date, name, path, status, username, uuid_name, version) VALUES ('14', '2015-05-31 14:27:59', 'img-b2.jpg', 'upload/img/0/', 'Bultin', 'lhjz', '1dee3a09-87a5-463d-819f-0e1e93bb5e7d.jpg', '0');
 
 -- ----------------------------
 -- Records of article

@@ -5,7 +5,6 @@ package com.lhjz.portal.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +19,6 @@ import com.lhjz.portal.pojo.Enum.Module;
 import com.lhjz.portal.pojo.Enum.Page;
 import com.lhjz.portal.repository.FileRepository;
 import com.lhjz.portal.repository.SettingsRepository;
-import com.lhjz.portal.util.MapUtil;
 
 /**
  * 
@@ -53,26 +51,33 @@ public class AdminController extends BaseController {
 	public String home(Model model) {
 
 		List<Settings> settings = settingsRepository.findByPage(Page.Index);
-		
-		List<Map<String, Object>> mapListImg = new ArrayList<Map<String,Object>>();
-		
+
+		List<Settings> bigImgs = new ArrayList<Settings>();
+		List<Settings> hotNews = new ArrayList<Settings>();
+		List<Settings> moreNews = new ArrayList<Settings>();
+
 		for (Settings settings2 : settings) {
-			if(settings2.getModule() == Module.BigImg){
-				Map<String, Object> map = MapUtil.objArr2Map("imgUrl", settings2.getImgUrl());
-				mapListImg.add(map);
+			if (settings2.getModule() == Module.BigImg) {
+				bigImgs.add(settings2);
+			} else if (settings2.getModule() == Module.HotNews) {
+				hotNews.add(settings2);
+			} else if (settings2.getModule() == Module.MoreNews) {
+				moreNews.add(settings2);
 			}
 		}
-		
-		model.addAttribute("bigImgs", mapListImg);
+
+		model.addAttribute("bigImgs", bigImgs);
+		model.addAttribute("hotNews", hotNews);
+		model.addAttribute("moreNews", moreNews);
 
 		return "admin/index";
 	}
 
-	@RequestMapping("index")
-	public String index(Model model) {
-
-		return "admin/index";
-	}
+	// @RequestMapping("index")
+	// public String index(Model model) {
+	//
+	// return "admin/index";
+	// }
 
 	@RequestMapping("about")
 	public String about(Model model) {

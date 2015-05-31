@@ -3,10 +3,12 @@
  */
 package com.lhjz.portal.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -21,11 +23,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.lhjz.portal.base.BaseController;
 import com.lhjz.portal.entity.Diagnose;
+import com.lhjz.portal.entity.Settings;
 import com.lhjz.portal.model.RespBody;
 import com.lhjz.portal.pojo.DiagnoseForm;
 import com.lhjz.portal.pojo.Enum.Action;
+import com.lhjz.portal.pojo.Enum.Module;
+import com.lhjz.portal.pojo.Enum.Page;
 import com.lhjz.portal.pojo.Enum.Target;
 import com.lhjz.portal.repository.DiagnoseRepository;
+import com.lhjz.portal.repository.SettingsRepository;
 import com.lhjz.portal.util.StringUtil;
 
 /**
@@ -44,15 +50,42 @@ public class RootController extends BaseController {
 	@Autowired
 	DiagnoseRepository diagnoseRepository;
 
+	@Autowired
+	SettingsRepository settingsRepository;
+
 	@RequestMapping()
-	public String home(Model model) {
+	public String home(HttpServletRequest request, Model model) {
+
+		List<Settings> settings = settingsRepository.findByPage(Page.Index);
+
+		List<Settings> bigImgs = new ArrayList<Settings>();
+		List<Settings> hotNews = new ArrayList<Settings>();
+		List<Settings> moreNews = new ArrayList<Settings>();
+
+		for (Settings settings2 : settings) {
+			if (settings2.getModule() == Module.BigImg) {
+				bigImgs.add(settings2);
+			} else if (settings2.getModule() == Module.HotNews) {
+				hotNews.add(settings2);
+			} else if (settings2.getModule() == Module.MoreNews) {
+				moreNews.add(settings2);
+			}
+		}
+
+		model.addAttribute("bigImgs", bigImgs);
+		model.addAttribute("hotNews", hotNews);
+		model.addAttribute("moreNews", moreNews);
+
+		logWithProperties(Action.Visit, Target.Page, Page.Index.name(),
+				request.getRemoteAddr());
+
 		return "landing/index";
 	}
 
-	@RequestMapping("index")
-	public String index(Model model) {
-		return "landing/index";
-	}
+	// @RequestMapping("index")
+	// public String index(Model model) {
+	// return "landing/index";
+	// }
 
 	@RequestMapping("about")
 	public String about(Model model) {
