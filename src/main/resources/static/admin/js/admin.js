@@ -75,6 +75,7 @@ jQuery(function($) {
     });
 
     $('.ad-add-image').click(function(event) {
+        window.imgSelectFor = $(this).attr('data-for');
         $('.ad-images').modal('show');
     });
 
@@ -91,7 +92,7 @@ jQuery(function($) {
 
             if (imgSrcArr.length > 0) {
                 if (!!imgSelectedCallback) {
-                    imgSelectedCallback(imgSrcArr);
+                    imgSelectedCallback(imgSrcArr, window.imgSelectFor);
                 }
             } else {
                 toastr.error('您没有选择图片!');

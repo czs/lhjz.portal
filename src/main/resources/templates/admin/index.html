@@ -38,6 +38,25 @@
             </div>
         </div>
     </script>
+    <script id="hotNewsItemTpl" type="text/x-jquery-tmpl">
+        <div class="card">
+            <div class="image">
+                <img src="${imgUrl}">
+            </div>
+            <div class="content">
+                <div class="header"></div>
+                <div class="description"></div>
+            </div>
+            <div class="extra content">
+                <span class="right floated">
+                    <div class="ui small red compact button btn-hot-news-del" data-id="${id}">删除</div>
+                </span>
+                <span>
+                    <div class="ui small primary compact button btn-hot-news-edit" data-id="${id}">编辑</div>
+                </span>
+            </div>
+        </div>
+    </script>
 </head>
 
 <body class="admin-index">
@@ -144,19 +163,19 @@
                     </div>
                 </div>
                 <h2 class="ui header">
-              <i class="settings icon"></i>
-              <div class="content">
-                主页设置
-                <div class="sub header">设置门户主页各模块的内容</div>
-              </div>
-            </h2>
+                <i class="settings icon"></i>
+                <div class="content">
+                    主页设置
+                    <div class="sub header">设置门户主页各模块的内容</div>
+                </div>
+                </h2>
                 <div class="ui styled fluid accordion">
                     <div class="active title">
                         <i class="dropdown icon"></i> 轮动图
                     </div>
                     <div class="active content">
                         <div class="ui segment">
-                            <div class="ui primary button ad-add-image">添加</div>
+                            <div class="ui primary button ad-add-image" data-for="bigImg">添加</div>
                         </div>
                         <div class="ui divided list big-img-list" th:remove="all-but-first">
                             <div class="item" th:each="bigImg : ${bigImgs}">
@@ -168,12 +187,31 @@
                             </div>
                         </div>
                     </div>
-                    <div class="title">
+                    <div class="active title">
                         <i class="dropdown icon"></i> 热门动态
                     </div>
-                    <div class="content">
+                    <div class="active content">
                         <div class="ui segment">
-                            <div class="ui primary button ad-add-hot-news">添加</div>
+                            <div class="ui primary button ad-add-image" data-for="hotNews">添加</div>
+                        </div>
+                        <div class="ui link cards ad-hot-news-list" th:remove="all-but-first">
+                            <div class="card" th:each="hotNew : ${hotNews}">
+                                <div class="image">
+                                    <img src="../../static/landing/img/img1.jpg" th:src="${hotNew.imgUrl}">
+                                </div>
+                                <div class="content">
+                                    <div class="header" th:text="${hotNew.title}"></div>
+                                    <div class="description" th:text="${hotNew.conent}"></div>
+                                </div>
+                                <div class="extra content">
+                                    <span class="right floated">
+                                        <div class="ui small red compact button btn-hot-news-del" th:attrappend="data-id=${hotNew.id}">删除</div>
+                                    </span>
+                                    <span>
+                                        <div class="ui small primary compact button btn-hot-news-edit" th:attrappend="data-id=${hotNew.id}">编辑</div>
+                                    </span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="title">
@@ -254,14 +292,11 @@
     </div>
     <script type="text/javascript">
     jQuery(document).ready(function($) {
-
         $('.ad-images > .content').on('click', '.image', function(event) {
             $(this).parents('.card').find('.ui.checkbox').checkbox("toggle");
         });
-
         $('.big-img-list').on('click', '.btn-del', function(event) {
             var $btn = $(this);
-
             $('.ad-delete-confirm').modal({
                 onApprove: function() {
                     $.post('admin/settings/delete', {
@@ -278,12 +313,30 @@
             }).modal('show');
         });
 
-        window.imgSelectedCallback = function(imgUrlArr) {
+        $('.ad-hot-news-list').on('click', '.btn-hot-news-del', function(event) {
+            var $btn = $(this);
+            $('.ad-delete-confirm').modal({
+                onApprove: function() {
+                    $.post('admin/settings/delete', {
+                        id: $btn.attr('data-id')
+                    }, function(data, textStatus, xhr) {
+                        if (data.success) {
+                            $btn.parents('.card').remove();
+                            toastr.success('删除成功!');
+                        } else {
+                            toastr.error('删除失败!');
+                        }
+                    });
+                }
+            }).modal('show');
+        });
+
+        window.imgSelectedCallback = function(imgUrlArr, module) {
             // save to server db.
             $.each(imgUrlArr, function(index, imgUrl) {
                 $.post('admin/settings/save', {
                     page: 'index',
-                    module: 'bigImg',
+                    module: module,
                     imgUrl: imgUrl
                 }, function(data, textStatus, xhr) {
                     if (data.success) {
@@ -291,14 +344,20 @@
                             id: data.data.id,
                             imgUrl: data.data.imgUrl
                         }];
-                        $("#bigImgItem").tmpl(m).appendTo($('.big-img-list'));
+                        if (module == "bigImg") {
+                            $("#bigImgItem").tmpl(m).appendTo($('.big-img-list'));
+                        } else if (module == "hotNews") {
+                            $('#hotNewsItemTpl').tmpl(m).appendTo($('.ad-hot-news-list'));
+                        }
+
                         toastr.success('设置成功!');
                     } else {
                         toastr.error('设置失败!');
                     }
                 });
             });
-        }
+        };
+
     });
     </script>
 </body>
