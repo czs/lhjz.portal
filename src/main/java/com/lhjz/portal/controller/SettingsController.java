@@ -61,6 +61,11 @@ public class SettingsController extends BaseController {
 		settings.setModule(settingsForm.module());
 		settings.setImgUrl(settingsForm.getImgUrl());
 		settings.setUsername(WebUtil.getUsername());
+		settings.setLink(settingsForm.getLink());
+		settings.setMore(settingsForm.getMore());
+		settings.setContent(settingsForm.getContent());
+		settings.setDetail(settingsForm.getDetail());
+		settings.setTitle(settingsForm.getTitle());
 
 		Settings settings2 = settingsRepository.save(settings);
 

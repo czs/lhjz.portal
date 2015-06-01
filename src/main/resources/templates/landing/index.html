@@ -99,7 +99,7 @@
         <div class="row" th:remove="all-but-first">
             <div class="col-xs-6 col-md-3" th:each="hotNew : ${hotNews}">
                 <div class="thumbnail lhzj-thumbnail">
-                    <a th:href="@{/article(id=${hotNew.link})}" target="_blank"><img alt="300x200" th:src="${hotNew.imgUrl}" src="../../static/landing/img/thumb/1.png" /></a>
+                    <a th:href="@{/article(id=${hotNew.link})}"><img alt="300x200" th:src="${hotNew.imgUrl}" src="../../static/landing/img/thumb/1.png" /></a>
                     <div class="caption">
                         <h4 class="lhjz-news-title" th:text="${hotNew.title}">标题一</h4>
                         <p class="lhzj-news-content" th:text="${#strings.abbreviate(hotNew.content,65)}">简单的介绍！</p>
@@ -175,8 +175,8 @@
         </div>
         <div class="row">
             <div class="col-xs-12 col-md-6">
-                <div class="list-group">
-                    <a href="#" class="list-group-item disabled">xxx领导来我机构视察</a>
+                <div class="list-group" th:remove="all-but-first">
+                    <a th:each="moreNew : ${moreNews}" th:if="${moreNew.more == '1'}" th:href="@{/article(id=${moreNew.link})}" th:text="${moreNew.title}" href="#" class="list-group-item">xxx领导来我机构视察</a>
                     <a href="#" class="list-group-item">我院评选先进卫生单位</a>
                     <a href="#" class="list-group-item">院长参加第几届会议</a>
                     <a href="#" class="list-group-item">第1000例脊柱病患者</a>
@@ -184,8 +184,8 @@
                 </div>
             </div>
             <div class="col-xs-12 col-md-6">
-                <div class="list-group">
-                    <a href="#" class="list-group-item disabled">xxx领导来我机构视察</a>
+                <div class="list-group" th:remove="all-but-first">
+                    <a th:each="moreNew : ${moreNews}" th:if="${moreNew.more == '2'}" th:href="@{/article(id=${moreNew.link})}" th:text="${moreNew.title}" href="#" class="list-group-item">xxx领导来我机构视察</a>
                     <a href="#" class="list-group-item">我院评选先进卫生单位</a>
                     <a href="#" class="list-group-item">院长参加第几届会议</a>
                     <a href="#" class="list-group-item">第1000例脊柱病患者</a>

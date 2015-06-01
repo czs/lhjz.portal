@@ -13,6 +13,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/admin/css/admin.css}" href="../../static/admin/css/admin.css" />
     <script type="text/javascript" th:src="@{/lib/jquery-1.11.1.min.js}" src="../../static/lib/jquery-1.11.1.min.js"></script>
     <script type="text/javascript" th:src="@{/lib/jquery.tmpl.min.js}" src="../../static/lib/jquery.tmpl.min.js"></script>
+    <script type="text/javascript" th:src="@{/lib/date.format.js}" src="../../static/lib/date.format.js"></script>
     <script type="text/javascript" th:src="@{/lib/semantic/semantic.min.js}" src="../../static/lib/semantic/semantic.min.js"></script>
     <script th:src="@{/lib/toastr/toastr.js}" src="../../static/lib/toastr/toastr.js"></script>
     <script type="text/javascript" th:src="@{/admin/js/admin.js}" src="../../static/admin/js/admin.js"></script>
@@ -56,6 +57,28 @@
                 </span>
             </div>
         </div>
+    </script>
+    <script id="moreNewsItemTpl" type="text/x-jquery-tmpl">
+        <div class="item">
+            <div class="right floated compact ui red button btn-more-news-del" data-id="${id}">删除</div>
+            <i class="linkify icon"></i>
+            <div class="content">
+                <div class="header">${title}</div>
+            </div>
+        </div>
+    </script>
+    <script id="articleItemTpl" type="text/x-jquery-tmpl">
+        <tr>
+            <td class="collapsing">
+                <div class="ui checkbox">
+                    <input type="checkbox" value="${id}">
+                    <label></label>
+                </div>
+            </td>
+            <td class="article-name">${name}</td>
+            <td>${createDate}</td>
+            <td>${username}</td>
+        </tr>
     </script>
 </head>
 
@@ -170,10 +193,10 @@
                 </div>
                 </h2>
                 <div class="ui styled fluid accordion">
-                    <div class="active title">
+                    <div class="title">
                         <i class="dropdown icon"></i> 轮动图
                     </div>
-                    <div class="active content">
+                    <div class="content">
                         <div class="ui segment">
                             <div class="ui primary button ad-add-image" data-for="bigImg">添加</div>
                         </div>
@@ -214,11 +237,58 @@
                             </div>
                         </div>
                     </div>
-                    <div class="title">
+                    <div class="active title">
                         <i class="dropdown icon"></i> 更多动态
                     </div>
-                    <div class="content">
-                        <p>待实现</p>
+                    <div class="active content">
+                        <div class="ui two column stackable grid grid-more-news">
+                            <div class="column">
+                                <div class="ui segment">
+                                    <div class="ui primary button btn-more-news-add" data-col="1">添加</div>
+                                </div>
+                                <div class="ui segment">
+                                    <div class="ui divided list" th:remove="all-but-first">
+                                        <div class="item" th:each="moreNew : ${moreNews}" th:if="${moreNew.more == '1'}">
+                                            <div class="right floated compact ui red button btn-more-news-del" th:attrappend="data-id=${moreNew.id}">删除</div>
+                                            <i class="linkify icon"></i>
+                                            <div class="content">
+                                                <div class="header" th:text="${moreNew.title}">Justen Kitsune</div>
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <div class="right floated compact ui red button btn-more-news-del">删除</div>
+                                            <i class="linkify icon"></i>
+                                            <div class="content">
+                                                <div class="header">Justen Kitsune</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="column">
+                                <div class="ui segment">
+                                    <div class="ui primary button btn-more-news-add" data-col="2">添加</div>
+                                </div>
+                                <div class="ui segment">
+                                    <div class="ui divided list" th:remove="all-but-first">
+                                        <div class="item" th:each="moreNew : ${moreNews}" th:if="${moreNew.more == '2'}">
+                                            <div class="right floated compact ui red button btn-more-news-del" th:attrappend="data-id=${moreNew.id}">删除</div>
+                                            <i class="linkify icon"></i>
+                                            <div class="content">
+                                                <div class="header" th:text="${moreNew.title}">Justen Kitsune</div>
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <div class="right floated compact ui red button btn-more-news-del">删除</div>
+                                            <i class="linkify icon"></i>
+                                            <div class="content">
+                                                <div class="header">Justen Kitsune</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -325,16 +395,144 @@
             <div class="ui ok positive button">确定</div>
         </div>
     </div>
+    <!-- news select modal -->
+    <div class="ui small modal ad-news-select">
+        <div class="header">
+            文章选择
+        </div>
+        <div class="content">
+            <table class="ui compact unstackable striped definition table table-news-select">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>文章名</th>
+                        <th>发布日期</th>
+                        <th>发布者</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="collapsing">
+                            <div class="ui checkbox">
+                                <input type="checkbox" value="1">
+                                <label></label>
+                            </div>
+                        </td>
+                        <td class="article-name">John Lilki</td>
+                        <td>September 14, 2013</td>
+                        <td>jhlilk22@yahoo.com</td>
+                    </tr>
+                    <tr>
+                        <td class="collapsing">
+                            <div class="ui checkbox">
+                                <input type="checkbox" value="2">
+                                <label></label>
+                            </div>
+                        </td>
+                        <td>Jamie Harington</td>
+                        <td>January 11, 2014</td>
+                        <td>jamieharingonton@yahoo.com</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="actions">
+            <div class="ui cancel negative button">取消</div>
+            <div class="ui ok positive button">确定</div>
+        </div>
+    </div>
     <script type="text/javascript">
     jQuery(document).ready(function($) {
         $('.ad-images > .content').on('click', '.image', function(event) {
             $(this).parents('.card').find('.ui.checkbox').checkbox("toggle");
         });
         $('.ui.dropdown.ad-article-list').dropdown({
-            onChange: function(value, text, $choice){
+            onChange: function(value, text, $choice) {
                 $('.ad-news-edit input[name="title"]').val(text);
             }
         });
+
+        $('.grid-more-news').on('click', '.btn-more-news-del', function(event) {
+            var $btn = $(this);
+            $('.ad-delete-confirm').modal({
+                onApprove: function() {
+                    $.post('admin/settings/delete', {
+                        id: $btn.attr('data-id')
+                    }, function(data, textStatus, xhr) {
+                        if (data.success) {
+                            $btn.closest('.item').remove();
+                            toastr.success('删除成功!');
+                        } else {
+                            toastr.error('删除失败!');
+                        }
+                    });
+                }
+            }).modal('show');
+        });
+
+        $('.grid-more-news').on('click', '.btn-more-news-add', function(event) {
+            var $btn = $(this);
+
+            $('.ad-news-select').modal({
+                onApprove: function() {
+
+                    //get selected news
+                    var linkIds = [];
+                    $('.table-news-select input:checkbox:checked').each(function(index, el) {
+                        linkIds.push({
+                            link: $(el).val(),
+                            title: $(el).parents('tr').find('td[class="article-name"]').text()
+                        });
+                    });
+
+                    if (linkIds.length == 0) {
+                        toastr.error('没有选择任何项目!');
+                        return false;
+                    }
+
+                    $.each(linkIds, function(index, val) {
+                        $.post('admin/settings/save', {
+                            page: 'index',
+                            module: 'moreNews',
+                            title: val.title,
+                            link: val.link,
+                            more: $btn.attr('data-col')
+                        }, function(data, textStatus, xhr) {
+                            if (data.success) {
+                                $('#moreNewsItemTpl').tmpl(data.data).appendTo($btn.closest('.column').find('.list'));
+                                toastr.success('保存成功!');
+                            } else {
+                                toastr.error('保存失败!');
+                            }
+                        });
+                    });
+
+                },
+                onShow: function() {
+                    $.post('admin/article/list', {
+                            timestamp: new Date().getTime()
+                        },
+                        function(data, textStatus, xhr) {
+                            if (data.success) {
+
+                                $.each(data.data, function(index, val) {
+                                     val['createDate'] = new Date(val.createDate).format('yyyy/MM/dd hh:mm:ss');
+                                });
+
+                                $('#articleItemTpl').tmpl(data.data).appendTo($('.ad-news-select table > tbody').empty());
+                                $('.ui.checkbox').checkbox();
+                            } else {
+                                toastr.error('查询文章失败!');
+                                return false;
+                            }
+                        });
+                },
+                onVisible: function() {
+                    $('.ad-news-select.modal').modal('refresh');
+                }
+            }).modal('show');
+        });
+
         $('.big-img-list').on('click', '.btn-del', function(event) {
             var $btn = $(this);
             $('.ad-delete-confirm').modal({

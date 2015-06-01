@@ -109,3 +109,8 @@ div.admin.login {
 .ad-hot-news-content {
     word-break: break-word;
 }
+
+.table-news-select{
+    max-height: 400px;
+    overflow-y: auto;
+}
