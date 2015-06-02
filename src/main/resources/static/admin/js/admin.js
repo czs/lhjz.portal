@@ -1,7 +1,5 @@
 jQuery(function($) {
 
-    var converter = new showdown.Converter();
-
     $('.ad-index-btn-menu').click(function() {
         $('.ad-index-menu').sidebar('toggle');
     });
@@ -22,11 +20,14 @@ jQuery(function($) {
     $('.ui.checkbox').checkbox();
 
     // load markdown help content
-    $('.markdown-content').each(function(index, el) {
-        $.get($(el).attr('data-url'), function(data) {
-            $('<div class="markdown-body"/>').html(converter.makeHtml(data)).appendTo(el);
+    if ($('.markdown-content').size() > 0) {
+        var converter = new showdown.Converter();
+        $('.markdown-content').each(function(index, el) {
+            $.get($(el).attr('data-url'), function(data) {
+                $('<div class="markdown-body"/>').html(converter.makeHtml(data)).appendTo(el);
+            });
         });
-    });
+    }
 
     // semantic-ui ajax api
     $.fn.api.settings.api = {

@@ -73,17 +73,17 @@
                                 </a>
                             </div>
                             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                                <ul class="nav navbar-nav">
-                                    <li><a th:href="@{/about}" href="about.html">关于</a></li>
-                                    <li><a th:href="@{/feature}" href="feature.html">特色</a></li>
-                                    <li><a th:href="@{/case}" href="case.html">案例</a></li>
-                                    <li><a th:href="@{/product}" href="product.html">专利</a></li>
-                                    <li><a th:href="@{/env}" href="env.html">环境</a></li>
+                                <ul class="nav navbar-nav" th:with="uri=${#httpServletRequest.requestURI}">
+                                    <li th:classappend="${#strings.contains(uri, '/about')} ? 'active' : ''"><a th:href="@{/about}" href="about.html">关于</a></li>
+                                    <li th:classappend="${#strings.contains(uri, '/feature')} ? 'active' : ''"><a th:href="@{/feature}" href="feature.html">特色</a></li>
+                                    <li th:classappend="${#strings.contains(uri, '/case')} ? 'active' : ''"><a th:href="@{/case}" href="case.html">案例</a></li>
+                                    <li th:classappend="${#strings.contains(uri, '/product')} ? 'active' : ''"><a th:href="@{/product}" href="product.html">专利</a></li>
+                                    <li th:classappend="${#strings.contains(uri, '/env')} ? 'active' : ''"><a th:href="@{/env}" href="env.html">环境</a></li>
                                     <!-- <li><a th:href="@{/team}" href="team.html">团队</a></li> -->
-                                    <li><a th:href="@{/job}" href="job.html">招聘</a></li>
-                                    <li><a th:href="@{/health}" href="health.html">健康</a></li>
-                                    <li><a th:href="@{/diagnose}" href="diagnose.html">诊断</a></li>
-                                    <li><a th:href="@{/contact}" href="contact.html">联系</a></li>
+                                    <li th:classappend="${#strings.contains(uri, '/job')} ? 'active' : ''"><a th:href="@{/job}" href="job.html">招聘</a></li>
+                                    <li th:classappend="${#strings.contains(uri, '/health')} ? 'active' : ''"><a th:href="@{/health}" href="health.html">健康</a></li>
+                                    <li th:classappend="${#strings.contains(uri, '/diagnose')} ? 'active' : ''"><a th:href="@{/diagnose}" href="diagnose.html">诊断</a></li>
+                                    <li th:classappend="${#strings.contains(uri, '/contact')} ? 'active' : ''"><a th:href="@{/contact}" href="contact.html">联系</a></li>
                                 </ul>
                             </div>
                         </div>
