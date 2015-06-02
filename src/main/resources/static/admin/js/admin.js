@@ -79,6 +79,15 @@ jQuery(function($) {
         }
     });
 
+    $(document).ajaxStart(function() {
+        $('.page-dimmer').addClass('active');
+    });
+
+    $(document).ajaxComplete(function() {
+        $('.page-dimmer').removeClass('active');
+    });
+
+
     $('.ad-item-feedback').click(function(event) {
         event.stopImmediatePropagation();
         $(this).find('form').find(':hidden[name="name"]').val($('title').text()).end().submit();

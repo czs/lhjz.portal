@@ -36,8 +36,14 @@
         <div class="item">
             <div class="ui segment">
                 <img class="ui image" src="${imgUrl}">
+                <div class="carousel-caption">
+                    <h1 class="new-title"></h1>
+                    <p class="new-content"></p>
+                    <p class="new-link"></p>
+                </div>
                 <div class="ui divider"></div>
-                <div class="right floated compact ui red button btn-del" data-id="${id}">删除</div>
+                <div class="ui primary compact button btn-big-img-edit" data-id="${id}">编辑</div>
+                <div class="right floated compact ui red button btn-big-img-del" data-id="${id}">删除</div>
             </div>
         </div>
     </script>
@@ -206,8 +212,17 @@
                             <div class="item" th:each="bigImg : ${bigImgs}">
                                 <div class="ui segment">
                                     <img class="ui image" th:src="${bigImg.imgUrl}">
+                                    <div class="carousel-caption">
+                                        <h1 class="new-title" th:if="${#strings.isEmpty(bigImg.title)}"></h1>
+                                        <h1 class="new-title" th:if="${not #strings.isEmpty(bigImg.title)}" th:text="${bigImg.title}">关于我们</h1>
+                                        <p class="new-content" th:if="${#strings.isEmpty(bigImg.content)}"></p>
+                                        <p class="new-content" th:if="${not #strings.isEmpty(bigImg.content)}" th:text="${bigImg.content}">立衡脊柱成立于1994年，是一家专门治疗脊柱病以及脊柱相关病的医疗机构，全国开设有四家分院。院长张军，主任医师，带领立衡脊柱专家组潜心临床研究数十年总结出一套不开刀不手术无创伤治疗颈椎病以及腰椎病的保守疗法——立衡脊柱平衡矫正疗法。...</p>
+                                        <p class="new-link" th:if="${#strings.isEmpty(bigImg.link)}"></p>
+                                        <p class="new-link" th:if="${not #strings.isEmpty(bigImg.link)}"><a target="_blank" class="ui primary button" th:href="@{/article(id=${bigImg.link})}" href="#" role="button">了解更多</a></p>
+                                    </div>
                                     <div class="ui divider"></div>
-                                    <div class="right floated compact ui red button btn-del" th:attrappend="data-id=${bigImg.id}">删除</div>
+                                    <div class="ui primary compact button btn-big-img-edit" th:attrappend="data-id=${bigImg.id}">编辑</div>
+                                    <div class="right floated compact ui red button btn-big-img-del" th:attrappend="data-id=${bigImg.id}">删除</div>
                                 </div>
                             </div>
                         </div>
@@ -445,6 +460,9 @@
             <div class="ui ok positive button">确定</div>
         </div>
     </div>
+    <div th:fragment="page-dimmer" class="ui dimmer page-dimmer">
+        <div class="ui large text loader">加载中...</div>
+    </div>
     <script type="text/javascript">
     jQuery(document).ready(function($) {
         $('.ad-images > .content').on('click', '.image', function(event) {
@@ -537,7 +555,7 @@
             }).modal('show');
         });
 
-        $('.big-img-list').on('click', '.btn-del', function(event) {
+        $('.big-img-list').on('click', '.btn-big-img-del', function(event) {
             var $btn = $(this);
             $('.ad-delete-confirm').modal({
                 onApprove: function() {
@@ -551,6 +569,65 @@
                             toastr.error('删除失败!');
                         }
                     });
+                }
+            }).modal('show');
+        });
+
+
+        $('.big-img-list').on('click', '.btn-big-img-edit', function(event) {
+            var $btn = $(this);
+            $('.ad-news-edit').modal({
+                onApprove: function() {
+                    $.post('admin/settings/update', {
+                        id: $btn.attr('data-id'),
+                        title: $('.ad-news-edit input[name="title"]').val(),
+                        content: $('.ad-news-edit textarea[name="content"]').val(),
+                        link: $('.ui.dropdown.ad-article-list').dropdown('get value'),
+                        more: $('.ui.dropdown.ad-article-list').dropdown('get text')
+                    }, function(data, textStatus, xhr) {
+                        if (data.success) {
+                            $btn.closest('.item').find('.new-title').text(data.data.title);
+                            $btn.closest('.item').find('.new-content').text(Utils.abbreviate(data.data.content, 65));
+                            $btn.closest('.item').find('.new-link').empty().append($('<a class="ui primary button" target="_blank" th:href="@{/article(id=${bigImg.link})}" href="#" role="button">了解更多</a>').attr('href', 'article?id=' + data.data.link));
+                            toastr.success('更新成功!');
+                        } else {
+                            toastr.error('更新失败!');
+                        }
+                    });
+                },
+                onShow: function() {
+
+                    //var $modal = $(this);
+
+                    //$modal.dimmer('show');
+
+                    $.post('admin/article/list', {
+                            timestamp: new Date().getTime()
+                        },
+                        function(data, textStatus, xhr) {
+                            if (data.success) {
+                                $.tmpl('<div class="item" data-value="${id}">${name}</div>', data.data).appendTo($('.ad-article-list .menu').empty());
+
+                                $.post('admin/settings/find', {
+                                    id: $btn.attr('data-id')
+                                }, function(data, textStatus, xhr) {
+
+                                    //$modal.dimmer('hide');
+
+                                    if (data.success) {
+                                        $('.ui.dropdown.ad-article-list').dropdown('set selected', data.data.link);
+                                        $('.ad-news-edit input[name="title"]').val(data.data.title);
+                                        $('.ad-news-edit textarea[name="content"]').val(data.data.content);
+                                    } else {
+                                        toastr.error('查询设置失败!');
+                                        return false;
+                                    }
+                                });
+                            } else {
+                                toastr.error('查询文章失败!');
+                                return false;
+                            }
+                        });
                 }
             }).modal('show');
         });
