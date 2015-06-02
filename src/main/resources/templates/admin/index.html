@@ -10,10 +10,12 @@
     <title>立衡脊柱-门户主页</title>
     <link rel="stylesheet" type="text/css" th:href="@{/lib/semantic/semantic.min.css}" href="../../static/lib/semantic/semantic.min.css" />
     <link rel="stylesheet" th:href="@{/lib/toastr/toastr.css}" href="../../static/lib/toastr/toastr.css" />
+    <link rel="stylesheet" type="text/css" th:href="@{/admin/css/md-github.css}" href="../../static/admin/css/md-github.css" />
     <link rel="stylesheet" type="text/css" th:href="@{/admin/css/admin.css}" href="../../static/admin/css/admin.css" />
     <script type="text/javascript" th:src="@{/lib/jquery-1.11.1.min.js}" src="../../static/lib/jquery-1.11.1.min.js"></script>
     <script type="text/javascript" th:src="@{/lib/jquery.tmpl.min.js}" src="../../static/lib/jquery.tmpl.min.js"></script>
     <script type="text/javascript" th:src="@{/lib/date.format.js}" src="../../static/lib/date.format.js"></script>
+    <script type="text/javascript" th:src="@{/lib/showdown.min.js}" src="../../static/lib/showdown.min.js"></script>
     <script type="text/javascript" th:src="@{/lib/semantic/semantic.min.js}" src="../../static/lib/semantic/semantic.min.js"></script>
     <script th:src="@{/lib/toastr/toastr.js}" src="../../static/lib/toastr/toastr.js"></script>
     <script type="text/javascript" th:src="@{/admin/js/admin.js}" src="../../static/admin/js/admin.js"></script>
@@ -182,7 +184,7 @@
                         <i class="dropdown icon"></i> 主页 - 使用指导
                     </div>
                     <div class="content">
-                        <p>暂无</p>
+                        <p class="markdown-content" data-url="admin/md/index.md"></p>
                     </div>
                 </div>
                 <h2 class="ui header">
@@ -401,40 +403,42 @@
             文章选择
         </div>
         <div class="content">
-            <table class="ui compact unstackable striped definition table table-news-select">
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>文章名</th>
-                        <th>发布日期</th>
-                        <th>发布者</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="collapsing">
-                            <div class="ui checkbox">
-                                <input type="checkbox" value="1">
-                                <label></label>
-                            </div>
-                        </td>
-                        <td class="article-name">John Lilki</td>
-                        <td>September 14, 2013</td>
-                        <td>jhlilk22@yahoo.com</td>
-                    </tr>
-                    <tr>
-                        <td class="collapsing">
-                            <div class="ui checkbox">
-                                <input type="checkbox" value="2">
-                                <label></label>
-                            </div>
-                        </td>
-                        <td>Jamie Harington</td>
-                        <td>January 11, 2014</td>
-                        <td>jamieharingonton@yahoo.com</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="content-news">
+                <table class="ui compact unstackable striped definition table table-news-select">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>文章名</th>
+                            <th>发布日期</th>
+                            <th>发布者</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="collapsing">
+                                <div class="ui checkbox">
+                                    <input type="checkbox" value="1">
+                                    <label></label>
+                                </div>
+                            </td>
+                            <td class="article-name">John Lilki</td>
+                            <td>September 14, 2013</td>
+                            <td>jhlilk22@yahoo.com</td>
+                        </tr>
+                        <tr>
+                            <td class="collapsing">
+                                <div class="ui checkbox">
+                                    <input type="checkbox" value="2">
+                                    <label></label>
+                                </div>
+                            </td>
+                            <td>Jamie Harington</td>
+                            <td>January 11, 2014</td>
+                            <td>jamieharingonton@yahoo.com</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
         <div class="actions">
             <div class="ui cancel negative button">取消</div>
@@ -516,7 +520,7 @@
                             if (data.success) {
 
                                 $.each(data.data, function(index, val) {
-                                     val['createDate'] = new Date(val.createDate).format('yyyy/MM/dd hh:mm:ss');
+                                    val['createDate'] = new Date(val.createDate).format('yyyy/MM/dd hh:mm:ss');
                                 });
 
                                 $('#articleItemTpl').tmpl(data.data).appendTo($('.ad-news-select table > tbody').empty());

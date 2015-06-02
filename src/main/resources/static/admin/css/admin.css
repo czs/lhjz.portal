@@ -114,3 +114,8 @@ div.admin.login {
     max-height: 400px;
     overflow-y: auto;
 }
+
+.ad-news-select .content-news{
+    max-height: 300px;
+    overflow-y: auto;
+}

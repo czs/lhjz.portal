@@ -58,6 +58,8 @@ public class Settings implements Serializable {
 	@Column(nullable = false)
 	private String username;
 
+	private double index = 0;
+
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
 	private Status status = Status.Normal;
@@ -148,6 +150,14 @@ public class Settings implements Serializable {
 		this.username = username;
 	}
 
+	public double getIndex() {
+		return index;
+	}
+
+	public void setIndex(double index) {
+		this.index = index;
+	}
+
 	public Status getStatus() {
 		return status;
 	}
@@ -177,8 +187,9 @@ public class Settings implements Serializable {
 		return "Settings [id=" + id + ", page=" + page + ", module=" + module
 				+ ", imgUrl=" + imgUrl + ", title=" + title + ", content="
 				+ content + ", detail=" + detail + ", link=" + link + ", more="
-				+ more + ", username=" + username + ", status=" + status
-				+ ", createDate=" + createDate + ", version=" + version + "]";
+				+ more + ", username=" + username + ", index=" + index
+				+ ", status=" + status + ", createDate=" + createDate
+				+ ", version=" + version + "]";
 	}
 
 }

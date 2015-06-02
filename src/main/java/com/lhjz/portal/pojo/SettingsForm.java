@@ -18,6 +18,7 @@ public class SettingsForm {
 	private String detail;
 	private String link;
 	private String more;
+	private double index;
 
 	public Page page() {
 		switch (page) {
@@ -105,12 +106,20 @@ public class SettingsForm {
 		this.more = more;
 	}
 
+	public double getIndex() {
+		return index;
+	}
+
+	public void setIndex(double index) {
+		this.index = index;
+	}
+
 	@Override
 	public String toString() {
 		return "SettingsForm [page=" + page + ", module=" + module
-				+ ", imgUrl=" + imgUrl + ", title=" + title + ", conent="
+				+ ", imgUrl=" + imgUrl + ", title=" + title + ", content="
 				+ content + ", detail=" + detail + ", link=" + link + ", more="
-				+ more + "]";
+				+ more + ", index=" + index + "]";
 	}
 
 }
