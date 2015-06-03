@@ -46,9 +46,9 @@ public class Article implements Serializable {
 	private String username;
 	private String path;
 
-	@Enumerated(EnumType.ORDINAL)
+	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
-	private Status status = Status.NORMAL;
+	private Status status = Status.Normal;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createDate;
@@ -118,6 +118,14 @@ public class Article implements Serializable {
 
 	public void setPath(String path) {
 		this.path = path;
+	}
+
+	@Override
+	public String toString() {
+		return "Article [id=" + id + ", name=" + name + ", content=" + content
+				+ ", username=" + username + ", path=" + path + ", status="
+				+ status + ", createDate=" + createDate + ", version="
+				+ version + "]";
 	}
 
 }

@@ -20,9 +20,9 @@ import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -32,7 +32,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.lhjz.portal.base.BaseController;
 import com.lhjz.portal.model.RespBody;
+import com.lhjz.portal.pojo.Enum.Action;
 import com.lhjz.portal.pojo.Enum.Status;
+import com.lhjz.portal.pojo.Enum.Target;
 import com.lhjz.portal.pojo.FileForm;
 import com.lhjz.portal.repository.FileRepository;
 import com.lhjz.portal.util.FileUtil;
@@ -54,10 +56,30 @@ public class FileController extends BaseController {
 	static Logger logger = LoggerFactory.getLogger(FileController.class);
 
 	@Autowired
-	Environment env;
-
-	@Autowired
 	FileRepository fileRepository;
+
+	@RequestMapping(value = "list", method = RequestMethod.POST)
+	@ResponseBody
+	public RespBody list(HttpServletRequest request,
+			HttpServletResponse response, ModelMap model, Locale locale) {
+		
+		String storePath = env.getProperty("lhjz.upload.img.store.path");
+		int sizeLarge = env.getProperty("lhjz.upload.img.scale.size.large",
+				Integer.class);
+		int sizeHuge = env.getProperty("lhjz.upload.img.scale.size.huge",
+				Integer.class);
+		int sizeOriginal = env.getProperty(
+				"lhjz.upload.img.scale.size.original", Integer.class);
+
+		// img relative path (eg:'upload/img/' & 640 & '/' )
+		model.addAttribute("path", storePath + sizeOriginal + "/");
+		model.addAttribute("pathLarge", storePath + sizeLarge + "/");
+		model.addAttribute("pathHuge", storePath + sizeHuge + "/");
+		// list all files
+		model.addAttribute("imgs", fileRepository.findAll());
+
+		return RespBody.succeed(model);
+	}
 
 	@RequestMapping(value = "update", method = RequestMethod.POST)
 	@ResponseBody
@@ -73,11 +95,16 @@ public class FileController extends BaseController {
 
 		com.lhjz.portal.entity.File file = fileRepository.findOne(fileForm
 				.getId());
-		if (file.getStatus() == Status.BULTIN) {
+		if (file.getStatus() == Status.Bultin) {
 			return RespBody.failed("内置文件，不能修改！");
 		}
 
+		String oldName = file.getName();
+
 		file.setName(fileForm.getName() + FileUtil.getType(file.getName()));
+
+		logWithProperties(Action.Update, Target.File, "name", file.getName(),
+				oldName);
 
 		return RespBody.succeed(fileRepository.save(file));
 	}
@@ -89,11 +116,13 @@ public class FileController extends BaseController {
 			@RequestParam(value = "id", required = true) Long id) {
 
 		com.lhjz.portal.entity.File file = fileRepository.findOne(id);
-		if (file.getStatus() == Status.BULTIN) {
+		if (file.getStatus() == Status.Bultin) {
 			return RespBody.failed("内置文件，不能删除！");
 		}
 
 		fileRepository.delete(id);
+
+		log(Action.Delete, Target.File, id);
 
 		return RespBody.succeed();
 	}
@@ -178,6 +207,8 @@ public class FileController extends BaseController {
 				file2.setUuidName(uuidName);
 				file2.setPath(storePath + sizeOriginal + "/");
 				saveFiles.add(fileRepository.save(file2));
+
+				log(Action.Upload, Target.File, file2);
 
 			} catch (Exception e) {
 				e.printStackTrace();

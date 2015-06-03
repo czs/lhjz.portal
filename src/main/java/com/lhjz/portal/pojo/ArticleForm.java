@@ -28,4 +28,9 @@ public class ArticleForm {
 		this.content = content;
 	}
 
+	@Override
+	public String toString() {
+		return "ArticleForm [name=" + name + ", content=" + content + "]";
+	}
+
 }

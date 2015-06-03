@@ -8,7 +8,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="file-upload-url" th:content="@{/admin/article/upload}">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
-    <title>立衡脊柱-文章管理</title>
+    <title>立衡脊柱-全部文章</title>
     <!-- css引用 -->
     <link rel="stylesheet" type="text/css" th:href="@{/lib/semantic/semantic.min.css}" href="../../static/lib/semantic/semantic.min.css" />
     <link rel="stylesheet" th:href="@{/lib/toastr/toastr.css}" href="../../static/lib/toastr/toastr.css" />
@@ -31,23 +31,20 @@
             <table class="ui sortable celled striped compact table segment lhjz-table-artilce">
                 <thead>
                     <th>名称</th>
-                    <th>内容</th>
                     <th>发布日期</th>
                     <th>操作</th>
                 </thead>
                 <tbody th:remove="all-but-first">
                     <tr th:each="article : ${articles}" th:attrappend="data-id=${article.id}">
-                        <td th:text="${#strings.abbreviate(article.name,20)}">xxxx</td>
-                        <td th:text="${#strings.abbreviate(article.content,50)}">yyyyyyyyyyyyyyyyyyyyyy</td>
+                        <td><a th:href="@{/admin/article/page/view(id=${article.id})}" href="#" th:text="${#strings.abbreviate(article.name,20)}"></a></td>
                         <td th:text="${#calendars.format(article.createDate,'yyyy/MM/dd HH:mm:ss')}">2015/05/12 12:00:00</td>
                         <td>
-                            <div class="ui compact tiny button lhjz-btn-edit">编辑</div>
+                            <a class="ui compact tiny button lhjz-btn-edit" th:href="@{/admin/article/page/update(id=${article.id})}" href="#">编辑</a>
                             <div class="ui compact tiny red button lhjz-btn-del">删除</div>
                         </td>
                     </tr>
                     <tr>
                         <td>xxxx</td>
-                        <td>yyyyyyyyyyyyyyyyyyyyyy</td>
                         <td>2015/05/12 12:00:00</td>
                         <td>
                             <div class="ui button lhjz-btn-edit">编辑</div>
@@ -56,7 +53,6 @@
                     </tr>
                     <tr>
                         <td>xxxx</td>
-                        <td>yyyyyyyyyyyyyyyyyyyyyy</td>
                         <td>2015/05/12 12:00:00</td>
                         <td>
                             <div class="ui button lhjz-btn-edit">编辑</div>
@@ -65,7 +61,6 @@
                     </tr>
                     <tr>
                         <td>xxxx</td>
-                        <td>yyyyyyyyyyyyyyyyyyyyyy</td>
                         <td>2015/05/12 12:00:00</td>
                         <td>
                             <div class="ui button lhjz-btn-edit">编辑</div>
@@ -74,7 +69,6 @@
                     </tr>
                     <tr>
                         <td>xxxx</td>
-                        <td>yyyyyyyyyyyyyyyyyyyyyy</td>
                         <td>2015/05/12 12:00:00</td>
                         <td>
                             <div class="ui button lhjz-btn-edit">编辑</div>
@@ -83,7 +77,6 @@
                     </tr>
                     <tr>
                         <td>xxxx</td>
-                        <td>yyyyyyyyyyyyyyyyyyyyyy</td>
                         <td>2015/05/12 12:00:00</td>
                         <td>
                             <div class="ui button lhjz-btn-edit">编辑</div>

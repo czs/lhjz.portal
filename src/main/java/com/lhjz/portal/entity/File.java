@@ -46,9 +46,9 @@ public class File implements Serializable {
 	@NotBlank
 	private String path;
 
-	@Enumerated(EnumType.ORDINAL)
+	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
-	private Status status = Status.NORMAL;
+	private Status status = Status.Normal;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createDate;
@@ -118,6 +118,14 @@ public class File implements Serializable {
 
 	public void setPath(String path) {
 		this.path = path;
+	}
+
+	@Override
+	public String toString() {
+		return "File [id=" + id + ", name=" + name + ", uuidName=" + uuidName
+				+ ", username=" + username + ", path=" + path + ", status="
+				+ status + ", createDate=" + createDate + ", version="
+				+ version + "]";
 	}
 
 }

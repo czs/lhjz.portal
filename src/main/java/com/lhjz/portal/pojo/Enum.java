@@ -1,4 +1,3 @@
-
 package com.lhjz.portal.pojo;
 
 /**
@@ -12,17 +11,23 @@ public class Enum {
 
 	public static enum Status {
 
-		NORMAL(0), DELETED(1), BULTIN(2);
+		Normal, Deleted, Bultin, New, Opening, Analyzing, Accepted, Processing, Resolved, Closed;
 
-		private int status;
+	}
 
-		private Status(int status) {
-			this.status = status;
-		}
+	public static enum Action {
+		Create, Read, Update, Delete, Upload, Visit;
+	}
 
-		public int getStatus() {
-			return status;
-		}
+	public static enum Target {
+		Article, File, Feedback, Diagnose, Settings, Page;
+	}
 
+	public static enum Page {
+		Unknow, Index;
+	}
+
+	public static enum Module {
+		Unknow, BigImg, HotNews, MoreNews;
 	}
 }

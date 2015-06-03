@@ -20,7 +20,6 @@ import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -32,8 +31,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.lhjz.portal.base.BaseController;
 import com.lhjz.portal.entity.Article;
+import com.lhjz.portal.model.Message;
 import com.lhjz.portal.model.RespBody;
 import com.lhjz.portal.pojo.ArticleForm;
+import com.lhjz.portal.pojo.Enum.Action;
+import com.lhjz.portal.pojo.Enum.Status;
+import com.lhjz.portal.pojo.Enum.Target;
 import com.lhjz.portal.repository.ArticleRepository;
 import com.lhjz.portal.repository.FileRepository;
 import com.lhjz.portal.util.ImageUtil;
@@ -55,12 +58,29 @@ public class ArticleController extends BaseController {
 	static Logger logger = LoggerFactory.getLogger(ArticleController.class);
 
 	@Autowired
-	Environment env;
-
-	@Autowired
 	FileRepository fileRepository;
 	@Autowired
 	ArticleRepository articleRepository;
+
+	@RequestMapping(value = "page/view", method = RequestMethod.GET)
+	public String viewPage(HttpServletRequest request,
+			HttpServletResponse response,
+			@RequestParam(value = "id", required = true) Long id, Model model,
+			Locale locale) {
+
+		Article article = articleRepository.findOne(id);
+
+		if (article == null) {
+			logger.error("Entity[{}] does not exists, ID:{}",
+					Article.class.getName(), id);
+			model.addAttribute("error", Message.error("您查看的文章不存在，权限不足或已经被删除！"));
+			return "admin/error";
+		} else {
+			model.addAttribute("article", article);
+		}
+
+		return "admin/article-view";
+	}
 
 	@RequestMapping(value = "list", method = RequestMethod.POST)
 	@ResponseBody
@@ -68,6 +88,15 @@ public class ArticleController extends BaseController {
 			HttpServletResponse response, Model model, Locale locale) {
 
 		return RespBody.succeed(articleRepository.findAll());
+	}
+
+	@RequestMapping(value = "get", method = RequestMethod.GET)
+	@ResponseBody
+	public RespBody get(HttpServletRequest request,
+			HttpServletResponse response,
+			@RequestParam(value = "id", required = true) Long id, Locale locale) {
+
+		return RespBody.succeed(articleRepository.findOne(id));
 	}
 
 	@RequestMapping(value = "page/list", method = RequestMethod.GET)
@@ -86,12 +115,23 @@ public class ArticleController extends BaseController {
 			@RequestParam(value = "id", required = true) Long id, Model model,
 			Locale locale) {
 
-		if (articleRepository.exists(id)) {
+		Article article = articleRepository.findOne(id);
+
+		if (article != null) {
+
+			if (article.getStatus() == Status.Bultin) {
+				return RespBody.failed("系统内置文章，不能删除！");
+			}
+
 			articleRepository.delete(id);
+
+			log(Action.Delete, Target.Article, id);
 
 			return RespBody.succeed("删除文章成功！");
 		} else {
-			return RespBody.failed("删除文章不存在，或许已经被删除！");
+			logger.error("Entity[{}] does not exists, ID:{}",
+					Article.class.getName(), id);
+			return RespBody.failed("删除文章不存在，权限不足或已经被删除！");
 		}
 	}
 
@@ -100,7 +140,14 @@ public class ArticleController extends BaseController {
 	public RespBody update(HttpServletRequest request,
 			HttpServletResponse response,
 			@RequestParam(value = "id", required = true) Long id,
-			@Valid ArticleForm articleForm, Model model, Locale locale) {
+			@Valid ArticleForm articleForm, BindingResult bindingResult,
+			Model model, Locale locale) {
+
+		if (bindingResult.hasErrors()) {
+			return RespBody.failed(bindingResult.getAllErrors().stream()
+					.map(err -> err.getDefaultMessage())
+					.collect(Collectors.joining("<br/>")));
+		}
 
 		Article article = articleRepository.findOne(id);
 
@@ -109,11 +156,40 @@ public class ArticleController extends BaseController {
 			article.setContent(articleForm.getContent());
 
 			articleRepository.saveAndFlush(article);
+
+			logWithProperties(Action.Update, Target.Article, "name, content",
+					articleForm, article);
+
 		} else {
-			return RespBody.failed("修改文章不存在，或许已经被删除！");
+			logger.error("Entity[{}] does not exists, ID:{}",
+					Article.class.getName(), id);
+			return RespBody.failed("修改文章不存在，权限不足或已经被删除！");
 		}
 
 		return RespBody.succeed("修改文章成功！");
+	}
+
+	@RequestMapping(value = "page/update", method = RequestMethod.GET)
+	public String updatePage(HttpServletRequest request,
+			HttpServletResponse response,
+			@RequestParam(value = "id", required = true) Long id, Model model,
+			Locale locale) {
+
+		Article article = articleRepository.findOne(id);
+
+		if (article != null) {
+			model.addAttribute("article", article);
+
+			articleRepository.saveAndFlush(article);
+
+			return "admin/article-update";
+		} else {
+			logger.error("Entity[{}] does not exists, ID:{}",
+					Article.class.getName(), id);
+			model.addAttribute("error", Message.error("更新文章不存在，权限不足或已经被删除！"));
+
+			return "admin/error";
+		}
 	}
 
 	@RequestMapping(value = "save", method = RequestMethod.POST)
@@ -133,7 +209,9 @@ public class ArticleController extends BaseController {
 				.getContent());
 
 		if (articles.size() > 0) {
-			return RespBody.failed("该文章已经存在！");
+			logger.error("Entity[{}] has exist, ID:{}",
+					Article.class.getName(), articles.get(0).getId());
+			return RespBody.failed("相同文章内容的文章已经存在！");
 		}
 
 		Article article = new Article();
@@ -142,7 +220,9 @@ public class ArticleController extends BaseController {
 		article.setCreateDate(new Date());
 		article.setUsername(WebUtil.getUsername());
 
-		articleRepository.save(article);
+		Article article2 = articleRepository.save(article);
+
+		log(Action.Create, Target.Article, article2);
 
 		return RespBody.succeed("保存文章成功！");
 	}
@@ -172,7 +252,7 @@ public class ArticleController extends BaseController {
 			FileUtils.forceMkdir(new File(realPath + storePath + sizeHuge));
 		} catch (IOException e) {
 			e.printStackTrace();
-			logger.error(e.getMessage(), e);
+			logger.error("Upload error: " + e.getMessage(), e);
 			return StringUtil.wrapByTextarea(JsonUtil.toJson(RespBody.failed(e
 					.getMessage())));
 		}
@@ -228,6 +308,8 @@ public class ArticleController extends BaseController {
 				file2.setUuidName(uuidName);
 				file2.setPath(storePath + sizeOriginal + "/");
 				saveFiles.add(fileRepository.save(file2));
+
+				log(Action.Upload, Target.Article, file2);
 
 			} catch (Exception e) {
 				e.printStackTrace();

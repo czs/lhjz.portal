@@ -3,14 +3,22 @@
  */
 package com.lhjz.portal.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.lhjz.portal.base.BaseController;
+import com.lhjz.portal.entity.Settings;
+import com.lhjz.portal.pojo.Enum.Module;
+import com.lhjz.portal.pojo.Enum.Page;
 import com.lhjz.portal.repository.FileRepository;
+import com.lhjz.portal.repository.SettingsRepository;
 
 /**
  * 
@@ -23,26 +31,53 @@ import com.lhjz.portal.repository.FileRepository;
 @RequestMapping("admin")
 public class AdminController extends BaseController {
 
+	static final Logger logger = LoggerFactory.getLogger(AdminController.class);
+
 	@Autowired
 	FileRepository fileRepository;
 
 	@Autowired
-	Environment env;
+	SettingsRepository settingsRepository;
 
 	@RequestMapping("login")
 	public String login(Model model) {
+
+		logger.debug("Enter method: {}", "login");
+
 		return "admin/login";
 	}
 
 	@RequestMapping()
 	public String home(Model model) {
+
+		List<Settings> settings = settingsRepository.findByPage(Page.Index);
+
+		List<Settings> bigImgs = new ArrayList<Settings>();
+		List<Settings> hotNews = new ArrayList<Settings>();
+		List<Settings> moreNews = new ArrayList<Settings>();
+
+		for (Settings settings2 : settings) {
+			if (settings2.getModule() == Module.BigImg) {
+				bigImgs.add(settings2);
+			} else if (settings2.getModule() == Module.HotNews) {
+				hotNews.add(settings2);
+			} else if (settings2.getModule() == Module.MoreNews) {
+				moreNews.add(settings2);
+			}
+		}
+
+		model.addAttribute("bigImgs", bigImgs);
+		model.addAttribute("hotNews", hotNews);
+		model.addAttribute("moreNews", moreNews);
+
 		return "admin/index";
 	}
 
-	@RequestMapping("index")
-	public String index(Model model) {
-		return "admin/index";
-	}
+	// @RequestMapping("index")
+	// public String index(Model model) {
+	//
+	// return "admin/index";
+	// }
 
 	@RequestMapping("about")
 	public String about(Model model) {
@@ -113,5 +148,10 @@ public class AdminController extends BaseController {
 	@RequestMapping("article")
 	public String article(Model model) {
 		return "admin/article";
+	}
+
+	@RequestMapping("feedback")
+	public String feedback(Model model) {
+		return "admin/feedback";
 	}
 }
