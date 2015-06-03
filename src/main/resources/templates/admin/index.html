@@ -264,7 +264,9 @@
             onChange: function(value, text, $choice) {
                 var $dropdown = $(this);
                 var $btn = $('.btn-article-detail');
-                $('.ad-news-edit input[name="title"]').val(text);
+                if (!!value) {
+                    $('.ad-news-edit input[name="title"]').val(text);
+                }
                 $btn.siblings('.popup').find('.header').text(text);
                 $btn.siblings('.popup').find('p').html($dropdown.dropdown('get item', value).attr('data-content'));
             }
@@ -389,6 +391,7 @@
                 function(data, textStatus, xhr) {
                     if (data.success) {
                         $.tmpl('<div class="item" data-value="${id}" data-content="${content}">${name}</div>', data.data).appendTo($('.ad-article-list .menu').empty());
+                        $('<div class="item" data-value="" data-content=""></div>').prependTo('.ad-article-list .menu');
 
                         $.post('admin/settings/find', {
                             id: $btn.attr('data-id')
@@ -416,7 +419,11 @@
                                             if (data.success) {
                                                 $btn.closest('.item').find('.new-title').text(data.data.title);
                                                 $btn.closest('.item').find('.new-content').text(Utils.abbreviate(data.data.content, 120));
-                                                $btn.closest('.item').find('.new-link').empty().append($('<a class="ui primary button" target="_blank" th:href="@{/article(id=${bigImg.link})}" href="#" role="button">了解更多</a>').attr('href', 'article?id=' + data.data.link));
+                                                if (!!data.data.link) {
+                                                    $btn.closest('.item').find('.new-link').empty().append($('<a class="ui primary button" target="_blank" th:href="@{/article(id=${bigImg.link})}" href="#" role="button">了解更多</a>').attr('href', 'article?id=' + data.data.link));
+                                                } else {
+                                                    $btn.closest('.item').find('.new-link').empty();
+                                                }
                                                 toastr.success('更新成功!');
                                             } else {
                                                 toastr.error('更新失败!');
@@ -446,6 +453,7 @@
                 function(data, textStatus, xhr) {
                     if (data.success) {
                         $.tmpl('<div class="item" data-value="${id}" data-content="${content}">${name}</div>', data.data).appendTo($('.ad-article-list .menu').empty());
+                        $('<div class="item" data-value="" data-content=""></div>').prependTo('.ad-article-list .menu');
 
                         $.post('admin/settings/find', {
                             id: $btn.attr('data-id')
