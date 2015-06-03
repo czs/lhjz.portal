@@ -6,10 +6,7 @@ jQuery(function($) {
 
     $('.ui.sticky').sticky({
         offset: 70,
-        //pushing: true,
-        //ottomOffset: 84,
-        //context: '.ad-index-container'
-        //context: '.context'
+        context: '#context'
     });
 
     $('.ad-index-logout').click(function() {
@@ -95,14 +92,28 @@ jQuery(function($) {
 
     $('.ad-add-image').click(function(event) {
         window.imgSelectFor = $(this).attr('data-for');
-        $('.ad-images').modal('show');
+
+        $.post('admin/file/list', {
+                timestamp: new Date().getTime()
+            },
+            function(data, textStatus, xhr) {
+                if (data.success) {
+                    $("#imageItemTpl").tmpl(data.data.imgs, data.data).appendTo($('.ad-images .cards').empty());
+                    $('.ui.checkbox').checkbox();
+
+                    $('.ad-images').modal('show');
+                } else {
+                    toastr.error(data.data, '图片加载失败!');
+                }
+            });
+    });
+
+    $('.ad-images.modal > .content').on('click', '.image', function(event) {
+        $(this).parents('.card').find('.ui.checkbox').checkbox("toggle");
     });
 
     $('.ad-images.modal').modal({
         closable: false,
-        onDeny: function() {
-            return true;
-        },
         onApprove: function() {
             var imgSrcArr = [];
             $('.cards').find('input:checked').parents('.card').find('img').each(function(index, el) {
@@ -117,15 +128,6 @@ jQuery(function($) {
                 toastr.error('您没有选择图片!');
                 return false;
             }
-        },
-        onShow: function() {
-            var data = {};
-            data[$('.ad-csrf input:hidden').attr('name')] = $('.ad-csrf input:hidden').attr('value');
-            $.post('admin/file/list', data,
-                function(data, textStatus, xhr) {
-                    $("#imageItemTpl").tmpl(data.data.imgs, data.data).appendTo($('.ad-images .cards').empty());
-                    $('.ui.checkbox').checkbox();
-                });
         },
         onVisible: function() {
             $('.ad-images.modal').modal('refresh');
@@ -151,6 +153,8 @@ jQuery(function($) {
             if (!!str && str.length > len) {
                 return str.substring(0, len - 3) + "...";
             }
+
+            return str;
         }
     });
 });

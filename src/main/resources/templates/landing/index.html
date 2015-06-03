@@ -34,9 +34,12 @@
             <div class="carousel-inner" th:remove="all-but-first">
                 <div class="item" th:each="bigImg,sts : ${bigImgs}" th:classappend="${sts.index} == 0 ? 'active' : ''">
                     <img alt="" th:src="${bigImg.imgUrl}" src="../../static/landing/img/img-b1.jpg" width="100%" />
-                    <div class="carousel-caption">
-                        <!-- <h4>焦点图一</h4>
-                        <p>焦点图一的描述</p> -->
+                    <div class="container">
+                        <div class="carousel-caption">
+                            <h1 th:text="${bigImg.title}">关于我们</h1>
+                            <p th:text="${#strings.abbreviate(bigImg.content,120)}">立衡脊柱成立于1994年，是一家专门治疗脊柱病以及脊柱相关病的医疗机构，全国开设有四家分院。院长张军，主任医师，带领立衡脊柱专家组潜心临床研究数十年总结出一套不开刀不手术无创伤治疗颈椎病以及腰椎病的保守疗法——立衡脊柱平衡矫正疗法。...</p>
+                            <p><a class="btn btn-lg btn-primary" th:href="@{/article(id=${bigImg.link})}" href="#" role="button">了解更多</a></p>
+                        </div>
                     </div>
                 </div>
                 <div class="item">

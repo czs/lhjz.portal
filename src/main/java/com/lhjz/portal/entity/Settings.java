@@ -58,6 +58,7 @@ public class Settings implements Serializable {
 	@Column(nullable = false)
 	private String username;
 
+	@Column(name = "_index")
 	private double index = 0;
 
 	@Enumerated(EnumType.STRING)
