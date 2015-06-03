@@ -21,19 +21,21 @@
     <div class="pusher ad-index-content">
         <div class="ad-index-container">
             <div th:replace="admin/index :: rail-menu"></div>
-            <h2 class="ui red header">
+            <div id="context">
+                <h2 class="ui red header">
                 <i class="warning sign icon"></i>
                 <div class="content">
                     哎呀，出现错误了！
                 </div>
-            </h2>
-            <div class="ui icon red message">
-                <i class="info circle icon"></i>
-                <div class="content">
-                    <div class="header">
-                        错误消息！
+                </h2>
+                <div class="ui icon red message">
+                    <i class="info circle icon"></i>
+                    <div class="content">
+                        <div class="header">
+                            错误消息！
+                        </div>
+                        <p th:text="${error.message}">系统错误！</p>
                     </div>
-                    <p th:text="${error.message}">系统错误！</p>
                 </div>
             </div>
         </div>

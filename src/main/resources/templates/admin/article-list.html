@@ -28,63 +28,67 @@
     <div class="pusher ad-index-content">
         <div class="ad-index-container">
             <div th:replace="admin/index :: rail-menu"></div>
-            <table class="ui sortable celled striped compact table segment lhjz-table-artilce">
-                <thead>
-                    <th>名称</th>
-                    <th>发布日期</th>
-                    <th>操作</th>
-                </thead>
-                <tbody th:remove="all-but-first">
-                    <tr th:each="article : ${articles}" th:attrappend="data-id=${article.id}">
-                        <td><a th:href="@{/admin/article/page/view(id=${article.id})}" href="#" th:text="${#strings.abbreviate(article.name,20)}"></a></td>
-                        <td th:text="${#calendars.format(article.createDate,'yyyy/MM/dd HH:mm:ss')}">2015/05/12 12:00:00</td>
-                        <td>
-                            <a class="ui compact tiny button lhjz-btn-edit" th:href="@{/admin/article/page/update(id=${article.id})}" href="#">编辑</a>
-                            <div class="ui compact tiny red button lhjz-btn-del">删除</div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>xxxx</td>
-                        <td>2015/05/12 12:00:00</td>
-                        <td>
-                            <div class="ui button lhjz-btn-edit">编辑</div>
-                            <div class="ui red button lhjz-btn-del">删除</div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>xxxx</td>
-                        <td>2015/05/12 12:00:00</td>
-                        <td>
-                            <div class="ui button lhjz-btn-edit">编辑</div>
-                            <div class="ui red button lhjz-btn-del">删除</div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>xxxx</td>
-                        <td>2015/05/12 12:00:00</td>
-                        <td>
-                            <div class="ui button lhjz-btn-edit">编辑</div>
-                            <div class="ui red button lhjz-btn-del">删除</div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>xxxx</td>
-                        <td>2015/05/12 12:00:00</td>
-                        <td>
-                            <div class="ui button lhjz-btn-edit">编辑</div>
-                            <div class="ui red button lhjz-btn-del">删除</div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>xxxx</td>
-                        <td>2015/05/12 12:00:00</td>
-                        <td>
-                            <div class="ui button lhjz-btn-edit">编辑</div>
-                            <div class="ui red button lhjz-btn-del">删除</div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <div id="context">
+                <table class="ui sortable celled striped compact table segment lhjz-table-artilce">
+                    <thead>
+                        <th>名称</th>
+                        <th>发布日期</th>
+                        <th>操作</th>
+                    </thead>
+                    <tbody th:remove="all-but-first">
+                        <tr th:each="article : ${articles}" th:attrappend="data-id=${article.id}">
+                            <td>
+                                <a th:href="@{/admin/article/page/view(id=${article.id})}" href="#" th:text="${#strings.abbreviate(article.name,20)}"></a>
+                            </td>
+                            <td th:text="${#calendars.format(article.createDate,'yyyy/MM/dd HH:mm:ss')}">2015/05/12 12:00:00</td>
+                            <td>
+                                <a class="ui compact tiny button lhjz-btn-edit" th:href="@{/admin/article/page/update(id=${article.id})}" href="#">编辑</a>
+                                <div class="ui compact tiny red button lhjz-btn-del">删除</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>xxxx</td>
+                            <td>2015/05/12 12:00:00</td>
+                            <td>
+                                <div class="ui button lhjz-btn-edit">编辑</div>
+                                <div class="ui red button lhjz-btn-del">删除</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>xxxx</td>
+                            <td>2015/05/12 12:00:00</td>
+                            <td>
+                                <div class="ui button lhjz-btn-edit">编辑</div>
+                                <div class="ui red button lhjz-btn-del">删除</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>xxxx</td>
+                            <td>2015/05/12 12:00:00</td>
+                            <td>
+                                <div class="ui button lhjz-btn-edit">编辑</div>
+                                <div class="ui red button lhjz-btn-del">删除</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>xxxx</td>
+                            <td>2015/05/12 12:00:00</td>
+                            <td>
+                                <div class="ui button lhjz-btn-edit">编辑</div>
+                                <div class="ui red button lhjz-btn-del">删除</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>xxxx</td>
+                            <td>2015/05/12 12:00:00</td>
+                            <td>
+                                <div class="ui button lhjz-btn-edit">编辑</div>
+                                <div class="ui red button lhjz-btn-del">删除</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
     <div class="ui small test modal">

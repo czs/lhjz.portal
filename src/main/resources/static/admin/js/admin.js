@@ -4,10 +4,12 @@ jQuery(function($) {
         $('.ad-index-menu').sidebar('toggle');
     });
 
-    $('.ui.sticky').sticky({
-        offset: 70,
-        context: '#context'
-    });
+    if ($('#context').size() == 1) {
+        $('.ui.sticky').sticky({
+            offset: 70,
+            context: '#context'
+        });
+    }
 
     $('.ad-index-logout').click(function() {
         $(this).siblings('form').submit();

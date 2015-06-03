@@ -21,13 +21,15 @@
     <div class="pusher ad-index-content">
         <div class="ad-index-container">
             <div th:replace="admin/index :: rail-menu"></div>
-            <div class="ui segment">
-                <h3 class="ui header">
+            <div id="context">
+                <div class="ui segment">
+                    <h3 class="ui header">
                     <span th:text="${article.name}">文章标题</span>
                     <a class="ui basic small compact button" th:href="@{/admin/article/page/update(id=${article.id})}" href="#">编辑</a>
                     <div class="sub header">发布日期: <span th:text="${#calendars.format(article.createDate,'yyyy/MM/dd HH:mm:ss')}">2014/05/22 12:00:00</span></div>
                 </h3>
-                <p th:utext="${article.content}">文章详细内容！</p>
+                    <p th:utext="${article.content}">文章详细内容！</p>
+                </div>
             </div>
         </div>
     </div>
