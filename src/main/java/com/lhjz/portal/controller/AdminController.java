@@ -12,13 +12,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.lhjz.portal.base.BaseController;
 import com.lhjz.portal.entity.Settings;
 import com.lhjz.portal.pojo.Enum.Module;
 import com.lhjz.portal.pojo.Enum.Page;
+import com.lhjz.portal.pojo.Enum.Status;
+import com.lhjz.portal.repository.DiagnoseRepository;
 import com.lhjz.portal.repository.FileRepository;
 import com.lhjz.portal.repository.SettingsRepository;
+import com.lhjz.portal.util.StringUtil;
 
 /**
  * 
@@ -38,6 +42,9 @@ public class AdminController extends BaseController {
 
 	@Autowired
 	SettingsRepository settingsRepository;
+
+	@Autowired
+	DiagnoseRepository diagnoseRepository;
 
 	@RequestMapping("login")
 	public String login(Model model) {
@@ -95,7 +102,35 @@ public class AdminController extends BaseController {
 	}
 
 	@RequestMapping("diagnose")
-	public String diagnose(Model model) {
+	public String diagnose(Model model,
+			@RequestParam(value = "status", required = false) String status) {
+
+		if (StringUtil.isEmpty(status)) {
+			model.addAttribute("diagnoses", diagnoseRepository.findAll());
+		} else {
+
+			Status sts = null;
+
+			switch (status) {
+			case "new":
+				sts = Status.New;
+				break;
+			case "ignored":
+				sts = Status.Ignored;
+				break;
+			case "resolved":
+				sts = Status.Resolved;
+				break;
+			default:
+				logger.error("查询状态对象不存在! status: {}", status);
+				sts = Status.Unknow;
+				break;
+			}
+
+			model.addAttribute("diagnoses",
+					diagnoseRepository.findByStatus(sts));
+		}
+
 		return "admin/diagnose";
 	}
 

@@ -8,6 +8,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.lhjz.portal.entity.Diagnose;
+import com.lhjz.portal.pojo.Enum.Status;
 
 /**
  * 
@@ -21,5 +22,7 @@ public interface DiagnoseRepository extends JpaRepository<Diagnose, Long> {
 	List<Diagnose> findByMailAndDescription(String mail, String description);
 
 	List<Diagnose> findByPhoneAndDescription(String phone, String description);
+
+	List<Diagnose> findByStatus(Status status);
 
 }
