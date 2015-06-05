@@ -57,7 +57,9 @@
                                 <td th:text="${diagnose.phone}">2015/05/12 12:00:00</td>
                                 <td th:text="${diagnose.mail}">2015/05/12 12:00:00</td>
                                 <td th:text="${#calendars.format(diagnose.createDate,'yyyy/MM/dd HH:mm:ss')}">2015/05/12 12:00:00</td>
-                                <td th:text="${diagnose.status}">2015/05/12 12:00:00</td>
+                                <td th:if="${#strings.equalsIgnoreCase(diagnose.status, 'new')}"><div class="ui blue small tag label">新创建</div></td>
+                                <td th:if="${#strings.equalsIgnoreCase(diagnose.status, 'ignored')}"><div class="ui yellow small tag label">已忽略</div></td>
+                                <td th:if="${#strings.equalsIgnoreCase(diagnose.status, 'resolved')}"><div class="ui green small tag label">已处理</div></td>
                                 <td>
                                     <div class="ui compact tiny primary button lhjz-btn-del">反馈</div>
                                     <div class="ui compact tiny yellow button lhjz-btn-del">忽略</div>
