@@ -65,4 +65,10 @@ public class AuthorityId implements java.io.Serializable {
 		return result;
 	}
 
+	@Override
+	public String toString() {
+		return "AuthorityId [username=" + username + ", authority=" + authority
+				+ "]";
+	}
+
 }

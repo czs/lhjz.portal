@@ -56,4 +56,9 @@ public class Authority implements java.io.Serializable {
 		this.user = user;
 	}
 
+	@Override
+	public String toString() {
+		return "Authority [id=" + id + "]";
+	}
+
 }

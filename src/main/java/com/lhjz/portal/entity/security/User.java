@@ -1,4 +1,5 @@
 package com.lhjz.portal.entity.security;
+
 // default package
 // Generated May 6, 2015 11:39:38 AM by Hibernate Tools 4.3.1
 
@@ -35,7 +36,8 @@ public class User implements java.io.Serializable {
 		this.enabled = enabled;
 	}
 
-	public User(String username, String password, boolean enabled, Set<Authority> authorities) {
+	public User(String username, String password, boolean enabled,
+			Set<Authority> authorities) {
 		this.username = username;
 		this.password = password;
 		this.enabled = enabled;
@@ -77,6 +79,12 @@ public class User implements java.io.Serializable {
 
 	public void setAuthorities(Set<Authority> authorities) {
 		this.authorities = authorities;
+	}
+
+	@Override
+	public String toString() {
+		return "User [username=" + username + ", password=" + password
+				+ ", enabled=" + enabled + "]";
 	}
 
 }

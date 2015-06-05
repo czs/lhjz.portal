@@ -199,6 +199,13 @@ Dependency
 >
 1. 使用java entity定义用户验证授权的数据库表结构
 
+### 2015/6/5
+
+框架结构构建
+>
+1. JsonPath: http://goessner.net/articles/JsonPath/
+2. thymeleaf-extras-springsecurity: https://github.com/thymeleaf/thymeleaf-extras-springsecurity
+
 # TODO
 >
 1. more thymeleaf `tags & expressions` test.

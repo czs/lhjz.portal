@@ -9,6 +9,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +23,7 @@ import com.lhjz.portal.pojo.Enum.Status;
 import com.lhjz.portal.repository.DiagnoseRepository;
 import com.lhjz.portal.repository.FileRepository;
 import com.lhjz.portal.repository.SettingsRepository;
+import com.lhjz.portal.repository.UserRepository;
 import com.lhjz.portal.util.StringUtil;
 
 /**
@@ -45,6 +47,9 @@ public class AdminController extends BaseController {
 
 	@Autowired
 	DiagnoseRepository diagnoseRepository;
+
+	@Autowired
+	UserRepository userRepository;
 
 	@RequestMapping("login")
 	public String login(Model model) {
@@ -157,6 +162,17 @@ public class AdminController extends BaseController {
 	@RequestMapping("team")
 	public String team(Model model) {
 		return "admin/team";
+	}
+
+	@RequestMapping("user")
+	@Secured("ROLE_ADMIN")
+	public String user(Model model) {
+
+		logger.debug("Enter method...");
+
+		model.addAttribute("users", userRepository.findAll());
+
+		return "admin/user";
 	}
 
 	@RequestMapping("resource")

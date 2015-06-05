@@ -7,8 +7,11 @@ import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.lhjz.portal.entity.Log;
+import com.lhjz.portal.model.Message;
 import com.lhjz.portal.pojo.Enum.Action;
 import com.lhjz.portal.pojo.Enum.Target;
 import com.lhjz.portal.repository.LogRepository;
@@ -63,5 +66,11 @@ public abstract class BaseController {
 
 		return logRepository.saveAndFlush(log);
 
+	}
+
+	@ExceptionHandler(Exception.class)
+	public ModelAndView exceptionHandler(Exception ex) {
+
+		return new ModelAndView("admin/error", "error", Message.error(ex.getMessage()));
 	}
 }

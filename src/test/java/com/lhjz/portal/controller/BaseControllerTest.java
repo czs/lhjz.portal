@@ -3,12 +3,15 @@
  */
 package com.lhjz.portal.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.boot.test.TestRestTemplate;
 import org.springframework.boot.test.WebIntegrationTest;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
+import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.context.WebApplicationContext;
 
 import com.lhjz.portal.Application;
 
@@ -26,6 +29,11 @@ public abstract class BaseControllerTest extends
 
 	@Value("${local.server.port}")
 	protected int port;
+
+	@Autowired
+	protected WebApplicationContext context;
+
+	protected MockMvc mvc;
 
 	protected RestTemplate template = new TestRestTemplate();
 

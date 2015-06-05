@@ -55,6 +55,8 @@
         </a>
         <a th:classappend="${#strings.contains(uri, '/admin/article')} ? 'active' : ''" class="item" th:href="@{/admin/article}" href="article.html"> <i class="file text outline icon"></i> 文章管理
         </a>
+        <a sec:authorize="hasRole('ROLE_ADMIN')" th:classappend="${#strings.contains(uri, '/admin/user')} ? 'active' : ''" class="item" th:href="@{/admin/user}" href="user.html"> <i class="users icon"></i> 用户管理
+        </a>
     </div>
     <div th:fragment="top-fixed-menu" class="ui fixed inverted main menu">
         <div class="container">
@@ -119,6 +121,9 @@
                         </a>
                         <a th:classappend="${#strings.contains(uri, '/admin/article')} ? 'active' : ''" class="item" th:href="@{/admin/article}" href="article.html">
                             <i class="file text outline icon"></i> 文章管理
+                        </a>
+                        <a sec:authorize="hasRole('ROLE_ADMIN')" th:classappend="${#strings.contains(uri, '/admin/user')} ? 'active' : ''" class="item" th:href="@{/admin/user}" href="user.html">
+                            <i class="file text outline icon"></i> 用户管理
                         </a>
                     </div>
                 </div>

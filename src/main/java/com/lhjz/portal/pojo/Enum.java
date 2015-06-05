@@ -20,7 +20,7 @@ public class Enum {
 	}
 
 	public static enum Target {
-		Article, File, Feedback, Diagnose, Settings, Page;
+		Article, File, Feedback, Diagnose, Settings, Page, User, Authority;
 	}
 
 	public static enum Page {
@@ -29,5 +29,9 @@ public class Enum {
 
 	public static enum Module {
 		Unknow, BigImg, HotNews, MoreNews;
+	}
+
+	public static enum Role {
+		ROLE_USER, ROLE_ADMIN;
 	}
 }
