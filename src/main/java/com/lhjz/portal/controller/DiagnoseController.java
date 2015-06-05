@@ -20,6 +20,7 @@ import com.lhjz.portal.pojo.Enum.Action;
 import com.lhjz.portal.pojo.Enum.Status;
 import com.lhjz.portal.pojo.Enum.Target;
 import com.lhjz.portal.repository.DiagnoseRepository;
+import com.lhjz.portal.util.EnumUtil;
 
 /**
  * 
@@ -63,18 +64,9 @@ public class DiagnoseController extends BaseController {
 		Diagnose diagnose = diagnoseRepository.findOne(id);
 
 		// Ignored Resolved
-		Status sts = null;
-		switch (status) {
-		case "new":
-			sts = Status.New;
-			break;
-		case "ignored":
-			sts = Status.Ignored;
-			break;
-		case "resolved":
-			sts = Status.Resolved;
-			break;
-		default:
+		Status sts = EnumUtil.status(status);
+
+		if (sts == Status.Unknow) {
 			logger.error("更新状态不存在! status: {}", status);
 			return RespBody.failed("更新状态不存在!");
 		}

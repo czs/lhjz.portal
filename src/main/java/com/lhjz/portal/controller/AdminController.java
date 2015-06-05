@@ -22,6 +22,7 @@ import com.lhjz.portal.pojo.Enum.Status;
 import com.lhjz.portal.repository.DiagnoseRepository;
 import com.lhjz.portal.repository.FileRepository;
 import com.lhjz.portal.repository.SettingsRepository;
+import com.lhjz.portal.util.EnumUtil;
 import com.lhjz.portal.util.StringUtil;
 
 /**
@@ -109,22 +110,10 @@ public class AdminController extends BaseController {
 			model.addAttribute("diagnoses", diagnoseRepository.findAll());
 		} else {
 
-			Status sts = null;
+			Status sts = EnumUtil.status(status);
 
-			switch (status) {
-			case "new":
-				sts = Status.New;
-				break;
-			case "ignored":
-				sts = Status.Ignored;
-				break;
-			case "resolved":
-				sts = Status.Resolved;
-				break;
-			default:
+			if (sts == Status.Unknow) {
 				logger.error("查询状态对象不存在! status: {}", status);
-				sts = Status.Unknow;
-				break;
 			}
 
 			model.addAttribute("diagnoses",
