@@ -81,11 +81,11 @@
         </tr>
     </script>
     <!-- hidden form for getting csrf -->
-    <form th:fragment="hiddenCsrf" class="hidden ad-csrf">
+    <form th:fragment="ad-csrf" class="hidden ad-csrf">
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
     </form>
     <!-- image select modal -->
-    <div th:fragment="modalImageSelect" class="ui modal ad-images">
+    <div th:fragment="ad-images" class="ui modal ad-images">
         <!-- <i class="close icon"></i> -->
         <div class="header">
             图片选择
@@ -133,8 +133,8 @@
         </div>
     </div>
     <!-- delete confirm modal -->
-    <div th:fragment="modalDeleteConfirm" class="ui small modal ad-delete-confirm">
-        <i class="close icon"></i>
+    <div th:fragment="ad-delete-confirm" class="ui small modal ad-delete-confirm">
+        <!-- <i class="close icon"></i> -->
         <div class="header">
             删除确认
         </div>
@@ -146,8 +146,22 @@
             <div class="ui ok positive button">确定</div>
         </div>
     </div>
+    <!-- handle confirm -->
+    <div th:fragment="ad-handle-confirm" class="ui small modal ad-handle-confirm">
+        <!-- <i class="close icon"></i> -->
+        <div class="header">
+            操作确认
+        </div>
+        <div class="content">
+            <p>确定要执行当前操作吗?</p>
+        </div>
+        <div class="actions">
+            <div class="ui cancel negative button">取消</div>
+            <div class="ui ok positive button">确定</div>
+        </div>
+    </div>
     <!-- hot news edit modal -->
-    <div th:fragment="modalNewsEdit" class="ui small modal ad-news-edit">
+    <div th:fragment="ad-news-edit" class="ui small modal ad-news-edit">
         <!-- <i class="close icon"></i> -->
         <div class="header">
             热点动态编辑
@@ -196,7 +210,7 @@
         </div>
     </div>
     <!-- news select modal -->
-    <div th:fragment="modalNewsSelect" class="ui small modal ad-news-select">
+    <div th:fragment="ad-news-select" class="ui small modal ad-news-select">
         <div class="header">
             文章选择
         </div>
@@ -243,7 +257,39 @@
             <div class="ui ok positive button">确定</div>
         </div>
     </div>
-    <div th:fragment="pageDimmer" class="ui dimmer page-dimmer">
+    <!-- diagnose feedback modal -->
+    <div th:fragment="ad-diagnose-feedback" class="ui small modal ad-diagnose-feedback">
+        <div class="header">
+            在线诊断-症状反馈
+        </div>
+        <div class="content">
+            <div class="ui segment">
+                <form class="ui reply form">
+                    <div class="inline field">
+                        <label>反馈对象:</label>
+                        <div class="ui black label diagnose-mail">xiweicheng@yeah.net</div>
+                        <div class="ui icon compact small button btn-diagnose-detail">
+                            <i class="angle double down icon"></i>
+                        </div>
+                        <div class="ui popup">
+                            <div class="ui segment" style="max-height:200px; overflow:auto;">
+                                <h3 class="ui header">症状描述</h3>
+                                <p class="diagnose-description">症状内容</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <textarea name="content" placeholder="反馈内容"></textarea>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="actions">
+            <div class="ui cancel negative button">取消</div>
+            <div class="ui ok positive button">确定</div>
+        </div>
+    </div>
+    <div th:fragment="ad-page-dimmer" class="ui dimmer ad-page-dimmer">
         <div class="ui large text loader">加载中...</div>
     </div>
 </body>

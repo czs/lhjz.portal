@@ -11,7 +11,7 @@ public class Enum {
 
 	public static enum Status {
 
-		Unknow, Normal, Deleted, Bultin, New, Opening, Analyzing, Accepted, Processing, Resolved, Closed, Ignored;
+		Unknow, Normal, Deleted, Bultin, New, Opening, Analyzing, Accepted, Processing, Resolved, Closed, Ignored, Failed;
 
 	}
 

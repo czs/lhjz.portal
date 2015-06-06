@@ -20,6 +20,36 @@
 
 <body>
     <div class="ui segment">
+        <h2 class="ui header">
+                <i class="info circle icon"></i>
+                <div class="content">
+                    在线诊断症状反馈
+                </div>
+                </h2>
+        <form class="ui reply form">
+            <div class="inline field">
+                <label>反馈对象:</label>
+                <div class="ui black label">xiweicheng@yeah.net</div>
+                <div class="ui icon compact small button btn-diagnose-detail">
+                    <i class="angle double down icon"></i>
+                </div>
+                <div class="ui popup">
+                    <div class="ui segment" style="max-height:200px; overflow:auto;">
+                        <h3 class="ui header">症状描述</h3>
+                        <p>症状内容</p>
+                    </div>
+                </div>
+            </div>
+            <div class="field">
+                <textarea name="content" placeholder="反馈内容"></textarea>
+            </div>
+            <input type="hidden" name="url" value="" th:value="${#httpServletRequest.getParameter('url')}" />
+            <div class="ui blue labeled submit icon button">
+                <i class="icon edit"></i> 提交
+            </div>
+        </form>
+    </div>
+    <div class="ui segment">
         <div class="ui button">Show fluid popup</div>
         <div class="ui fluid popup">
             <div class="ui segment" style="max-height:200px; overflow:auto;">
@@ -228,9 +258,20 @@
     </table>
     <script type="text/javascript">
     jQuery(document).ready(function($) {
-        $('.ui.button')
+        // $('.ui.button')
+        //     .popup({
+        //         inline: true,
+        //         hoverable: true,
+        //         position: 'bottom left',
+        //         delay: {
+        //             show: 300,
+        //             hide: 800
+        //         }
+        //     });
+
+        $('.btn-diagnose-detail')
             .popup({
-                inline: true,
+                //inline: true,
                 hoverable: true,
                 position: 'bottom left',
                 delay: {

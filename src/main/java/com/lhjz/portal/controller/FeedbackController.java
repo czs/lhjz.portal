@@ -27,6 +27,7 @@ import com.lhjz.portal.pojo.Enum.Action;
 import com.lhjz.portal.pojo.Enum.Target;
 import com.lhjz.portal.pojo.FeedbackForm;
 import com.lhjz.portal.repository.FeedbackRepository;
+import com.lhjz.portal.util.DateUtil;
 import com.lhjz.portal.util.ThreadUtil;
 import com.lhjz.portal.util.WebUtil;
 
@@ -87,7 +88,10 @@ public class FeedbackController extends BaseController {
 		log(Action.Create, Target.Feedback, feedback2);
 
 		ThreadUtil.exec(() -> {
-			if (mailSender.sendText("立恒脊柱(LHJZ)用户反馈", feedback2.toString())) {
+			if (mailSender.sendText(
+					String.format("立恒脊柱-用户反馈_%s",
+							DateUtil.format(new Date(), DateUtil.FORMAT2)),
+					feedback2.toString())) {
 				logger.info("反馈邮件发送成功！ID:{}", feedback2.getId());
 			} else {
 				logger.error("反馈邮件发送失败！ID:{}", feedback2.getId());
