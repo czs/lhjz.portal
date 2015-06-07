@@ -33,7 +33,7 @@ SET NAMES 'utf8';
 INSERT INTO `authorities` (username, authority) VALUES ('admin', 'ROLE_ADMIN');
 INSERT INTO `authorities` (username, authority) VALUES ('admin', 'ROLE_USER');
 INSERT INTO `authorities` (username, authority) VALUES ('xiwc', 'ROLE_ADMIN');
---INSERT INTO `authorities` (username, authority) VALUES ('xiwc', 'ROLE_USER');
+INSERT INTO `authorities` (username, authority) VALUES ('xiwc', 'ROLE_USER');
 --INSERT INTO `authorities` (username, authority) VALUES ('lhjz', 'ROLE_ADMIN');
 INSERT INTO `authorities` (username, authority) VALUES ('lhjz', 'ROLE_USER');
 INSERT INTO `authorities` (username, authority) VALUES ('test1', 'ROLE_USER');

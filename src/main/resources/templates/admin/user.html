@@ -73,7 +73,6 @@
             </div>
         </div>
     </div>
-    <div th:replace="admin/template :: ad-csrf"></div>
     <div th:replace="admin/template :: ad-handle-confirm"></div>
     <div th:replace="admin/template :: ad-delete-confirm"></div>
     <div th:replace="admin/template :: ad-user-add"></div>
@@ -88,7 +87,7 @@
             if ($(el).text() == 'ROLE_ADMIN') {
                 $(el).text('管理员').addClass('green');
                 if ($(el).siblings('.label').size() != 0) {
-                    $(el).prependTo($(el).parent('td'));
+                    $(el).appendTo($(el).parent('td'));
                 }
             } else if ($(el).text() == 'ROLE_USER') {
                 $(el).text('普通用户');

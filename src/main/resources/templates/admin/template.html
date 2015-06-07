@@ -80,10 +80,6 @@
             <td>${username}</td>
         </tr>
     </script>
-    <!-- hidden form for getting csrf -->
-    <form th:fragment="ad-csrf" class="hidden ad-csrf">
-        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-    </form>
     <!-- image select modal -->
     <div th:fragment="ad-images" class="ui modal ad-images">
         <!-- <i class="close icon"></i> -->
@@ -353,6 +349,10 @@
     </div>
     <!-- common page template -->
     <div th:fragment="ad-page-common">
+        <!-- hidden form for getting csrf -->
+        <form th:fragment="ad-csrf" class="hidden ad-csrf">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+        </form>
         <!-- user own edit modal -->
         <div th:fragment="ad-user-own-edit" class="ui small modal ad-user-own-edit">
             <div class="header">
