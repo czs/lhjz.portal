@@ -65,7 +65,7 @@
                                     <div class="ui yellow small tag label">已忽略</div>
                                 </td>
                                 <td th:if="${#strings.equalsIgnoreCase(diagnose.status, 'resolved')}">
-                                    <div class="ui green small tag label">已处理</div>
+                                    <div th:attr="data-content=${diagnose.content}" class="ui green small tag label popup-resolved">已处理</div>
                                 </td>
                                 <td th:if="${#strings.equalsIgnoreCase(diagnose.status, 'failed')}">
                                     <div class="ui red small tag label">反馈失败</div>
@@ -100,12 +100,13 @@
         $('.btn-diagnose-detail')
             .popup({
                 hoverable: true,
-                position: 'bottom left',
+                position: 'bottom right',
                 delay: {
                     show: 300,
                     hide: 300
                 }
             });
+        $('.popup-resolved').popup();
 
         $('.table-diagnose').on('click', '.lhjz-btn-feedback', function(event) {
             var $btn = $(this);
