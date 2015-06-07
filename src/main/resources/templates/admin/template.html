@@ -292,6 +292,92 @@
     <div th:fragment="ad-page-dimmer" class="ui dimmer ad-page-dimmer">
         <div class="ui large text loader">加载中...</div>
     </div>
+    <!-- user add modal -->
+    <div th:fragment="ad-user-add" class="ui small modal ad-user-add">
+        <div class="header">
+            添加用户
+        </div>
+        <div class="content">
+            <div class="ui segment">
+                <div class="ui warning message">新添加的用户默认密码为 888888 并且是禁用状态,需要单独开启后才能使用.</div>
+                <div class="ui form">
+                    <div class="field">
+                        <label>用户名:</label>
+                        <input name="username" type="text" placeholder="用户名">
+                    </div>
+                    <div class="inline field">
+                        <label>角色:</label>
+                        <div class="ui radio checkbox">
+                            <input type="radio" name="role" value="user" checked>
+                            <label>普通用户</label>
+                        </div>
+                        <div class="ui radio checkbox">
+                            <input type="radio" name="role" value="admin">
+                            <label>管理员</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="actions">
+            <div class="ui cancel negative button">取消</div>
+            <div class="ui ok positive button">确定</div>
+        </div>
+    </div>
+    <!-- user edit modal -->
+    <div th:fragment="ad-user-edit" class="ui small modal ad-user-edit">
+        <div class="header">
+            用户信息修改
+        </div>
+        <div class="content">
+            <div class="ui segment">
+                <div class="ui form">
+                    <div class="inline field">
+                        <label>用户名:</label>
+                        <div class="ui black label user-username">username</div>
+                    </div>
+                    <div class="field">
+                        <label>密码:</label>
+                        <input name="password" type="text" placeholder="密码">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="actions">
+            <div class="ui cancel negative button">取消</div>
+            <div class="ui ok positive button">确定</div>
+        </div>
+    </div>
+    <div th:fragment="ad-page-dimmer" class="ui dimmer ad-page-dimmer">
+        <div class="ui large text loader">加载中...</div>
+    </div>
+    <!-- common page template -->
+    <div th:fragment="ad-page-common">
+        <!-- user own edit modal -->
+        <div th:fragment="ad-user-own-edit" class="ui small modal ad-user-own-edit">
+            <div class="header">
+                个人信息修改
+            </div>
+            <div class="content">
+                <div class="ui segment">
+                    <div class="ui form">
+                        <div class="inline field">
+                            <label>用户名:</label>
+                            <div class="ui black label user-username">username</div>
+                        </div>
+                        <div class="field">
+                            <label>密码:</label>
+                            <input name="password" type="text" placeholder="密码">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="actions">
+                <div class="ui cancel negative button">取消</div>
+                <div class="ui ok positive button">确定</div>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>

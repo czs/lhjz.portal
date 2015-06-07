@@ -64,7 +64,7 @@
                 <i class="content icon"></i> 菜单
             </a>
             <div class="title item">
-                <b>立恒脊柱</b> - 后台管理
+                <b>立衡脊柱</b>
             </div>
             <div class="right menu">
                 <div class="item ui button ad-item-feedback">
@@ -73,6 +73,9 @@
                         <input type="hidden" name="url" value="" th:value="${#httpServletRequest.requestURI}" />
                         <input type="hidden" name="name" value="" />
                     </form>
+                </div>
+                <div class="item ui button">
+                    <div th:attr="data-id=${#authentication.name},data-html='当前登录用户: <b>' + ${#authentication.name} + '</b>'" class="ad-index-user-edit popup-login-user">修改 </div>
                 </div>
                 <div class="item ui button">
                     <div class="ad-index-logout">退出 </div>
@@ -123,7 +126,7 @@
                             <i class="file text outline icon"></i> 文章管理
                         </a>
                         <a sec:authorize="hasRole('ROLE_ADMIN')" th:classappend="${#strings.contains(uri, '/admin/user')} ? 'active' : ''" class="item" th:href="@{/admin/user}" href="user.html">
-                            <i class="file text outline icon"></i> 用户管理
+                            <i class="users icon"></i> 用户管理
                         </a>
                     </div>
                 </div>
@@ -260,6 +263,7 @@
     <div th:replace="admin/template :: ad-delete-confirm"></div>
     <div th:replace="admin/template :: ad-news-edit"></div>
     <div th:replace="admin/template :: ad-news-select"></div>
+    <div th:include="admin/template :: ad-page-common"></div>
     <div th:replace="admin/template :: ad-page-dimmer"></div>
     <!-- page handler -->
     <script type="text/javascript">

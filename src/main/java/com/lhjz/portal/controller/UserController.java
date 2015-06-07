@@ -3,6 +3,7 @@
  */
 package com.lhjz.portal.controller;
 
+import java.util.Date;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
@@ -26,6 +27,7 @@ import com.lhjz.portal.entity.security.User;
 import com.lhjz.portal.model.RespBody;
 import com.lhjz.portal.pojo.Enum.Action;
 import com.lhjz.portal.pojo.Enum.Role;
+import com.lhjz.portal.pojo.Enum.Status;
 import com.lhjz.portal.pojo.Enum.Target;
 import com.lhjz.portal.pojo.UserForm;
 import com.lhjz.portal.repository.AuthorityRepository;
@@ -58,7 +60,8 @@ public class UserController extends BaseController {
 	@RequestMapping(value = "save", method = RequestMethod.POST)
 	@ResponseBody
 	@Secured({ "ROLE_ADMIN" })
-	public RespBody save(@Valid UserForm userForm, BindingResult bindingResult) {
+	public RespBody save(@RequestParam("role") String role,
+			@Valid UserForm userForm, BindingResult bindingResult) {
 
 		if (bindingResult.hasErrors()) {
 			return RespBody.failed(bindingResult.getAllErrors().stream()
@@ -66,11 +69,17 @@ public class UserController extends BaseController {
 					.collect(Collectors.joining("<br/>")));
 		}
 
+		if (userRepository.exists(userForm.getUsername())) {
+			logger.error("添加用户已经存在, ID: {}", userForm.getUsername());
+			return RespBody.failed("添加用户已经存在!");
+		}
+
 		// save username and password
 		User user = new User();
 		user.setUsername(userForm.getUsername());
 		user.setPassword(passwordEncoder.encode(userForm.getPassword()));
-		user.setEnabled(true);
+		user.setEnabled(userForm.getEnabled());
+		user.setCreateDate(new Date());
 
 		userRepository.saveAndFlush(user);
 
@@ -85,7 +94,17 @@ public class UserController extends BaseController {
 
 		log(Action.Create, Target.Authority, authority);
 
-		return RespBody.succeed(user);
+		if (role.equalsIgnoreCase("admin")) {
+			Authority authority2 = new Authority();
+			authority2.setId(new AuthorityId(userForm.getUsername(),
+					Role.ROLE_ADMIN.name()));
+
+			authorityRepository.saveAndFlush(authority2);
+
+			log(Action.Create, Target.Authority, authority2);
+		}
+
+		return RespBody.succeed(user.getUsername());
 	}
 
 	@RequestMapping(value = "update", method = RequestMethod.POST)
@@ -101,16 +120,22 @@ public class UserController extends BaseController {
 		}
 
 		if (StringUtil.isNotEmpty(userForm.getPassword())) {
+
+			if (userForm.getPassword().length() < 6) {
+				logger.error("修改密码长度小于六位, ID: {}", userForm.getUsername());
+				return RespBody.failed("修改密码长度不能小于六位!");
+			}
+
 			user.setPassword(passwordEncoder.encode(userForm.getPassword()));
 		}
 
-		if (userForm.getEnabled() != null) {
+		if (userForm.getEnabled() != null && user.getStatus() != Status.Bultin) {
 			user.setEnabled(userForm.getEnabled());
 		}
 
 		userRepository.saveAndFlush(user);
 
-		return RespBody.succeed(user);
+		return RespBody.succeed(user.getUsername());
 	}
 
 	@RequestMapping(value = "update2", method = RequestMethod.POST)
@@ -131,16 +156,22 @@ public class UserController extends BaseController {
 		}
 
 		if (StringUtil.isNotEmpty(userForm.getPassword())) {
+
+			if (userForm.getPassword().length() < 6) {
+				logger.error("修改密码长度小于六位, ID: {}", userForm.getUsername());
+				return RespBody.failed("修改密码长度不能小于六位!");
+			}
+
 			user.setPassword(passwordEncoder.encode(userForm.getPassword()));
 		}
 
-		if (userForm.getEnabled() != null) {
+		if (userForm.getEnabled() != null && user.getStatus() != Status.Bultin) {
 			user.setEnabled(userForm.getEnabled());
 		}
 
 		userRepository.saveAndFlush(user);
 
-		return RespBody.succeed(user);
+		return RespBody.succeed(user.getUsername());
 	}
 
 	@RequestMapping(value = "delete", method = RequestMethod.POST)
@@ -155,9 +186,14 @@ public class UserController extends BaseController {
 			return RespBody.failed("删除用户不存在!");
 		}
 
+		if (user.getStatus() == Status.Bultin) {
+			logger.error("内置用户,不能删除! ID: {}", username);
+			return RespBody.failed("内置用户,不能删除!");
+		}
+
 		userRepository.delete(user);
 
-		return RespBody.succeed(user);
+		return RespBody.succeed(username);
 	}
 
 	@RequestMapping(value = "get", method = RequestMethod.POST)
@@ -171,6 +207,9 @@ public class UserController extends BaseController {
 			logger.error("查询用户不存在! ID: {}", username);
 			return RespBody.failed("查询用户不存在!");
 		}
+
+		// prevent ref to each other
+		user.setAuthorities(null);
 
 		return RespBody.succeed(user);
 	}

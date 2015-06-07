@@ -36,6 +36,8 @@ INSERT INTO `authorities` (username, authority) VALUES ('xiwc', 'ROLE_ADMIN');
 --INSERT INTO `authorities` (username, authority) VALUES ('xiwc', 'ROLE_USER');
 --INSERT INTO `authorities` (username, authority) VALUES ('lhjz', 'ROLE_ADMIN');
 INSERT INTO `authorities` (username, authority) VALUES ('lhjz', 'ROLE_USER');
+INSERT INTO `authorities` (username, authority) VALUES ('test1', 'ROLE_USER');
+INSERT INTO `authorities` (username, authority) VALUES ('test2', 'ROLE_USER');
 
 -- ----------------------------
 -- Table structure for groups
@@ -97,9 +99,11 @@ INSERT INTO `authorities` (username, authority) VALUES ('lhjz', 'ROLE_USER');
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO `users` (username, password, enabled) VALUES ('admin', '$2a$10$of1L1pNENMuUeP2/pMfy1ePScKhrOzHIrHsuhL2u1ieoXClLP5wFG', '');
-INSERT INTO `users` (username, password, enabled) VALUES ('xiwc', '$2a$10$qR3ar2k/g9gsLgPKAqqprOcN4tsfQAiSd7mdLNDIEC4ytwAUKKgzO', '\0');
-INSERT INTO `users` (username, password, enabled) VALUES ('lhjz', '$2a$10$cHoqi0vbJpkOe.ShF7A6qO0kf8lKOH/6tHr3oe7vA4UcKdtgGeJnq', '');
+INSERT INTO `users` (username, password, enabled, status, create_date, version) VALUES ('admin', '$2a$10$of1L1pNENMuUeP2/pMfy1ePScKhrOzHIrHsuhL2u1ieoXClLP5wFG', '', 'Bultin', '2015-04-25 10:01:51', '0');
+INSERT INTO `users` (username, password, enabled, status, create_date, version) VALUES ('xiwc', '$2a$10$qR3ar2k/g9gsLgPKAqqprOcN4tsfQAiSd7mdLNDIEC4ytwAUKKgzO', '\0', 'Bultin', '2015-04-25 10:01:51', '0');
+INSERT INTO `users` (username, password, enabled, status, create_date, version) VALUES ('lhjz', '$2a$10$cHoqi0vbJpkOe.ShF7A6qO0kf8lKOH/6tHr3oe7vA4UcKdtgGeJnq', '', 'Bultin', '2015-04-25 10:01:51', '0');
+INSERT INTO `users` (username, password, enabled, status, create_date, version) VALUES ('test1', '$2a$10$cHoqi0vbJpkOe.ShF7A6qO0kf8lKOH/6tHr3oe7vA4UcKdtgGeJnq', '', 'Normal', '2015-04-25 10:01:51', '0');
+INSERT INTO `users` (username, password, enabled, status, create_date, version) VALUES ('test2', '$2a$10$cHoqi0vbJpkOe.ShF7A6qO0kf8lKOH/6tHr3oe7vA4UcKdtgGeJnq', '', 'Normal', '2015-04-25 10:01:51', '0');
 
 -- ----------------------------
 -- Table structure for persistent_logins

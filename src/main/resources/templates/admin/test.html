@@ -20,6 +20,30 @@
 
 <body>
     <div class="ui segment">
+        <div class="ui warning message">新添加的用户默认密码为 888888 并且是禁用状态,需要单独开启后才能使用.</div>
+        <div class="ui form">
+            <div class="field">
+                <label>用户名:</label>
+                <input type="text" placeholder="用户名">
+            </div>
+            <div class="field">
+                <label>密码:</label>
+                <input type="text" placeholder="密码" value="888888" readonly>
+            </div>
+            <div class="inline field">
+                <label>角色:</label>
+                <div class="ui radio checkbox">
+                    <input type="radio" name="role" checked>
+                    <label>管理员</label>
+                </div>
+                <div class="ui radio checkbox">
+                    <input type="radio" name="role">
+                    <label>普通用户</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ui segment">
         <h2 class="ui header">
                 <i class="info circle icon"></i>
                 <div class="content">

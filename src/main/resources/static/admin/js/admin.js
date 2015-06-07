@@ -15,8 +15,34 @@ jQuery(function($) {
         $(this).siblings('form').submit();
     });
 
+    $('.ad-index-user-edit').click(function() {
+        var $btn = $(this);
+
+        $('.ad-user-own-edit').find('.user-username').text($btn.attr('data-id'));
+        $('.ad-user-own-edit').find('input[name="password"]').val('');
+
+        $('.ad-user-own-edit').modal({
+            onApprove: function() {
+                $.post('admin/user/update2', {
+                    username: $btn.attr('data-id'),
+                    password: $('.ad-user-own-edit').find('input[name="password"]').val()
+                }, function(data, textStatus, xhr) {
+                    if (data.success) {
+                        $btn.closest('tr').remove();
+                        toastr.success('个人信息修改成功!');
+                    } else {
+                        toastr.error(data.data, '个人信息修改失败!');
+                    }
+                });
+            }
+        }).modal('show');
+    });
+
     $('.ui.accordion').accordion();
     $('.ui.checkbox').checkbox();
+    $('.popup-login-user').popup({
+        position: 'bottom right',
+    });
 
     // load markdown help content
     if ($('.markdown-content').size() > 0) {
