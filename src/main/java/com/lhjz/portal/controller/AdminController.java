@@ -4,7 +4,9 @@
 package com.lhjz.portal.controller;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +19,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.lhjz.portal.base.BaseController;
 import com.lhjz.portal.entity.Settings;
+import com.lhjz.portal.entity.security.Authority;
+import com.lhjz.portal.entity.security.User;
+import com.lhjz.portal.model.UserInfo;
 import com.lhjz.portal.pojo.Enum.Module;
 import com.lhjz.portal.pojo.Enum.Page;
 import com.lhjz.portal.pojo.Enum.Status;
@@ -159,7 +164,26 @@ public class AdminController extends BaseController {
 
 		logger.debug("Enter method...");
 
-		model.addAttribute("users", userRepository.findAll());
+		List<User> users = userRepository.findAll();
+		List<UserInfo> userInfos = new ArrayList<UserInfo>();
+		for (User user : users) {
+			UserInfo userInfo = new UserInfo();
+			userInfo.setCreateDate(user.getCreateDate());
+			userInfo.setEnabled(user.isEnabled());
+			userInfo.setStatus(user.getStatus());
+			userInfo.setUsername(user.getUsername());
+
+			Set<String> authorities = new HashSet<String>();
+			for (Authority authority : user.getAuthorities()) {
+				authorities.add(authority.getId().getAuthority());
+			}
+
+			userInfo.setAuthorities(authorities);
+
+			userInfos.add(userInfo);
+		}
+
+		model.addAttribute("users", userInfos);
 
 		return "admin/user";
 	}

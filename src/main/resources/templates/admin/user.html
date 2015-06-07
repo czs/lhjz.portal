@@ -51,7 +51,7 @@
                             <tr th:each="user : ${users}" th:attr="data-id=${user.username}">
                                 <td th:text="${user.username}">username</td>
                                 <td>
-                                    <div th:if="${not #lists.isEmpty(user.authorities)}" th:each="auth: ${user.authorities}" class="ui small tag label user-role" th:text="${auth.id.authority}"></div>
+                                    <div th:if="${not #sets.isEmpty(user.authorities)}" th:each="auth: ${user.authorities}" class="ui small tag label user-role" th:text="${auth}"></div>
                                 </td>
                                 <td th:text="${#calendars.format(user.createDate,'yyyy/MM/dd HH:mm:ss')}">2015/05/12 12:00:00</td>
                                 <td class="user-status" th:if="${user.enabled}">
@@ -61,10 +61,16 @@
                                     <div class="ui yellow small tag label">停用</div>
                                 </td>
                                 <td>
-                                    <div th:if="${not #strings.equalsIgnoreCase(user.status, 'bultin') and not #strings.equals(#authentication.name, user.username) and user.enabled}" class="ui compact tiny yellow button lhjz-btn-disable">停用</div>
-                                    <div th:if="${not #strings.equalsIgnoreCase(user.status, 'bultin') and not #strings.equals(#authentication.name, user.username) and not user.enabled}" class="ui compact tiny green button lhjz-btn-enable">开启</div>
-                                    <div th:if="${not #strings.equalsIgnoreCase(user.status, 'bultin') and not #strings.equals(#authentication.name, user.username)}" class="ui compact tiny primary button lhjz-btn-edit">编辑</div>
-                                    <div th:if="${not #strings.equalsIgnoreCase(user.status, 'bultin') and not #strings.equals(#authentication.name, user.username)}" class="ui compact tiny red button lhjz-btn-del">删除</div>
+                                    <!-- if is super role, super admin can mgr not super admin and user role -->
+                                    <div th:if="${#authorization.expression('hasRole(''ROLE_SUPER'')') and !#sets.contains(user.authorities, 'ROLE_SUPER') and user.enabled}" class="ui compact tiny yellow button lhjz-btn-disable">停用</div>
+                                    <div th:if="${#authorization.expression('hasRole(''ROLE_SUPER'')') and !#sets.contains(user.authorities, 'ROLE_SUPER') and not user.enabled}" class="ui compact tiny green button lhjz-btn-enable">开启</div>
+                                    <div th:if="${#authorization.expression('hasRole(''ROLE_SUPER'')') and !#sets.contains(user.authorities, 'ROLE_SUPER')}" class="ui compact tiny primary button lhjz-btn-edit">编辑</div>
+                                    <div th:if="${#authorization.expression('hasRole(''ROLE_SUPER'')') and !#sets.contains(user.authorities, 'ROLE_SUPER')}" class="ui compact tiny red button lhjz-btn-del">删除</div>
+                                    <!-- if is not super but admin(only can see this page, so no need judge is admin role) role, admin can only mgr user role -->
+                                    <div th:if="${!#authorization.expression('hasRole(''ROLE_SUPER'')') and #sets.size(user.authorities) == 1 and user.enabled}" class="ui compact tiny yellow button lhjz-btn-disable">停用</div>
+                                    <div th:if="${!#authorization.expression('hasRole(''ROLE_SUPER'')') and #sets.size(user.authorities) == 1 and not user.enabled}" class="ui compact tiny green button lhjz-btn-enable">开启</div>
+                                    <div th:if="${!#authorization.expression('hasRole(''ROLE_SUPER'')') and #sets.size(user.authorities) == 1}" class="ui compact tiny primary button lhjz-btn-edit">编辑</div>
+                                    <div th:if="${!#authorization.expression('hasRole(''ROLE_SUPER'')') and #sets.size(user.authorities) == 1}" class="ui compact tiny red button lhjz-btn-del">删除</div>
                                 </td>
                             </tr>
                         </tbody>
@@ -86,17 +92,19 @@
         $('.user-role').each(function(index, el) {
             if ($(el).text() == 'ROLE_ADMIN') {
                 $(el).text('管理员').addClass('green');
-                if ($(el).siblings('.label').size() != 0) {
-                    $(el).appendTo($(el).parent('td'));
-                }
             } else if ($(el).text() == 'ROLE_USER') {
                 $(el).text('普通用户');
+                $(el).prependTo($(el).parent('td'));
+            } else if ($(el).text() == 'ROLE_SUPER') {
+                $(el).text('超级管理员').addClass('black');
+                $(el).appendTo($(el).parent('td'));
             }
         });
 
         $('.btn-add').click(function(event) {
 
             $('.ad-user-add').find('input[name="username"]').val('');
+            $('.ui.checkbox.chk-user').checkbox('check');
 
             $('.ad-user-add').modal({
                 onApprove: function() {
