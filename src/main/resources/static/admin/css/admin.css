@@ -7,6 +7,10 @@ div.admin.login {
     position: relative;
 }
 
+#context {
+    min-height: 500px;
+}
+
 .ad-index-content {
     padding-top: 70px;
     padding-bottom: 70px;
@@ -110,12 +114,12 @@ div.admin.login {
     word-break: break-word;
 }
 
-.table-news-select{
+.table-news-select {
     max-height: 400px;
     overflow-y: auto;
 }
 
-.ad-news-select .content-news{
+.ad-news-select .content-news {
     max-height: 300px;
     overflow-y: auto;
 }
