@@ -47,7 +47,7 @@
         </a>
         <a th:classappend="${#strings.contains(uri, '/admin/health')} ? 'active' : ''" class="item" th:href="@{/admin/health}" href="health.html"> <i class="heartbeat icon"></i> 脊柱健康
         </a>
-        <a th:classappend="${#strings.contains(uri, '/admin/diagnose')} ? 'active' : ''" class="item" th:href="@{/admin/diagnose}" href="diagnose.html"> <i class="treatment icon"></i> 在线诊断
+        <a th:classappend="${#strings.contains(uri, '/admin/diagnose')} ? 'active' : ''" class="item" th:href="@{/admin/diagnose?status=new}" href="diagnose.html"> <i class="treatment icon"></i> 在线诊断
         </a>
         <a th:classappend="${#strings.contains(uri, '/admin/contact')} ? 'active' : ''" class="item" th:href="@{/admin/contact}" href="contact.html"> <i class="at icon"></i> 联系我们
         </a>
@@ -110,7 +110,7 @@
                         <a th:classappend="${#strings.contains(uri, '/admin/health')} ? 'active' : ''" class="item" th:href="@{/admin/health}" href="health.html">
                             <i class="heartbeat icon"></i> 脊柱健康
                         </a>
-                        <a th:classappend="${#strings.contains(uri, '/admin/diagnose')} ? 'active' : ''" class="item" th:href="@{/admin/diagnose}" href="diagnose.html">
+                        <a th:classappend="${#strings.contains(uri, '/admin/diagnose')} ? 'active' : ''" class="item" th:href="@{/admin/diagnose?status=new}" href="diagnose.html">
                             <i class="treatment icon"></i> 在线诊断
                         </a>
                         <a th:classappend="${#strings.contains(uri, '/admin/contact')} ? 'active' : ''" class="item" th:href="@{/admin/contact}" href="contact.html">
@@ -255,12 +255,12 @@
             </div>
         </div>
     </div>
-    <div th:replace="admin/template :: hiddenCsrf"></div>
-    <div th:replace="admin/template :: modalImageSelect"></div>
-    <div th:replace="admin/template :: modalDeleteConfirm"></div>
-    <div th:replace="admin/template :: modalNewsEdit"></div>
-    <div th:replace="admin/template :: modalNewsSelect"></div>
-    <div th:replace="admin/template :: pageDimmer"></div>
+    <div th:replace="admin/template :: ad-csrf"></div>
+    <div th:replace="admin/template :: ad-images"></div>
+    <div th:replace="admin/template :: ad-delete-confirm"></div>
+    <div th:replace="admin/template :: ad-news-edit"></div>
+    <div th:replace="admin/template :: ad-news-select"></div>
+    <div th:replace="admin/template :: ad-page-dimmer"></div>
     <!-- page handler -->
     <script type="text/javascript">
     jQuery(document).ready(function($) {

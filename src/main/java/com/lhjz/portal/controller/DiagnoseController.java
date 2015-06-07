@@ -3,6 +3,8 @@
  */
 package com.lhjz.portal.controller;
 
+import java.util.Date;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,10 @@ import com.lhjz.portal.pojo.Enum.Action;
 import com.lhjz.portal.pojo.Enum.Status;
 import com.lhjz.portal.pojo.Enum.Target;
 import com.lhjz.portal.repository.DiagnoseRepository;
+import com.lhjz.portal.util.DateUtil;
+import com.lhjz.portal.util.EnumUtil;
+import com.lhjz.portal.util.StringUtil;
+import com.lhjz.portal.util.ThreadUtil;
 
 /**
  * 
@@ -63,18 +69,9 @@ public class DiagnoseController extends BaseController {
 		Diagnose diagnose = diagnoseRepository.findOne(id);
 
 		// Ignored Resolved
-		Status sts = null;
-		switch (status) {
-		case "new":
-			sts = Status.New;
-			break;
-		case "ignored":
-			sts = Status.Ignored;
-			break;
-		case "resolved":
-			sts = Status.Resolved;
-			break;
-		default:
+		Status sts = EnumUtil.status(status);
+
+		if (sts == Status.Unknow) {
 			logger.error("更新状态不存在! status: {}", status);
 			return RespBody.failed("更新状态不存在!");
 		}
@@ -106,5 +103,46 @@ public class DiagnoseController extends BaseController {
 		log(Action.Delete, Target.Diagnose, diagnose);
 
 		return RespBody.succeed(id);
+	}
+
+	@RequestMapping("feedback")
+	@ResponseBody
+	public RespBody feedback(@RequestParam("id") Long id,
+			@RequestParam("content") String content) {
+
+		logger.debug("Enter method...");
+
+		Diagnose diagnose = diagnoseRepository.findOne(id);
+
+		if (diagnose == null) {
+			logger.error("症状反馈对象不存在! ID: {}", id);
+			return RespBody.failed("症状反馈对象不存在!");
+		}
+
+		// send mail
+		String mail = diagnose.getMail();
+		if (StringUtil.isEmpty(mail)) {
+			logger.error("反馈对象不存在mail,请选择其他方式反馈! ID: {}", id);
+			return RespBody.failed("反馈对象不存在mail,请选择其他方式反馈!");
+		}
+
+		ThreadUtil.exec(() -> {
+			boolean success = mailSender.sendTextTo(
+					new String[] { mail },
+					String.format("立衡脊柱-在线诊断_%s",
+							DateUtil.format(new Date(), DateUtil.FORMAT2)),
+					content);
+
+			logger.debug("在线诊断-症状反馈邮件发送状态: {}", success);
+
+			diagnose.setContent(content);
+			diagnose.setStatus(success ? Status.Resolved : Status.Failed);
+
+			diagnoseRepository.saveAndFlush(diagnose);
+
+			log(Action.Update, Target.Diagnose, diagnose);
+		});
+
+		return RespBody.succeed(diagnose);
 	}
 }

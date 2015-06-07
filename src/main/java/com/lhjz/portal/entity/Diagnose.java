@@ -43,6 +43,9 @@ public class Diagnose implements Serializable {
 	@Column(nullable = false, length = 1000)
 	private String description;
 
+	@Column(length = 16777216)
+	private String content;
+
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
 	private Status status = Status.New;
@@ -133,12 +136,21 @@ public class Diagnose implements Serializable {
 		this.version = version;
 	}
 
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
 	@Override
 	public String toString() {
 		return "Diagnose [id=" + id + ", username=" + username + ", age=" + age
 				+ ", job=" + job + ", mail=" + mail + ", phone=" + phone
-				+ ", description=" + description + ", status=" + status
-				+ ", createDate=" + createDate + ", version=" + version + "]";
+				+ ", description=" + description + ", content=" + content
+				+ ", status=" + status + ", createDate=" + createDate
+				+ ", version=" + version + "]";
 	}
 
 }

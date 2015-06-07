@@ -39,10 +39,11 @@
                     <a th:href="@{/admin/diagnose?status=new}" class="ui primary compact button">新创建</a>
                     <a th:href="@{/admin/diagnose?status=ignored}" class="ui yellow compact button">已忽略</a>
                     <a th:href="@{/admin/diagnose?status=resolved}" class="ui green compact button">已处理</a>
+                    <a th:href="@{/admin/diagnose?status=failed}" class="ui red compact button">反馈失败</a>
                     <a th:href="@{/admin/diagnose}" class="ui black compact button">全部</a>
                 </div>
                 <div style="max-height: 450px; overflow-y: auto;">
-                    <table class="ui sortable celled striped compact table segment">
+                    <table class="ui sortable celled striped compact table segment table-diagnose">
                         <thead>
                             <th>症状描述</th>
                             <th>手机</th>
@@ -53,14 +54,25 @@
                         </thead>
                         <tbody th:remove="all-but-first">
                             <tr th:each="diagnose : ${diagnoses}" th:attr="data-id=${diagnose.id}">
-                                <td class="popup" th:attr="data-content=${diagnose.description}" th:text="${#strings.abbreviate(diagnose.description,25)}">ddd</td>
+                                <td class="popup diagnose-description" th:attr="data-content=${diagnose.description}" th:text="${#strings.abbreviate(diagnose.description,25)}">ddd</td>
                                 <td th:text="${diagnose.phone}">2015/05/12 12:00:00</td>
-                                <td th:text="${diagnose.mail}">2015/05/12 12:00:00</td>
+                                <td class="diagnose-mail" th:text="${diagnose.mail}">2015/05/12 12:00:00</td>
                                 <td th:text="${#calendars.format(diagnose.createDate,'yyyy/MM/dd HH:mm:ss')}">2015/05/12 12:00:00</td>
-                                <td th:text="${diagnose.status}">2015/05/12 12:00:00</td>
+                                <td th:if="${#strings.equalsIgnoreCase(diagnose.status, 'new')}">
+                                    <div class="ui blue small tag label">新创建</div>
+                                </td>
+                                <td th:if="${#strings.equalsIgnoreCase(diagnose.status, 'ignored')}">
+                                    <div class="ui yellow small tag label">已忽略</div>
+                                </td>
+                                <td th:if="${#strings.equalsIgnoreCase(diagnose.status, 'resolved')}">
+                                    <div th:attr="data-content=${diagnose.content}" class="ui green small tag label popup-resolved">已处理</div>
+                                </td>
+                                <td th:if="${#strings.equalsIgnoreCase(diagnose.status, 'failed')}">
+                                    <div class="ui red small tag label">反馈失败</div>
+                                </td>
                                 <td>
-                                    <div class="ui compact tiny primary button lhjz-btn-del">反馈</div>
-                                    <div class="ui compact tiny yellow button lhjz-btn-del">忽略</div>
+                                    <div th:if="${not #strings.isEmpty(diagnose.mail)}" class="ui compact tiny primary button lhjz-btn-feedback">反馈</div>
+                                    <div th:if="${#strings.equalsIgnoreCase(diagnose.status, 'new')}" class="ui compact tiny yellow button lhjz-btn-ignore">忽略</div>
                                     <div class="ui compact tiny red button lhjz-btn-del">删除</div>
                                 </td>
                             </tr>
@@ -70,6 +82,11 @@
             </div>
         </div>
     </div>
+    <div th:replace="admin/template :: ad-csrf"></div>
+    <div th:replace="admin/template :: ad-handle-confirm"></div>
+    <div th:replace="admin/template :: ad-delete-confirm"></div>
+    <div th:replace="admin/template :: ad-diagnose-feedback"></div>
+    <div th:replace="admin/template :: ad-page-dimmer"></div>
     <script type="text/javascript">
     jQuery(function($) {
         $('table').tablesort().data('tablesort');
@@ -80,6 +97,80 @@
                 hide: 300
             }
         });
+        $('.btn-diagnose-detail')
+            .popup({
+                hoverable: true,
+                position: 'bottom right',
+                delay: {
+                    show: 300,
+                    hide: 300
+                }
+            });
+        $('.popup-resolved').popup();
+
+        $('.table-diagnose').on('click', '.lhjz-btn-feedback', function(event) {
+            var $btn = $(this);
+
+            $('.ad-diagnose-feedback .diagnose-mail').text($btn.closest('tr').find('.diagnose-mail').text());
+            $('.ad-diagnose-feedback .diagnose-description').text($btn.closest('tr').find('.diagnose-description').attr('data-content'));
+            $('.ad-diagnose-feedback').find('textarea[name="content"]').val('');
+
+            $('.ad-diagnose-feedback').modal({
+                onApprove: function() {
+                    $.post('admin/diagnose/feedback', {
+                        id: $btn.closest('tr').attr('data-id'),
+                        content: $('.ad-diagnose-feedback').find('textarea[name="content"]').val()
+                    }, function(data, textStatus, xhr) {
+                        if (data.success) {
+                            $btn.closest('tr').remove();
+                            toastr.success('反馈提交成功,请稍后查看反馈状态!');
+                        } else {
+                            toastr.error('反馈提交失败!');
+                        }
+                    });
+                }
+            }).modal('show');
+        });
+
+        $('.table-diagnose').on('click', '.lhjz-btn-ignore', function(event) {
+            var $btn = $(this);
+
+            $('.ad-handle-confirm').modal({
+                onApprove: function() {
+                    $.post('admin/diagnose/update', {
+                        id: $btn.closest('tr').attr('data-id'),
+                        status: 'ignored'
+                    }, function(data, textStatus, xhr) {
+                        if (data.success) {
+                            $btn.closest('tr').remove();
+                            toastr.success('操作成功!');
+                        } else {
+                            toastr.error('操作失败!');
+                        }
+                    });
+                }
+            }).modal('show');
+        });
+
+        $('.table-diagnose').on('click', '.lhjz-btn-del', function(event) {
+            var $btn = $(this);
+
+            $('.ad-delete-confirm').modal({
+                onApprove: function() {
+                    $.post('admin/diagnose/delete', {
+                        id: $btn.closest('tr').attr('data-id')
+                    }, function(data, textStatus, xhr) {
+                        if (data.success) {
+                            $btn.closest('tr').remove();
+                            toastr.success('删除成功!');
+                        } else {
+                            toastr.error('删除失败!');
+                        }
+                    });
+                }
+            }).modal('show');
+        });
+
     });
     </script>
 </body>

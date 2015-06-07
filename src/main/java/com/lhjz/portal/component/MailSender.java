@@ -82,6 +82,33 @@ public class MailSender {
 	}
 
 	/**
+	 * 发送简单文本邮件
+	 * 
+	 * @param subject
+	 * @param formatText
+	 *            eg: xx{?1}yyy{?2}zzz
+	 * @param vals
+	 *            replace values
+	 * @return
+	 */
+	public boolean sendTextTo(String[] toAddr, String subject,
+			String formatText, Object... vals) {
+
+		MailInfo mailInfo = new MailInfo();
+		mailInfo.setMailServerHost(serverHost);
+		mailInfo.setMailServerPort(serverPort);
+		mailInfo.setValidate(true);
+		mailInfo.setUserName(username);
+		mailInfo.setPassword(password);
+		mailInfo.setFromAddress(fromAddr);
+		mailInfo.setToAddresses(toAddr);
+		mailInfo.setSubject(subject);
+		mailInfo.setContent(StringUtil.replace(formatText, vals));
+
+		return send(mailInfo);
+	}
+
+	/**
 	 * 发送html邮件
 	 * 
 	 * @param subject
@@ -98,6 +125,30 @@ public class MailSender {
 		mailInfo.setPassword(password);
 		mailInfo.setFromAddress(fromAddr);
 		mailInfo.setToAddresses(StringUtil.split(toAddrArr, ","));
+		mailInfo.setSubject(subject);
+		mailInfo.setContent(content);
+		mailInfo.setHtml(true);
+
+		return send(mailInfo);
+	}
+
+	/**
+	 * 发送html邮件
+	 * 
+	 * @param subject
+	 * @param content
+	 * @return
+	 */
+	public boolean sendHtmlTo(String[] toAddr, String subject, String content) {
+
+		MailInfo mailInfo = new MailInfo();
+		mailInfo.setMailServerHost(serverHost);
+		mailInfo.setMailServerPort(serverPort);
+		mailInfo.setValidate(true);
+		mailInfo.setUserName(username);
+		mailInfo.setPassword(password);
+		mailInfo.setFromAddress(fromAddr);
+		mailInfo.setToAddresses(toAddr);
 		mailInfo.setSubject(subject);
 		mailInfo.setContent(content);
 		mailInfo.setHtml(true);

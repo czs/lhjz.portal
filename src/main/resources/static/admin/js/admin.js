@@ -79,11 +79,11 @@ jQuery(function($) {
     });
 
     $(document).ajaxStart(function() {
-        $('.page-dimmer').addClass('active');
+        $('.ad-page-dimmer').addClass('active');
     });
 
     $(document).ajaxComplete(function() {
-        $('.page-dimmer').removeClass('active');
+        $('.ad-page-dimmer').removeClass('active');
     });
 
 
