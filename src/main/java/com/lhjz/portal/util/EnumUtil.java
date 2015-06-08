@@ -3,6 +3,7 @@ package com.lhjz.portal.util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.lhjz.portal.pojo.Enum.Key;
 import com.lhjz.portal.pojo.Enum.Status;
 
 public class EnumUtil {
@@ -23,6 +24,20 @@ public class EnumUtil {
 				Status.Unknow.name());
 
 		return Status.Unknow;
+	}
+
+	public static Key key(String key) {
+
+		for (Key k : Key.values()) {
+			if (k.name().equalsIgnoreCase(key)) {
+				logger.info("Mapped key: {} <-> {}", key, k.name());
+				return k;
+			}
+		}
+
+		logger.info("Unmapped key: {}. Return: {}", key, Key.Unknow.name());
+
+		return Key.Unknow;
 	}
 
 }

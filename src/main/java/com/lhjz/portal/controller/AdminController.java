@@ -18,13 +18,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.lhjz.portal.base.BaseController;
+import com.lhjz.portal.entity.Config;
 import com.lhjz.portal.entity.Settings;
 import com.lhjz.portal.entity.security.Authority;
 import com.lhjz.portal.entity.security.User;
 import com.lhjz.portal.model.UserInfo;
+import com.lhjz.portal.pojo.Enum.Key;
 import com.lhjz.portal.pojo.Enum.Module;
 import com.lhjz.portal.pojo.Enum.Page;
 import com.lhjz.portal.pojo.Enum.Status;
+import com.lhjz.portal.repository.ConfigRepository;
 import com.lhjz.portal.repository.DiagnoseRepository;
 import com.lhjz.portal.repository.FileRepository;
 import com.lhjz.portal.repository.SettingsRepository;
@@ -56,6 +59,9 @@ public class AdminController extends BaseController {
 
 	@Autowired
 	UserRepository userRepository;
+
+	@Autowired
+	ConfigRepository configRepository;
 
 	@RequestMapping("login")
 	public String login(Model model) {
@@ -109,6 +115,11 @@ public class AdminController extends BaseController {
 
 	@RequestMapping("contact")
 	public String contact(Model model) {
+
+		Config config = configRepository.findFirstByKey(Key.Contact);
+
+		model.addAttribute("config", config);
+
 		return "admin/contact";
 	}
 
