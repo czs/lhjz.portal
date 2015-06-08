@@ -38,7 +38,7 @@ import com.lhjz.portal.util.WebUtil;
  * 
  */
 @Controller
-@RequestMapping("admin/user")
+@RequestMapping("admin/config")
 public class ContactController extends BaseController {
 
 	static Logger logger = LoggerFactory.getLogger(ContactController.class);
@@ -72,6 +72,46 @@ public class ContactController extends BaseController {
 		configRepository.saveAndFlush(config);
 
 		log(Action.Create, Target.Config, config);
+
+		return RespBody.succeed();
+	}
+
+	@RequestMapping(value = "saveOrUpdate", method = RequestMethod.POST)
+	@ResponseBody
+	public RespBody saveOrUpdate(@Valid ContactForm contactForm,
+			BindingResult bindingResult) {
+
+		if (bindingResult.hasErrors()) {
+			return RespBody.failed(bindingResult.getAllErrors().stream()
+					.map(err -> err.getDefaultMessage())
+					.collect(Collectors.joining("<br/>")));
+		}
+
+		Config config2 = configRepository.findFirstByKey(Key.Contact);
+
+		if (config2 != null) {
+			ContactForm contactForm2 = JsonUtil.json2Object(config2.getValue(),
+					ContactForm.class);
+
+			BeanUtil.copyNotEmptyFields(contactForm, contactForm2);
+
+			config2.setValue(JsonUtil.toJson(contactForm2));
+			config2.setUpdateDate(new Date());
+			config2.setUsername(WebUtil.getUsername());
+
+			configRepository.saveAndFlush(config2);
+
+			log(Action.Update, Target.Config, config2);
+		} else {
+			Config config = new Config();
+			config.setKey(Key.Contact);
+			config.setValue(JsonUtil.toJson(contactForm));
+			config.setUsername(WebUtil.getUsername());
+
+			configRepository.saveAndFlush(config);
+
+			log(Action.Create, Target.Config, config);
+		}
 
 		return RespBody.succeed();
 	}

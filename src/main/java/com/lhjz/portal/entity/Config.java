@@ -37,6 +37,7 @@ public class Config implements Serializable {
 	private Long id;
 
 	@Enumerated(EnumType.STRING)
+	@Column(nullable = false, name = "_key")
 	private Key key;
 	@Column(length = 16777216)
 	private String value;

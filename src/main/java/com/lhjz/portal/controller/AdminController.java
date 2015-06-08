@@ -23,6 +23,7 @@ import com.lhjz.portal.entity.Settings;
 import com.lhjz.portal.entity.security.Authority;
 import com.lhjz.portal.entity.security.User;
 import com.lhjz.portal.model.UserInfo;
+import com.lhjz.portal.pojo.ContactForm;
 import com.lhjz.portal.pojo.Enum.Key;
 import com.lhjz.portal.pojo.Enum.Module;
 import com.lhjz.portal.pojo.Enum.Page;
@@ -33,6 +34,7 @@ import com.lhjz.portal.repository.FileRepository;
 import com.lhjz.portal.repository.SettingsRepository;
 import com.lhjz.portal.repository.UserRepository;
 import com.lhjz.portal.util.EnumUtil;
+import com.lhjz.portal.util.JsonUtil;
 import com.lhjz.portal.util.StringUtil;
 
 /**
@@ -118,7 +120,12 @@ public class AdminController extends BaseController {
 
 		Config config = configRepository.findFirstByKey(Key.Contact);
 
-		model.addAttribute("config", config);
+		if (config != null) {
+			model.addAttribute("contact",
+					JsonUtil.json2Object(config.getValue(), ContactForm.class));
+		} else {
+			model.addAttribute("contact", new ContactForm());
+		}
 
 		return "admin/contact";
 	}
