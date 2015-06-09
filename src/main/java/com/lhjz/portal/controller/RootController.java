@@ -24,18 +24,23 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.lhjz.portal.base.BaseController;
 import com.lhjz.portal.entity.Article;
+import com.lhjz.portal.entity.Config;
 import com.lhjz.portal.entity.Diagnose;
 import com.lhjz.portal.entity.Settings;
 import com.lhjz.portal.model.Message;
 import com.lhjz.portal.model.RespBody;
+import com.lhjz.portal.pojo.ContactForm;
 import com.lhjz.portal.pojo.DiagnoseForm;
 import com.lhjz.portal.pojo.Enum.Action;
+import com.lhjz.portal.pojo.Enum.Key;
 import com.lhjz.portal.pojo.Enum.Module;
 import com.lhjz.portal.pojo.Enum.Page;
 import com.lhjz.portal.pojo.Enum.Target;
 import com.lhjz.portal.repository.ArticleRepository;
+import com.lhjz.portal.repository.ConfigRepository;
 import com.lhjz.portal.repository.DiagnoseRepository;
 import com.lhjz.portal.repository.SettingsRepository;
+import com.lhjz.portal.util.JsonUtil;
 import com.lhjz.portal.util.StringUtil;
 
 /**
@@ -59,6 +64,9 @@ public class RootController extends BaseController {
 
 	@Autowired
 	ArticleRepository articleRepository;
+
+	@Autowired
+	ConfigRepository configRepository;
 
 	@RequestMapping()
 	public String home(HttpServletRequest request, Model model) {
@@ -116,6 +124,16 @@ public class RootController extends BaseController {
 
 	@RequestMapping("contact")
 	public String contact(Model model) {
+
+		Config config = configRepository.findFirstByKey(Key.Contact);
+
+		if (config != null) {
+			model.addAttribute("contact",
+					JsonUtil.json2Object(config.getValue(), ContactForm.class));
+		} else {
+			model.addAttribute("contact", new ContactForm());
+		}
+
 		return "landing/contact";
 	}
 

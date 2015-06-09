@@ -123,20 +123,21 @@ INSERT INTO `users` (username, password, enabled, status, create_date, version) 
 -- ----------------------------
 -- Records of file
 -- ----------------------------
-INSERT INTO `file` (id, create_date, name, path, status, username, uuid_name, version) VALUES ('1', '2015-04-25 10:01:51', 'img08_b.jpg', 'upload/img/0/', 'Bultin', 'lhjz', '4dfa871e-6cc1-480c-a1a8-2a56dae30b51.jpg', '0');
-INSERT INTO `file` (id, create_date, name, path, status, username, uuid_name, version) VALUES ('2', '2015-04-25 10:01:51', 'img07_b.jpg', 'upload/img/0/', 'Bultin', 'lhjz', '91baaaf6-237f-47c1-80d1-6af3abd267a3.jpg', '0');
-INSERT INTO `file` (id, create_date, name, path, status, username, uuid_name, version) VALUES ('3', '2015-04-25 10:01:52', 'img04_b.jpg', 'upload/img/0/', 'Bultin', 'lhjz', '8734d1cc-0c69-4ab2-9611-3c86e7ca2c58.jpg', '0');
-INSERT INTO `file` (id, create_date, name, path, status, username, uuid_name, version) VALUES ('4', '2015-04-25 10:01:52', 'img01_b.jpg', 'upload/img/0/', 'Bultin', 'lhjz', 'b1e70aa4-2013-4150-9d71-47ebaca5963d.jpg', '0');
-INSERT INTO `file` (id, create_date, name, path, status, username, uuid_name, version) VALUES ('5', '2015-04-25 10:01:52', 'img02_b.jpg', 'upload/img/0/', 'Bultin', 'lhjz', '66170316-4b4c-45fe-bc55-9f25459a2072.jpg', '0');
-INSERT INTO `file` (id, create_date, name, path, status, username, uuid_name, version) VALUES ('6', '2015-04-25 10:01:52', 'img06_b.jpg', 'upload/img/0/', 'Bultin', 'lhjz', '94947a26-3c39-495e-8c65-62e7a7ade429.jpg', '0');
-INSERT INTO `file` (id, create_date, name, path, status, username, uuid_name, version) VALUES ('7', '2015-04-25 10:01:52', 'img05_b.jpg', 'upload/img/0/', 'Bultin', 'lhjz', 'ba77d88a-3a9f-4afc-bafe-27f05be65114.jpg', '0');
-INSERT INTO `file` (id, create_date, name, path, status, username, uuid_name, version) VALUES ('8', '2015-04-25 10:01:53', 'img03_b.jpg', 'upload/img/0/', 'Bultin', 'lhjz', '0c590fa7-430f-428a-aa38-fa29227caa43.jpg', '0');
-INSERT INTO `file` (id, create_date, name, path, status, username, uuid_name, version) VALUES ('10', '2015-05-31 14:27:58', '1.jpg', 'upload/img/0/', 'Bultin', 'lhjz', '09c2ec3a-3afc-43ff-af20-3828f0744446.jpg', '0');
-INSERT INTO `file` (id, create_date, name, path, status, username, uuid_name, version) VALUES ('11', '2015-05-31 14:27:58', '2.jpg', 'upload/img/0/', 'Bultin', 'lhjz', '749727e8-d955-4652-adf2-1ef217ee64b8.jpg', '0');
-INSERT INTO `file` (id, create_date, name, path, status, username, uuid_name, version) VALUES ('12', '2015-05-31 14:27:58', '3.jpg', 'upload/img/0/', 'Bultin', 'lhjz', 'bc2b78b3-e808-420e-a156-5ef54887d714.jpg', '0');
-INSERT INTO `file` (id, create_date, name, path, status, username, uuid_name, version) VALUES ('13', '2015-05-31 14:27:59', 'img-b1.jpg', 'upload/img/0/', 'Bultin', 'lhjz', '0a6bc830-91d4-4675-a413-4d93823f5ba0.jpg', '0');
-INSERT INTO `file` (id, create_date, name, path, status, username, uuid_name, version) VALUES ('14', '2015-05-31 14:27:59', 'img-b2.jpg', 'upload/img/0/', 'Bultin', 'lhjz', '1dee3a09-87a5-463d-819f-0e1e93bb5e7d.jpg', '0');
-INSERT INTO `file` (id, create_date, name, path, status, username, uuid_name, version) VALUES ('15', '2015-05-31 14:27:59', 'img-b3.jpg', 'upload/img/0/', 'Bultin', 'lhjz', 'e60b83c8-f450-4c03-8275-b415e02db4a1.jpg', '0');
+INSERT INTO `file` (`id`, `create_date`, `name`, `path`, `status`, `username`, `uuid_name`, `version`) VALUES ('1', '2015-04-25 10:01:51', 'img08_b.jpg', 'upload/img/0/', 'Bultin', 'admin', '4dfa871e-6cc1-480c-a1a8-2a56dae30b51.jpg', '0');
+INSERT INTO `file` (`id`, `create_date`, `name`, `path`, `status`, `username`, `uuid_name`, `version`) VALUES ('2', '2015-04-25 10:01:51', 'img07_b.jpg', 'upload/img/0/', 'Bultin', 'admin', '91baaaf6-237f-47c1-80d1-6af3abd267a3.jpg', '0');
+INSERT INTO `file` (`id`, `create_date`, `name`, `path`, `status`, `username`, `uuid_name`, `version`) VALUES ('3', '2015-04-25 10:01:52', 'img04_b.jpg', 'upload/img/0/', 'Bultin', 'admin', '8734d1cc-0c69-4ab2-9611-3c86e7ca2c58.jpg', '0');
+INSERT INTO `file` (`id`, `create_date`, `name`, `path`, `status`, `username`, `uuid_name`, `version`) VALUES ('4', '2015-04-25 10:01:52', 'img01_b.jpg', 'upload/img/0/', 'Bultin', 'admin', 'b1e70aa4-2013-4150-9d71-47ebaca5963d.jpg', '0');
+INSERT INTO `file` (`id`, `create_date`, `name`, `path`, `status`, `username`, `uuid_name`, `version`) VALUES ('5', '2015-04-25 10:01:52', 'img02_b.jpg', 'upload/img/0/', 'Bultin', 'admin', '66170316-4b4c-45fe-bc55-9f25459a2072.jpg', '0');
+INSERT INTO `file` (`id`, `create_date`, `name`, `path`, `status`, `username`, `uuid_name`, `version`) VALUES ('6', '2015-04-25 10:01:52', 'img06_b.jpg', 'upload/img/0/', 'Bultin', 'admin', '94947a26-3c39-495e-8c65-62e7a7ade429.jpg', '0');
+INSERT INTO `file` (`id`, `create_date`, `name`, `path`, `status`, `username`, `uuid_name`, `version`) VALUES ('7', '2015-04-25 10:01:52', 'img05_b.jpg', 'upload/img/0/', 'Bultin', 'admin', 'ba77d88a-3a9f-4afc-bafe-27f05be65114.jpg', '0');
+INSERT INTO `file` (`id`, `create_date`, `name`, `path`, `status`, `username`, `uuid_name`, `version`) VALUES ('8', '2015-04-25 10:01:53', 'img03_b.jpg', 'upload/img/0/', 'Bultin', 'admin', '0c590fa7-430f-428a-aa38-fa29227caa43.jpg', '0');
+INSERT INTO `file` (`id`, `create_date`, `name`, `path`, `status`, `username`, `uuid_name`, `version`) VALUES ('10', '2015-05-31 14:27:58', '1.jpg', 'upload/img/0/', 'Bultin', 'admin', '09c2ec3a-3afc-43ff-af20-3828f0744446.jpg', '0');
+INSERT INTO `file` (`id`, `create_date`, `name`, `path`, `status`, `username`, `uuid_name`, `version`) VALUES ('11', '2015-05-31 14:27:58', '2.jpg', 'upload/img/0/', 'Bultin', 'admin', '749727e8-d955-4652-adf2-1ef217ee64b8.jpg', '0');
+INSERT INTO `file` (`id`, `create_date`, `name`, `path`, `status`, `username`, `uuid_name`, `version`) VALUES ('12', '2015-05-31 14:27:58', '3.jpg', 'upload/img/0/', 'Bultin', 'admin', 'bc2b78b3-e808-420e-a156-5ef54887d714.jpg', '0');
+INSERT INTO `file` (`id`, `create_date`, `name`, `path`, `status`, `username`, `uuid_name`, `version`) VALUES ('13', '2015-05-31 14:27:59', 'img-b1.jpg', 'upload/img/0/', 'Bultin', 'admin', '0a6bc830-91d4-4675-a413-4d93823f5ba0.jpg', '0');
+INSERT INTO `file` (`id`, `create_date`, `name`, `path`, `status`, `username`, `uuid_name`, `version`) VALUES ('14', '2015-05-31 14:27:59', 'img-b2.jpg', 'upload/img/0/', 'Bultin', 'admin', '1dee3a09-87a5-463d-819f-0e1e93bb5e7d.jpg', '0');
+INSERT INTO `file` (`id`, `create_date`, `name`, `path`, `status`, `username`, `uuid_name`, `version`) VALUES ('15', '2015-05-31 14:27:59', 'img-b3.jpg', 'upload/img/0/', 'Bultin', 'admin', 'e60b83c8-f450-4c03-8275-b415e02db4a1.jpg', '0');
+INSERT INTO `file` (`id`, `create_date`, `name`, `path`, `status`, `username`, `uuid_name`, `version`) VALUES ('17', '2015-06-09 19:47:19', 'map1.jpg', 'upload/img/0/', 'Normal', 'admin', 'a65dfd76-ace8-489d-9418-d240138bc60d.jpg', '0');
 
 -- ----------------------------
 -- Records of article
@@ -164,3 +165,8 @@ INSERT INTO `diagnose` (id, age, create_date, description, job, mail, phone, sta
 INSERT INTO `diagnose` (id, age, create_date, description, job, mail, phone, status, username, version) VALUES ('5', null, '2015-06-04 22:06:09', '在线诊断是针对您在网上描述的基本症状信息,我们的专家人员会及时反馈到您的初步诊断信息,以便您清楚的了解自己的病况,然后选择正确的治疗方法.', null, 'xiweicheng87@yeah.net', '', 'Ignored', null, '0');
 INSERT INTO `diagnose` (id, age, create_date, description, job, mail, phone, status, username, version) VALUES ('6', null, '2015-06-04 22:06:12', '在线诊断是针对您在网上描述的基本症状信息,我们的专家人员会及时反馈到您的初步诊断信息,以便您清楚的了解自己的病况,然后选择正确的治疗方法.', null, 'lihengjizhu@163.com', '', 'New', null, '0');
 INSERT INTO `diagnose` (id, age, create_date, description, job, mail, phone, status, username, version) VALUES ('7', null, '2015-06-04 22:06:15', '在线诊断是针对您在网上描述的基本症状信息,我们的专家人员会及时反馈到您的初步诊断信息,以便您清楚的了解自己的病况,然后选择正确的治疗方法.', null, 'dfsgs3der1e@dfdf.com', '', 'New', null, '0');
+
+-- ----------------------------
+-- Records of config
+-- ----------------------------
+INSERT INTO `config` (`id`, `create_date`, `_key`, `more`, `status`, `update_date`, `username`, `value`, `version`) VALUES ('1', '2015-06-09 19:39:48', 'Contact', NULL, 'Normal', '2015-06-09 19:54:04', 'admin', '{\"name\":\"北京立衡脊柱健康科技有限公司\",\"addr\":\"北京丰台马家堡东路公益东桥北路东海上海花园168号立衡脊柱\",\"phone\":\"18921345678\",\"mail\":\"168171468@qq.com\",\"qq\":\"168171468\",\"bus\":\"453路, 29路, 58路\",\"map\":\"upload/img/0/a65dfd76-ace8-489d-9418-d240138bc60d.jpg\"}', '0');

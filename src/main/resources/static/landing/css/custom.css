@@ -39,6 +39,8 @@ body {
     width: 100% \9;
     max-width: 100%;
     height: auto;
+    border-style: dashed;
+    border-width: 1px;
 }
 
 .lhjz-row1 {
@@ -165,6 +167,6 @@ body {
     font-weight: bold;
 }
 
-.lhjz-article-body{
+.lhjz-article-body {
     margin-top: 30px;
 }

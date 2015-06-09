@@ -43,7 +43,9 @@
         </a>
         <a th:classappend="${#strings.contains(uri, '/admin/env')} ? 'active' : ''" class="item" th:href="@{/admin/env}" href="env.html"> <i class="grid layout icon"></i> 店内环境
         </a>
-        <a th:classappend="${#strings.contains(uri, '/admin/team')} ? 'active' : ''" class="item" th:href="@{/admin/team}" href="team.html"> <i class="doctor icon"></i> 专家团队
+        <!-- <a th:classappend="${#strings.contains(uri, '/admin/team')} ? 'active' : ''" class="item" th:href="@{/admin/team}" href="team.html"> <i class="doctor icon"></i> 专家团队
+        </a> -->
+        <a th:classappend="${#strings.contains(uri, '/admin/job')} ? 'active' : ''" class="item" th:href="@{/admin/job}" href="job.html"> <i class="flag icon"></i> 团队招聘
         </a>
         <a th:classappend="${#strings.contains(uri, '/admin/health')} ? 'active' : ''" class="item" th:href="@{/admin/health}" href="health.html"> <i class="heartbeat icon"></i> 脊柱健康
         </a>
@@ -107,8 +109,11 @@
                         <a th:classappend="${#strings.contains(uri, '/admin/env')} ? 'active' : ''" class="item" th:href="@{/admin/env}" href="env.html">
                             <i class="grid layout icon"></i> 店内环境
                         </a>
-                        <a th:classappend="${#strings.contains(uri, '/admin/team')} ? 'active' : ''" class="item" th:href="@{/admin/team}" href="team.html">
+                        <!-- <a th:classappend="${#strings.contains(uri, '/admin/team')} ? 'active' : ''" class="item" th:href="@{/admin/team}" href="team.html">
                             <i class="doctor icon"></i> 专家团队
+                        </a>  -->
+                        <a th:classappend="${#strings.contains(uri, '/admin/job')} ? 'active' : ''" class="item" th:href="@{/admin/job}" href="job.html">
+                            <i class="flag icon"></i> 团队招聘
                         </a>
                         <a th:classappend="${#strings.contains(uri, '/admin/health')} ? 'active' : ''" class="item" th:href="@{/admin/health}" href="health.html">
                             <i class="heartbeat icon"></i> 脊柱健康

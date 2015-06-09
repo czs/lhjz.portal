@@ -166,6 +166,11 @@ public class AdminController extends BaseController {
 		return "admin/health";
 	}
 
+	@RequestMapping("job")
+	public String job(Model model) {
+		return "admin/job";
+	}
+
 	@RequestMapping("product")
 	public String product(Model model) {
 		return "admin/product";
