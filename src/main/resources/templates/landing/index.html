@@ -25,9 +25,10 @@
 
 <body>
     <div class="container-fluid lhjz-container-fluid">
-        <div class="carousel slide" id="carousel-lhjz">
+        <div th:unless="${#lists.isEmpty(bigImgs)}" class="carousel slide" id="carousel-lhjz">
             <ol class="carousel-indicators" th:remove="all-but-first">
-                <li th:each="bigImg,sts : ${bigImgs}" th:classappend="${sts.index} == 0 ? 'active' : ''" th:attrappend="data-slide-to=${sts.index}" data-target="#carousel-lhjz"></li>
+                <li th:each="bigImg,sts : ${bigImgs
+}" th:classappend="${sts.index} == 0 ? 'active' : ''" th:attrappend="data-slide-to=${sts.index}" data-target="#carousel-lhjz"></li>
                 <li data-slide-to="1" data-target="#carousel-lhjz"></li>
                 <li data-slide-to="2" data-target="#carousel-lhjz"></li>
             </ol>
@@ -263,13 +264,11 @@
             </div>
         </div>
     </footer>
-
     <script type="text/javascript">
     jQuery(document).ready(function($) {
         //$('.lhjz-navbar').stickUp();
     });
     </script>
-
 </body>
 
 </html>

@@ -24,6 +24,7 @@ import com.lhjz.portal.pojo.Enum.Action;
 import com.lhjz.portal.pojo.Enum.Target;
 import com.lhjz.portal.pojo.SettingsForm;
 import com.lhjz.portal.repository.SettingsRepository;
+import com.lhjz.portal.util.EnumUtil;
 import com.lhjz.portal.util.WebUtil;
 
 /**
@@ -57,8 +58,8 @@ public class SettingsController extends BaseController {
 		}
 
 		Settings settings = new Settings();
-		settings.setPage(settingsForm.page());
-		settings.setModule(settingsForm.module());
+		settings.setPage(EnumUtil.page(settingsForm.getPage()));
+		settings.setModule(EnumUtil.module(settingsForm.getModule()));
 		settings.setImgUrl(settingsForm.getImgUrl());
 		settings.setUsername(WebUtil.getUsername());
 		settings.setLink(settingsForm.getLink());

@@ -150,7 +150,8 @@ jQuery(function($) {
 
             if (imgSrcArr.length > 0) {
                 if (!!imgSelectedCallback) {
-                    imgSelectedCallback(imgSrcArr, window.imgSelectFor);
+                    var arr = window.imgSelectFor.split(':');
+                    imgSelectedCallback(imgSrcArr, arr[0], arr[1]);
                 }
             } else {
                 toastr.error('您没有选择图片!');

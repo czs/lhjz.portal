@@ -139,7 +139,7 @@
             <div id="context">
                 <div class="ui styled fluid accordion">
                     <div class="title">
-                        <i class="dropdown icon"></i> 主页 - 使用指导
+                        <i class="dropdown icon"></i> 门户主页 - 使用指导
                     </div>
                     <div class="content">
                         <p class="markdown-content" data-url="admin/md/index.md"></p>
@@ -148,7 +148,7 @@
                 <h2 class="ui header">
                 <i class="settings icon"></i>
                 <div class="content">
-                    主页设置
+                    门户主页设置
                     <div class="sub header">设置门户主页各模块的内容</div>
                 </div>
                 </h2>
@@ -158,7 +158,7 @@
                     </div>
                     <div class="content">
                         <div class="ui segment">
-                            <div class="ui primary button ad-add-image" data-for="bigImg">添加</div>
+                            <div class="ui primary button ad-add-image" data-for="index:bigImg">添加</div>
                         </div>
                         <div class="ui divided list big-img-list" th:remove="all-but-first">
                             <div class="item" th:each="bigImg : ${bigImgs}">
@@ -184,7 +184,7 @@
                     </div>
                     <div class="content">
                         <div class="ui segment">
-                            <div class="ui primary button ad-add-image" data-for="hotNews">添加</div>
+                            <div class="ui primary button ad-add-image" data-for="index:hotNews">添加</div>
                         </div>
                         <div class="ui link cards ad-hot-news-list" th:remove="all-but-first">
                             <div class="card" th:each="hotNew : ${hotNews}">
@@ -533,11 +533,11 @@
             }).modal('show');
         });
         // image select callback handle
-        window.imgSelectedCallback = function(imgUrlArr, module) {
+        window.imgSelectedCallback = function(imgUrlArr, page, module) {
             // save to server db.
             $.each(imgUrlArr, function(index, imgUrl) {
                 $.post('admin/settings/save', {
-                    page: 'index',
+                    page: page,
                     module: module,
                     imgUrl: imgUrl
                 }, function(data, textStatus, xhr) {

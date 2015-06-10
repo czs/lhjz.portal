@@ -68,7 +68,7 @@
                     </div>
                 </div>
                 <div class="ui segment">
-                    <div class="ui compact button ad-add-image" data-for="map">设置地图</div>
+                    <div class="ui compact button ad-add-image" data-for="contact:map">设置地图</div>
                     <div class="ui primary compact button btn-save">保存</div>
                 </div>
             </div>
@@ -100,7 +100,7 @@
         });
 
         // image select callback handle
-        window.imgSelectedCallback = function(imgUrlArr, module) {
+        window.imgSelectedCallback = function(imgUrlArr, page, module) {
             // save to server db.
             $.each(imgUrlArr, function(index, imgUrl) {
                 $('.contact-form').find('.contact-map').attr('src', imgUrl);

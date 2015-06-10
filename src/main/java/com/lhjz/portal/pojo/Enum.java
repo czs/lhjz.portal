@@ -24,11 +24,11 @@ public class Enum {
 	}
 
 	public static enum Page {
-		Unknow, Index;
+		Unknow, Index, About;
 	}
 
 	public static enum Module {
-		Unknow, BigImg, HotNews, MoreNews;
+		Unknow, BigImg, HotNews, MoreNews, Branch, Expert;
 	}
 
 	public static enum Key {

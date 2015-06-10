@@ -107,6 +107,27 @@ public class AdminController extends BaseController {
 
 	@RequestMapping("about")
 	public String about(Model model) {
+
+		List<Settings> settings = settingsRepository.findByPage(Page.About);
+
+		List<Settings> bigImgs = new ArrayList<Settings>();
+		List<Settings> branches = new ArrayList<Settings>();
+		List<Settings> experts = new ArrayList<Settings>();
+
+		for (Settings settings2 : settings) {
+			if (settings2.getModule() == Module.BigImg) {
+				bigImgs.add(settings2);
+			} else if (settings2.getModule() == Module.Branch) {
+				branches.add(settings2);
+			} else if (settings2.getModule() == Module.Expert) {
+				experts.add(settings2);
+			}
+		}
+
+		model.addAttribute("bigImgs", bigImgs);
+		model.addAttribute("branches", branches);
+		model.addAttribute("experts", experts);
+
 		return "admin/about";
 	}
 

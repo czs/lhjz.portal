@@ -2,9 +2,6 @@ package com.lhjz.portal.pojo;
 
 import org.hibernate.validator.constraints.NotBlank;
 
-import com.lhjz.portal.pojo.Enum.Module;
-import com.lhjz.portal.pojo.Enum.Page;
-
 public class SettingsForm {
 
 	@NotBlank
@@ -19,28 +16,6 @@ public class SettingsForm {
 	private String link;
 	private String more;
 	private double index;
-
-	public Page page() {
-		switch (page) {
-		case "index":
-			return Page.Index;
-		default:
-			return Page.Unknow;
-		}
-	}
-
-	public Module module() {
-		switch (module) {
-		case "bigImg":
-			return Module.BigImg;
-		case "hotNews":
-			return Module.HotNews;
-		case "moreNews":
-			return Module.MoreNews;
-		default:
-			return Module.Unknow;
-		}
-	}
 
 	public String getPage() {
 		return page;

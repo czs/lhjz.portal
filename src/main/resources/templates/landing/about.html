@@ -26,20 +26,20 @@
     <div th:replace="landing/index :: header"></div>
     <div class="container lhjz-content">
         <!-- 关于我们总体轮动图介绍栏 -->
-        <div id="carousel-about" class="carousel slide" data-ride="carousel">
-            <ol class="carousel-indicators">
-                <li data-target="#carousel-about" data-slide-to="0" class=""></li>
+        <div th:unless="${#lists.isEmpty(bigImgs)}" id="carousel-about" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators" th:remove="all-but-first">
+                <li th:each="bigImg,sts : ${bigImgs}" th:classappend="${sts.index} == 0 ? 'active' : ''" th:attr="data-slide-to=${sts.index}" data-target="#carousel-about" data-slide-to="0" class=""></li>
                 <li data-target="#carousel-about" data-slide-to="1" class=""></li>
                 <li data-target="#carousel-about" data-slide-to="2" class="active"></li>
             </ol>
-            <div class="carousel-inner">
-                <div class="item">
-                    <img data-src="" th:src="@{/landing/img/1.jpg}" alt="First slide" src="../../static/landing/img/1.jpg">
+            <div class="carousel-inner" th:remove="all-but-first">
+                <div class="item" th:each="bigImg,sts : ${bigImgs}" th:classappend="${sts.index} == 0 ? 'active' : ''">
+                    <img th:src="${bigImg.imgUrl}" alt="First slide" src="../../static/landing/img/1.jpg">
                     <div class="container">
                         <div class="carousel-caption">
-                            <h1>关于我们</h1>
-                            <p>立衡脊柱成立于1994年，是一家专门治疗脊柱病以及脊柱相关病的医疗机构，全国开设有四家分院。院长张军，主任医师，带领立衡脊柱专家组潜心临床研究数十年总结出一套不开刀不手术无创伤治疗颈椎病以及腰椎病的保守疗法——立衡脊柱平衡矫正疗法。...</p>
-                            <p><a class="btn btn-lg btn-primary" href="#" role="button">了解更多</a></p>
+                            <h1 th:if="${not #strings.isEmpty(bigImg.title)}" th:text="${bigImg.title}">关于我们</h1>
+                            <p th:if="${not #strings.isEmpty(bigImg.content)}" th:text="${#strings.abbreviate(bigImg.content,120)}">立衡脊柱成立于1994年，是一家专门治疗脊柱病以及脊柱相关病的医疗机构，全国开设有四家分院。院长张军，主任医师，带领立衡脊柱专家组潜心临床研究数十年总结出一套不开刀不手术无创伤治疗颈椎病以及腰椎病的保守疗法——立衡脊柱平衡矫正疗法。...</p>
+                            <p th:if="${not #strings.isEmpty(bigImg.link)}"><a class="btn btn-lg btn-primary" th:href="@{/article(id=${bigImg.link})}" href="#" role="button">了解更多</a></p>
                         </div>
                     </div>
                 </div>
@@ -72,130 +72,13 @@
             <div class="page-header">
                 <h1><small>各地分店</small></h1>
             </div>
-            <div class="col-sm-12 col-md-6">
+            <div class="col-sm-12 col-md-6" th:each="branch : ${branches}">
                 <div class="thumbnail">
-                    <img class="media-object" alt="" th:src="@{/landing/img/img2.jpg}" src="../../static/landing/img/img2.jpg" />
+                    <img class="media-object" alt="" th:src="${branch.imgUrl}" src="../../static/landing/img/img2.jpg" />
                     <div class="caption">
-                        <h3 id="thumbnail-label">北京分店<a class="anchorjs-link" href="#thumbnail-label"><span class="anchorjs-icon"></span></a></h3>
-                        <p>立衡脊柱成立于1994年，是一家专门治疗脊柱病以及脊柱相关病的医疗机构，全国开设有四家分院。院长张军，主任医师，带领立衡脊柱专家组潜心临床研究数十年总结出一套不开刀不手术无创伤治疗颈椎病以及腰椎病的保守疗法——立衡脊柱平衡矫正疗法。...</p>
-                        <p><a href="#" class="btn btn-primary" role="button">了解更多</a></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-12 col-md-6">
-                <div class="thumbnail">
-                    <img class="media-object" alt="" th:src="@{/landing/img/img2.jpg}" src="../../static/landing/img/img2.jpg" />
-                    <div class="caption">
-                        <h3 id="thumbnail-label">开封分店<a class="anchorjs-link" href="#thumbnail-label"><span class="anchorjs-icon"></span></a></h3>
-                        <p>立衡脊柱成立于1994年，是一家专门治疗脊柱病以及脊柱相关病的医疗机构，全国开设有四家分院。院长张军，主任医师，带领立衡脊柱专家组潜心临床研究数十年总结出一套不开刀不手术无创伤治疗颈椎病以及腰椎病的保守疗法——立衡脊柱平衡矫正疗法。...</p>
-                        <p><a href="#" class="btn btn-primary" role="button">了解更多</a></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-12 col-md-6">
-                <div class="thumbnail">
-                    <img class="media-object" alt="" th:src="@{/landing/img/img2.jpg}" src="../../static/landing/img/img2.jpg" />
-                    <div class="caption">
-                        <h3 id="thumbnail-label">郑州分店<a class="anchorjs-link" href="#thumbnail-label"><span class="anchorjs-icon"></span></a></h3>
-                        <p>立衡脊柱成立于1994年，是一家专门治疗脊柱病以及脊柱相关病的医疗机构，全国开设有四家分院。院长张军，主任医师，带领立衡脊柱专家组潜心临床研究数十年总结出一套不开刀不手术无创伤治疗颈椎病以及腰椎病的保守疗法——立衡脊柱平衡矫正疗法。...</p>
-                        <p><a href="#" class="btn btn-primary" role="button">了解更多</a></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-12 col-md-6">
-                <div class="thumbnail">
-                    <img class="media-object" alt="" th:src="@{/landing/img/img2.jpg}" src="../../static/landing/img/img2.jpg" />
-                    <div class="caption">
-                        <h3 id="thumbnail-label">驻马店分店<a class="anchorjs-link" href="#thumbnail-label"><span class="anchorjs-icon"></span></a></h3>
-                        <p>立衡脊柱成立于1994年，是一家专门治疗脊柱病以及脊柱相关病的医疗机构，全国开设有四家分院。院长张军，主任医师，带领立衡脊柱专家组潜心临床研究数十年总结出一套不开刀不手术无创伤治疗颈椎病以及腰椎病的保守疗法——立衡脊柱平衡矫正疗法。...</p>
-                        <p><a href="#" class="btn btn-primary" role="button">了解更多</a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- 店内环境介绍栏 -->
-        <div class="row">
-            <div class="page-header">
-                <h1><small>优雅环境</small></h1>
-            </div>
-            <div class="col-xs-6 col-md-4">
-                <div class="thumbnail">
-                    <img alt="300x200" th:src="@{/landing/img/thumb/1.png}" src="../../static/landing/img/thumb/1.png" />
-                    <div class="caption">
-                        <h3>标题一</h3>
-                        <p>简单的介绍！</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-6 col-md-4">
-                <div class="thumbnail">
-                    <img alt="300x200" th:src="@{/landing/img/thumb/2.png}" src="../../static/landing/img/thumb/2.png" />
-                    <div class="caption">
-                        <h3>标题二</h3>
-                        <p>简单的介绍！</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-6 col-md-4">
-                <div class="thumbnail">
-                    <img alt="300x200" th:src="@{/landing/img/thumb/3.png}" src="../../static/landing/img/thumb/3.png" />
-                    <div class="caption">
-                        <h3>标题三</h3>
-                        <p>简单的介绍！</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-6 col-md-4">
-                <div class="thumbnail">
-                    <img alt="300x200" th:src="@{/landing/img/thumb/4.png}" src="../../static/landing/img/thumb/4.png" />
-                    <div class="caption">
-                        <h3>标题三</h3>
-                        <p>简单的介绍！</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-6 col-md-4">
-                <div class="thumbnail">
-                    <img alt="300x200" th:src="@{/landing/img/thumb/1.png}" src="../../static/landing/img/thumb/1.png" />
-                    <div class="caption">
-                        <h3>标题一</h3>
-                        <p>简单的介绍！</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-6 col-md-4">
-                <div class="thumbnail">
-                    <img alt="300x200" th:src="@{/landing/img/thumb/2.png}" src="../../static/landing/img/thumb/2.png" />
-                    <div class="caption">
-                        <h3>标题二</h3>
-                        <p>简单的介绍！</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-6 col-md-4">
-                <div class="thumbnail">
-                    <img alt="300x200" th:src="@{/landing/img/thumb/3.png}" src="../../static/landing/img/thumb/3.png" />
-                    <div class="caption">
-                        <h3>标题三</h3>
-                        <p>简单的介绍！</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-6 col-md-4">
-                <div class="thumbnail">
-                    <img alt="300x200" th:src="@{/landing/img/thumb/4.png}" src="../../static/landing/img/thumb/4.png" />
-                    <div class="caption">
-                        <h3>标题三</h3>
-                        <p>简单的介绍！</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-6 col-md-4">
-                <div class="thumbnail">
-                    <img alt="300x200" th:src="@{/landing/img/thumb/4.png}" src="../../static/landing/img/thumb/4.png" />
-                    <div class="caption">
-                        <h3>标题三</h3>
-                        <p>简单的介绍！</p>
+                        <h3 id="thumbnail-label" th:text="${branch.title}">北京分店</h3>
+                        <p th:text="${#strings.abbreviate(branch.content,65)}">立衡脊柱成立于1994年，是一家专门治疗脊柱病以及脊柱相关病的医疗机构，全国开设有四家分院。院长张军，主任医师，带领立衡脊柱专家组潜心临床研究数十年总结出一套不开刀不手术无创伤治疗颈椎病以及腰椎病的保守疗法——立衡脊柱平衡矫正疗法。...</p>
+                        <p th:unless="${#strings.isEmpty(branch.link)}"><a href="#" th:href="@{/article(id=${branch.link})}" class="btn btn-primary" role="button">了解更多</a></p>
                     </div>
                 </div>
             </div>
@@ -205,43 +88,13 @@
             <div class="page-header">
                 <h1><small>资深专家</small></h1>
             </div>
-            <div class="col-sm-6 col-md-3">
+            <div class="col-sm-6 col-md-3" th:each="expert : ${experts}">
                 <div class="thumbnail">
-                    <img class="media-object" alt="" th:src="@{/landing/img/team/p1.jpg}" src="../../static/landing/img/team/p1.jpg" />
+                    <img class="media-object" alt="" th:src="${expert.imgUrl}" src="../../static/landing/img/team/p1.jpg" />
                     <div class="caption">
-                        <h3 id="thumbnail-label">张教授<a class="anchorjs-link" href="#thumbnail-label"><span class="anchorjs-icon"></span></a></h3>
-                        <p>立衡脊柱成立于1994年，是一家专门治疗脊柱病以及脊柱相关病的医疗机构，全国开设有四家分院。院长张军，主任医师，带领立衡脊柱专家组潜心临床研究数十年总结出一套不开刀不手术无创伤治疗颈椎病以及腰椎病的保守疗法——立衡脊柱平衡矫正疗法。...</p>
-                        <p><a href="#" class="btn btn-primary" role="button">了解更多</a></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-md-3">
-                <div class="thumbnail">
-                    <img class="media-object" alt="" th:src="@{/landing/img/team/p1.jpg}" src="../../static/landing/img/team/p1.jpg" />
-                    <div class="caption">
-                        <h3 id="thumbnail-label">李教授<a class="anchorjs-link" href="#thumbnail-label"><span class="anchorjs-icon"></span></a></h3>
-                        <p>立衡脊柱成立于1994年，是一家专门治疗脊柱病以及脊柱相关病的医疗机构，全国开设有四家分院。院长张军，主任医师，带领立衡脊柱专家组潜心临床研究数十年总结出一套不开刀不手术无创伤治疗颈椎病以及腰椎病的保守疗法——立衡脊柱平衡矫正疗法。...</p>
-                        <p><a href="#" class="btn btn-primary" role="button">了解更多</a></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-md-3">
-                <div class="thumbnail">
-                    <img class="media-object" alt="" th:src="@{/landing/img/team/p1.jpg}" src="../../static/landing/img/team/p1.jpg" />
-                    <div class="caption">
-                        <h3 id="thumbnail-label">赵主任<a class="anchorjs-link" href="#thumbnail-label"><span class="anchorjs-icon"></span></a></h3>
-                        <p>立衡脊柱成立于1994年，是一家专门治疗脊柱病以及脊柱相关病的医疗机构，全国开设有四家分院。院长张军，主任医师，带领立衡脊柱专家组潜心临床研究数十年总结出一套不开刀不手术无创伤治疗颈椎病以及腰椎病的保守疗法——立衡脊柱平衡矫正疗法。...</p>
-                        <p><a href="#" class="btn btn-primary" role="button">了解更多</a></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-md-3">
-                <div class="thumbnail">
-                    <img class="media-object" alt="" th:src="@{/landing/img/team/p1.jpg}" src="../../static/landing/img/team/p1.jpg" />
-                    <div class="caption">
-                        <h3 id="thumbnail-label">钱副教授<a class="anchorjs-link" href="#thumbnail-label"><span class="anchorjs-icon"></span></a></h3>
-                        <p>立衡脊柱成立于1994年，是一家专门治疗脊柱病以及脊柱相关病的医疗机构，全国开设有四家分院。院长张军，主任医师，带领立衡脊柱专家组潜心临床研究数十年总结出一套不开刀不手术无创伤治疗颈椎病以及腰椎病的保守疗法——立衡脊柱平衡矫正疗法。...</p>
-                        <p><a href="#" class="btn btn-primary" role="button">了解更多</a></p>
+                        <h3 id="thumbnail-label" th:text="${expert.title}">张教授</h3>
+                        <p th:text="${#strings.abbreviate(expert.content,65)}">立衡脊柱成立于1994年，是一家专门治疗脊柱病以及脊柱相关病的医疗机构，全国开设有四家分院。院长张军，主任医师，带领立衡脊柱专家组潜心临床研究数十年总结出一套不开刀不手术无创伤治疗颈椎病以及腰椎病的保守疗法——立衡脊柱平衡矫正疗法。...</p>
+                        <p th:unless="${#strings.isEmpty(expert.link)}"><a href="#" th:href="@{/article(id=${expert.link})}" class="btn btn-primary" role="button">了解更多</a></p>
                     </div>
                 </div>
             </div>
