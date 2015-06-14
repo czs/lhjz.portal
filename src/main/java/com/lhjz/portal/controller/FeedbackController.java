@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.lhjz.portal.base.BaseController;
-import com.lhjz.portal.component.MailSender;
+import com.lhjz.portal.component.MailSender2;
 import com.lhjz.portal.entity.Feedback;
 import com.lhjz.portal.model.RespBody;
 import com.lhjz.portal.pojo.Enum.Action;
@@ -28,6 +28,9 @@ import com.lhjz.portal.pojo.Enum.Target;
 import com.lhjz.portal.pojo.FeedbackForm;
 import com.lhjz.portal.repository.FeedbackRepository;
 import com.lhjz.portal.util.DateUtil;
+import com.lhjz.portal.util.MapUtil;
+import com.lhjz.portal.util.StringUtil;
+import com.lhjz.portal.util.TemplateUtil;
 import com.lhjz.portal.util.ThreadUtil;
 import com.lhjz.portal.util.WebUtil;
 
@@ -48,11 +51,17 @@ public class FeedbackController extends BaseController {
 	@Autowired
 	FeedbackRepository feedbackRepository;
 
+	// @Autowired
+	// MailSender mailSender;
+
 	@Autowired
-	MailSender mailSender;
+	MailSender2 mailSender;
 
 	@Value("${lhjz.mail.switch}")
 	private String mailSwitch;
+
+	@Value("${lhjz.mail.to.addresses}")
+	private String toAddrArr;
 
 	@RequestMapping(value = "save", method = RequestMethod.POST)
 	@ResponseBody
@@ -88,17 +97,30 @@ public class FeedbackController extends BaseController {
 		log(Action.Create, Target.Feedback, feedback2);
 
 		ThreadUtil.exec(() -> {
-			if (mailSender.sendText(
-					String.format("立恒脊柱-用户反馈_%s",
-							DateUtil.format(new Date(), DateUtil.FORMAT2)),
-					feedback2.toString())) {
+
+			try {
+				mailSender.sendHtml(
+						String.format("立恒脊柱-用户反馈_%s",
+								DateUtil.format(new Date(), DateUtil.FORMAT2)),
+						TemplateUtil.process("templates/mail/feedback",
+								MapUtil.objArr2Map("feedback", feedback2)),
+						StringUtil.split(toAddrArr, ","));
 				logger.info("反馈邮件发送成功！ID:{}", feedback2.getId());
-			} else {
+			} catch (Exception e) {
+				e.printStackTrace();
 				logger.error("反馈邮件发送失败！ID:{}", feedback2.getId());
 			}
+
+			// if (mailSender.sendText(
+			// String.format("立恒脊柱-用户反馈_%s",
+			// DateUtil.format(new Date(), DateUtil.FORMAT2)),
+			// feedback2.toString())) {
+			// logger.info("反馈邮件发送成功！ID:{}", feedback2.getId());
+			// } else {
+			// logger.error("反馈邮件发送失败！ID:{}", feedback2.getId());
+			// }
 		});
 
 		return RespBody.succeed("反馈提交成功，谢谢！");
 	}
-
 }
