@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.lhjz.portal.base.BaseController;
-import com.lhjz.portal.component.MailSender;
+import com.lhjz.portal.component.MailSender2;
 import com.lhjz.portal.entity.Diagnose;
 import com.lhjz.portal.model.RespBody;
 import com.lhjz.portal.pojo.Enum.Action;
@@ -24,7 +24,9 @@ import com.lhjz.portal.pojo.Enum.Target;
 import com.lhjz.portal.repository.DiagnoseRepository;
 import com.lhjz.portal.util.DateUtil;
 import com.lhjz.portal.util.EnumUtil;
+import com.lhjz.portal.util.MapUtil;
 import com.lhjz.portal.util.StringUtil;
+import com.lhjz.portal.util.TemplateUtil;
 import com.lhjz.portal.util.ThreadUtil;
 
 /**
@@ -42,7 +44,7 @@ public class DiagnoseController extends BaseController {
 			.getLogger(DiagnoseController.class);
 
 	@Autowired
-	MailSender mailSender;
+	MailSender2 mailSender;
 
 	@Value("${lhjz.mail.switch}")
 	private String mailSwitch;
@@ -126,22 +128,36 @@ public class DiagnoseController extends BaseController {
 			return RespBody.failed("反馈对象不存在mail,请选择其他方式反馈!");
 		}
 
-		ThreadUtil.exec(() -> {
-			boolean success = mailSender.sendTextTo(
-					new String[] { mail },
-					String.format("立衡脊柱-在线诊断_%s",
-							DateUtil.format(new Date(), DateUtil.FORMAT2)),
-					content);
+		diagnose.setContent(content);
 
-			logger.debug("在线诊断-症状反馈邮件发送状态: {}", success);
+		ThreadUtil
+				.exec(() -> {
 
-			diagnose.setContent(content);
-			diagnose.setStatus(success ? Status.Resolved : Status.Failed);
+					boolean success = false;
 
-			diagnoseRepository.saveAndFlush(diagnose);
+					try {
+						success = mailSender.sendHtml(String.format(
+								"立衡脊柱-在线诊断_%s",
+								DateUtil.format(new Date(), DateUtil.FORMAT2)),
+								TemplateUtil
+										.process("templates/mail/diagnose",
+												MapUtil.objArr2Map("diagnose",
+														diagnose)), mail);
 
-			log(Action.Update, Target.Diagnose, diagnose);
-		});
+						logger.debug("在线诊断-症状反馈邮件发送状态: {}", "成功");
+					} catch (Exception e) {
+						success = false;
+						e.printStackTrace();
+						logger.debug("在线诊断-症状反馈邮件发送状态: {}", "失败");
+					}
+
+					diagnose.setStatus(success ? Status.Resolved
+							: Status.Failed);
+
+					diagnoseRepository.saveAndFlush(diagnose);
+
+					log(Action.Update, Target.Diagnose, diagnose);
+				});
 
 		return RespBody.succeed(diagnose);
 	}

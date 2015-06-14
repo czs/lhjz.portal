@@ -51,9 +51,6 @@ public class FeedbackController extends BaseController {
 	@Autowired
 	FeedbackRepository feedbackRepository;
 
-	// @Autowired
-	// MailSender mailSender;
-
 	@Autowired
 	MailSender2 mailSender;
 
@@ -111,14 +108,6 @@ public class FeedbackController extends BaseController {
 				logger.error("反馈邮件发送失败！ID:{}", feedback2.getId());
 			}
 
-			// if (mailSender.sendText(
-			// String.format("立恒脊柱-用户反馈_%s",
-			// DateUtil.format(new Date(), DateUtil.FORMAT2)),
-			// feedback2.toString())) {
-			// logger.info("反馈邮件发送成功！ID:{}", feedback2.getId());
-			// } else {
-			// logger.error("反馈邮件发送失败！ID:{}", feedback2.getId());
-			// }
 		});
 
 		return RespBody.succeed("反馈提交成功，谢谢！");
