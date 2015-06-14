@@ -19,6 +19,8 @@ public class FileUtil {
 	public static String getName(String filePath) {
 		if (filePath == null || filePath.length() == 0) {
 			return EMPTY;
+		} else {
+			filePath = filePath.replaceAll("\\\\", "/");
 		}
 
 		int i = filePath.lastIndexOf("/");

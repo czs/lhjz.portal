@@ -37,7 +37,7 @@ import com.lhjz.portal.util.StringUtil;
  * @version 1.0
  * 
  */
-@Component
+@Component("myMailSender")
 public class MailSender {
 
 	static Logger logger = Logger.getLogger(MailSender.class);
