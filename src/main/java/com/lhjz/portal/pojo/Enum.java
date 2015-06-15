@@ -20,15 +20,15 @@ public class Enum {
 	}
 
 	public static enum Target {
-		Article, File, Feedback, Diagnose, Settings, Page, User, Authority, Config;
+		Article, File, Feedback, Diagnose, Settings, Page, User, Authority, Config, Feature;
 	}
 
 	public static enum Page {
-		Unknow, Index, About;
+		Unknow, Index, About, Feature;
 	}
 
 	public static enum Module {
-		Unknow, BigImg, HotNews, MoreNews, Branch, Expert;
+		Unknow, BigImg, HotNews, MoreNews, Branch, Expert, More, Introduction;
 	}
 
 	public static enum Key {
