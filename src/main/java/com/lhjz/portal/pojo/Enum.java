@@ -20,11 +20,11 @@ public class Enum {
 	}
 
 	public static enum Target {
-		Article, File, Feedback, Diagnose, Settings, Page, User, Authority, Config, Feature;
+		Article, File, Feedback, Diagnose, Settings, Page, User, Authority, Config, Feature, Case;
 	}
 
 	public static enum Page {
-		Unknow, Index, About, Feature;
+		Unknow, Index, About, Feature, Case;
 	}
 
 	public static enum Module {

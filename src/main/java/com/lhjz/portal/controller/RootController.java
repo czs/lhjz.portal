@@ -130,6 +130,23 @@ public class RootController extends BaseController {
 
 	@RequestMapping("case")
 	public String cases(Model model) {
+
+		List<Settings> settings = settingsRepository.findByPage(Page.Case);
+
+		List<Settings> introductions = new ArrayList<Settings>();
+		List<Settings> mores = new ArrayList<Settings>();
+
+		for (Settings settings2 : settings) {
+			if (settings2.getModule() == Module.Introduction) {
+				introductions.add(settings2);
+			} else if (settings2.getModule() == Module.More) {
+				mores.add(settings2);
+			}
+		}
+
+		model.addAttribute("introductions", introductions);
+		model.addAttribute("mores", mores);
+
 		return "landing/case";
 	}
 
