@@ -97,11 +97,6 @@ public class RootController extends BaseController {
 		return "landing/index";
 	}
 
-	// @RequestMapping("index")
-	// public String index(Model model) {
-	// return "landing/index";
-	// }
-
 	@RequestMapping("about")
 	public String about(Model model) {
 
@@ -150,11 +145,6 @@ public class RootController extends BaseController {
 		return "landing/case";
 	}
 
-	@RequestMapping("team")
-	public String team(Model model) {
-		return "landing/team";
-	}
-
 	@RequestMapping("diagnose")
 	public String diagnose(Model model) {
 		return "landing/diagnose";
@@ -177,6 +167,23 @@ public class RootController extends BaseController {
 
 	@RequestMapping("env")
 	public String env(Model model) {
+
+		List<Settings> settings = settingsRepository.findByPage(Page.Env);
+
+		List<Settings> introductions = new ArrayList<Settings>();
+		List<Settings> mores = new ArrayList<Settings>();
+
+		for (Settings settings2 : settings) {
+			if (settings2.getModule() == Module.Introduction) {
+				introductions.add(settings2);
+			} else if (settings2.getModule() == Module.More) {
+				mores.add(settings2);
+			}
+		}
+
+		model.addAttribute("introductions", introductions);
+		model.addAttribute("mores", mores);
+
 		return "landing/env";
 	}
 
@@ -204,11 +211,45 @@ public class RootController extends BaseController {
 
 	@RequestMapping("health")
 	public String health(Model model) {
+
+		List<Settings> settings = settingsRepository.findByPage(Page.Health);
+
+		List<Settings> introductions = new ArrayList<Settings>();
+		List<Settings> mores = new ArrayList<Settings>();
+
+		for (Settings settings2 : settings) {
+			if (settings2.getModule() == Module.Introduction) {
+				introductions.add(settings2);
+			} else if (settings2.getModule() == Module.More) {
+				mores.add(settings2);
+			}
+		}
+
+		model.addAttribute("introductions", introductions);
+		model.addAttribute("mores", mores);
+
 		return "landing/health";
 	}
 
 	@RequestMapping("product")
 	public String product(Model model) {
+
+		List<Settings> settings = settingsRepository.findByPage(Page.Product);
+
+		List<Settings> introductions = new ArrayList<Settings>();
+		List<Settings> mores = new ArrayList<Settings>();
+
+		for (Settings settings2 : settings) {
+			if (settings2.getModule() == Module.Introduction) {
+				introductions.add(settings2);
+			} else if (settings2.getModule() == Module.More) {
+				mores.add(settings2);
+			}
+		}
+
+		model.addAttribute("introductions", introductions);
+		model.addAttribute("mores", mores);
+
 		return "landing/product";
 	}
 

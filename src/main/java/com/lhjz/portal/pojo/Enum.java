@@ -10,9 +10,7 @@ package com.lhjz.portal.pojo;
 public class Enum {
 
 	public static enum Status {
-
 		Unknow, Normal, Deleted, Bultin, New, Opening, Analyzing, Accepted, Processing, Resolved, Closed, Ignored, Failed;
-
 	}
 
 	public static enum Action {
@@ -20,11 +18,11 @@ public class Enum {
 	}
 
 	public static enum Target {
-		Article, File, Feedback, Diagnose, Settings, Page, User, Authority, Config, Feature, Case;
+		Article, File, Feedback, Diagnose, Settings, Page, User, Authority, Config, Feature, Case, Product, Env, Health;
 	}
 
 	public static enum Page {
-		Unknow, Index, About, Feature, Case;
+		Unknow, Index, About, Feature, Case, Product, Env, Health;
 	}
 
 	public static enum Module {

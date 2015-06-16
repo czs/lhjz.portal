@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>立衡脊柱- 脊柱健康</title>
+    <title>立衡脊柱 - 脊柱健康</title>
     <link rel="icon" th:href="@{/favicon.ico}" href="../../static/favicon.ico" type="image/x-icon" />
     <link rel="shortcut icon" th:href="@{/favicon.ico}" href="../../static/favicon.ico" type="image/x-icon" />
     <!-- Bootstrap core CSS -->
@@ -29,114 +29,34 @@
             <div class="col-md-12 column">
                 <div class="jumbotron lhjz-jumbotron">
                     <h2>脊柱健康</h2>
-                    <p>据统计脊柱病以及脊柱相关病发病率为98%,其中20岁——40岁患者占其中50%以上,患病群体呈现年轻化趋势.其中腰椎病患者所占比例为70%以上,颈椎病患者占20%以上,并有大量患者两病兼得,我院曾对某市全市中小学生进行为期两年的普查发现初中以下脊柱变形发病率为13.7%以上(其中不包括先天性脊柱变形),而高中的发病率为17.2%并且呈现逐年增高的趋势.</p>
-                    <p>
-                        <a class="btn btn-primary btn-large" href="#">查看更多 ...</a>
-                    </p>
+                    <p th:text="${#lists.isEmpty(introductions) ? '' : introductions[0].content}">目前我国很多保守疗法其主要原理是缓解周围组织使其适应脊柱不正常形态从而减轻症状来缓解或者掩盖病情，此类疗法无远期效果，复发率较高。而立衡脊柱平衡矫正疗法是矫正脊柱不正常形态，塑造周围组织再生的健康环境，使其整个系统恢复到健康状态，是一套从根本上解除病患的疗法。还您一副健康的脊梁！立衡脊柱特色矫正疗法是目前唯一一套可用X线对比疗效的疗法，享誉国内外。立衡脊柱分院曾担任河南省青少年脊柱变形定点矫正单位，并担任中小学脊柱健康普查工作，有效率100%。</p>
                 </div>
             </div>
         </div>
-        <!-- 脊柱健康科普知识缩略图 -->
-        <div class="row clearfix">
-            <div class="col-md-4">
+        <div class="row" id="more" th:remove="all-but-first">
+            <div class="col-md-6" th:each="more : ${mores}">
                 <div class="thumbnail">
-                    <img alt="300x200" th:src="@{/landing/img/img1.jpg}" src="../../static/landing/img/love.jpg" />
+                    <img alt="300x200" th:src="${more.imgUrl}" src="../../static/landing/img/img1.jpg" />
                     <div class="caption">
-                        <h3>对脊柱的正确认识</h3>
-                        <p>本文导读：关于脊柱正确的是什么呢？脊柱是由脊椎骨及椎间盘构成，是一相当柔软又能活动的结构，它主要位于背部正中，上端接颅骨，下端达尾骨。</p>
+                        <h3 th:text="${more.title}">国内外唯一可用X线对比治疗疗效的方法</h3>
+                        <p th:text="${#strings.abbreviate(more.content,120)}">来院治疗时我院会备录患者治疗前的影像图片和影像诊断报告，并在治疗结束后患者可做新的影像检查来对比疗效。</p>
                         <p>
-                            很多人都知道脊柱，但是真正了解<strong>脊柱</strong>的人却少之又少。那<strong>关于脊柱正确的是</strong>什么是呢？下列由<strong>脊柱外科</strong>专家为我们介绍。
-                        </p>
-                        <p>
-                            <a class="btn btn-primary" href="article/001.html">浏览</a> <a class="btn" href="#">更多 »</a>
+                            <a th:unless="${#strings.isEmpty(more.link)}" class="btn btn-primary" target="_blank" th:href="@{/article(id=${more.link})}" href="#">了解更多</a>
                         </p>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div class="thumbnail">
-                    <img alt="300x200" th:src="@{/landing/img/img1.jpg}" src="../../static/landing/img/love.jpg" />
+                    <img alt="300x200" th:src="@{/landing/img/img2.jpg}" src="../../static/landing/img/img2.jpg" />
                     <div class="caption">
-                        <h3>认识脊柱病症位置</h3>
+                        <h3>世界颈、腰椎研究会、世界骨伤学会全力推荐疗法</h3>
+                        <p>本疗法曾多次刊登在各大杂志以及学术报告，并受到广泛认可。</p>
                         <p>
-                            <strong>认识脊柱病症位置</strong>
-                        </p>
-                        <p>
-                            <strong>胸椎位置</strong>
-                        </p>
-                        <p>
-                            <strong>颈椎部位</strong>
-                        </p>
-                        <p>
-                            <strong>腰椎部位</strong>
-                        </p>
-                        <p>
-                            <strong>骶椎尾椎部位</strong>
-                        </p>
-                        <p>
-                            <a class="btn btn-primary" href="article/002.html">浏览</a> <a class="btn" href="#">更多 »</a>
+                            <a class="btn btn-primary" href="#">了解更多</a>
                         </p>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-4">
-                <div class="thumbnail">
-                    <img alt="300x200" th:src="@{/landing/img/img1.jpg}" src="../../static/landing/img/love.jpg" />
-                    <div class="caption">
-                        <h3>脊柱生理曲度的意义</h3>
-                        <p>摘要：正常成年人脊柱的长度约70厘米，女性和老年人稍短，在前后方向有4个生理性的弯曲，自上而下分别为颈曲、胸曲、腰曲和骶曲。</p>
-                        <p>
-                            正常成年人脊柱的长度约70厘米，女性和老年人稍短，在前后方向有4个生理性的弯曲，自上而下分别为颈曲、胸曲、腰曲和骶曲。这4个生理弯曲是直立位行走的哺乳动物特有的，使脊柱如同一个大弹簧，可有效地增加缓冲震荡的能力，加强姿势的稳定性。</p>
-                        <p>
-                            <a class="btn btn-primary" href="article/003.html">浏览</a> <a class="btn" href="#">更多 »</a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- 外链 -->
-        <div class="row clearfix lhjz-row2">
-            <div class="col-md-4">
-                <ul class="lhjz-linkList">
-                    <li><span class="date"></span> <a href="#">红木家具保养七绝技</a></li>
-                    <li><span class="date"></span> <a href="#">何时购买红木家具最合适？</a></li>
-                    <li><span class="date"></span> <a href="#">红木家具绿色环保</a></li>
-                    <li><span class="date"></span> <a href="#">选购和定制家具，消费者如…</a></li>
-                    <li><span class="date"></span> <a href="#">享受古典家具 红木家具难弃爱</a></li>
-                    <li><span class="date"></span> <a href="#">红木家具保养七绝技</a></li>
-                    <li><span class="date"></span> <a href="#">何时购买红木家具最合适？</a></li>
-                    <li><span class="date"></span> <a href="#">红木家具绿色环保</a></li>
-                    <li><span class="date"></span> <a href="#">选购和定制家具，消费者如…</a></li>
-                    <li><span class="date"></span> <a href="#">享受古典家具 红木家具难弃爱</a></li>
-                </ul>
-            </div>
-            <div class="col-md-4">
-                <ul class="lhjz-linkList">
-                    <li><span class="date"></span> <a href="#">红木家具保养七绝技</a></li>
-                    <li><span class="date"></span> <a href="#">何时购买红木家具最合适？</a></li>
-                    <li><span class="date"></span> <a href="#">红木家具绿色环保</a></li>
-                    <li><span class="date"></span> <a href="#">选购和定制家具，消费者如…</a></li>
-                    <li><span class="date"></span> <a href="#">享受古典家具 红木家具难弃爱</a></li>
-                    <li><span class="date"></span> <a href="#">红木家具保养七绝技</a></li>
-                    <li><span class="date"></span> <a href="#">何时购买红木家具最合适？</a></li>
-                    <li><span class="date"></span> <a href="#">红木家具绿色环保</a></li>
-                    <li><span class="date"></span> <a href="#">选购和定制家具，消费者如…</a></li>
-                    <li><span class="date"></span> <a href="#">享受古典家具 红木家具难弃爱</a></li>
-                </ul>
-            </div>
-            <div class="col-md-4">
-                <ul class="lhjz-linkList">
-                    <li><span class="date"></span> <a href="#">红木家具保养七绝技</a></li>
-                    <li><span class="date"></span> <a href="#">何时购买红木家具最合适？</a></li>
-                    <li><span class="date"></span> <a href="#">红木家具绿色环保</a></li>
-                    <li><span class="date"></span> <a href="#">选购和定制家具，消费者如…</a></li>
-                    <li><span class="date"></span> <a href="#">享受古典家具 红木家具难弃爱</a></li>
-                    <li><span class="date"></span> <a href="#">红木家具保养七绝技</a></li>
-                    <li><span class="date"></span> <a href="#">何时购买红木家具最合适？</a></li>
-                    <li><span class="date"></span> <a href="#">红木家具绿色环保</a></li>
-                    <li><span class="date"></span> <a href="#">选购和定制家具，消费者如…</a></li>
-                    <li><span class="date"></span> <a href="#">享受古典家具 红木家具难弃爱</a></li>
-                </ul>
             </div>
         </div>
     </div>

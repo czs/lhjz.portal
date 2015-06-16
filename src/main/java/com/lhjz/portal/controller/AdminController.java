@@ -99,12 +99,6 @@ public class AdminController extends BaseController {
 		return "admin/index";
 	}
 
-	// @RequestMapping("index")
-	// public String index(Model model) {
-	//
-	// return "admin/index";
-	// }
-
 	@RequestMapping("about")
 	public String about(Model model) {
 
@@ -191,6 +185,23 @@ public class AdminController extends BaseController {
 
 	@RequestMapping("env")
 	public String env(Model model) {
+
+		List<Settings> settings = settingsRepository.findByPage(Page.Env);
+
+		List<Settings> introductions = new ArrayList<Settings>();
+		List<Settings> mores = new ArrayList<Settings>();
+
+		for (Settings settings2 : settings) {
+			if (settings2.getModule() == Module.Introduction) {
+				introductions.add(settings2);
+			} else if (settings2.getModule() == Module.More) {
+				mores.add(settings2);
+			}
+		}
+
+		model.addAttribute("introductions", introductions);
+		model.addAttribute("mores", mores);
+
 		return "admin/env";
 	}
 
@@ -218,6 +229,23 @@ public class AdminController extends BaseController {
 
 	@RequestMapping("health")
 	public String health(Model model) {
+
+		List<Settings> settings = settingsRepository.findByPage(Page.Health);
+
+		List<Settings> introductions = new ArrayList<Settings>();
+		List<Settings> mores = new ArrayList<Settings>();
+
+		for (Settings settings2 : settings) {
+			if (settings2.getModule() == Module.Introduction) {
+				introductions.add(settings2);
+			} else if (settings2.getModule() == Module.More) {
+				mores.add(settings2);
+			}
+		}
+
+		model.addAttribute("introductions", introductions);
+		model.addAttribute("mores", mores);
+
 		return "admin/health";
 	}
 
@@ -228,12 +256,24 @@ public class AdminController extends BaseController {
 
 	@RequestMapping("product")
 	public String product(Model model) {
-		return "admin/product";
-	}
 
-	@RequestMapping("team")
-	public String team(Model model) {
-		return "admin/team";
+		List<Settings> settings = settingsRepository.findByPage(Page.Product);
+
+		List<Settings> introductions = new ArrayList<Settings>();
+		List<Settings> mores = new ArrayList<Settings>();
+
+		for (Settings settings2 : settings) {
+			if (settings2.getModule() == Module.Introduction) {
+				introductions.add(settings2);
+			} else if (settings2.getModule() == Module.More) {
+				mores.add(settings2);
+			}
+		}
+
+		model.addAttribute("introductions", introductions);
+		model.addAttribute("mores", mores);
+
+		return "admin/product";
 	}
 
 	@RequestMapping("user")

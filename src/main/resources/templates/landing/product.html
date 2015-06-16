@@ -29,24 +29,19 @@
             <div class="col-md-12 column">
                 <div class="jumbotron lhjz-jumbotron">
                     <h2>专利产品</h2>
-                    <p>立衡脊柱矫正院(立衡脊柱)成立于1994年，在全国有四家分支机构，现在北京开设第一家分支机构。立衡脊柱是一家致力于治疗脊柱病以及脊柱相关疾病的一家矫正机构。我机构以平衡矫正为核心理念，利用多项专利设备以及器具，加以相关辅助疗法组合成一套综合疗法，其疗效显著，二十多年来治愈无数患者。 立衡脊柱不仅是一家严格要求自己，注重自身健康发展的机构。
-                    </p>
-                    <p>
-                        <a class="btn btn-primary btn-large" href="#more">查看更多 &gt;&gt;</a>
-                    </p>
-                    <div id="more"></div>
+                    <p th:text="${#lists.isEmpty(introductions) ? '' : introductions[0].content}">目前我国很多保守疗法其主要原理是缓解周围组织使其适应脊柱不正常形态从而减轻症状来缓解或者掩盖病情，此类疗法无远期效果，复发率较高。而立衡脊柱平衡矫正疗法是矫正脊柱不正常形态，塑造周围组织再生的健康环境，使其整个系统恢复到健康状态，是一套从根本上解除病患的疗法。还您一副健康的脊梁！立衡脊柱特色矫正疗法是目前唯一一套可用X线对比疗效的疗法，享誉国内外。立衡脊柱分院曾担任河南省青少年脊柱变形定点矫正单位，并担任中小学脊柱健康普查工作，有效率100%。</p>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-6">
+        <div class="row" id="more" th:remove="all-but-first">
+            <div class="col-md-6" th:each="more : ${mores}">
                 <div class="thumbnail">
-                    <img alt="300x200" th:src="@{/landing/img/img1.jpg}" src="../../static/landing/img/img1.jpg" />
+                    <img alt="300x200" th:src="${more.imgUrl}" src="../../static/landing/img/img1.jpg" />
                     <div class="caption">
-                        <h3>分院一</h3>
-                        <p>是的，这部分就是内容啦！</p>
+                        <h3 th:text="${more.title}">国内外唯一可用X线对比治疗疗效的方法</h3>
+                        <p th:text="${#strings.abbreviate(more.content,120)}">来院治疗时我院会备录患者治疗前的影像图片和影像诊断报告，并在治疗结束后患者可做新的影像检查来对比疗效。</p>
                         <p>
-                            <a class="btn btn-primary" href="#">浏览</a> <a class="btn" href="#">更多 »</a>
+                            <a th:unless="${#strings.isEmpty(more.link)}" class="btn btn-primary" target="_blank" th:href="@{/article(id=${more.link})}" href="#">了解更多</a>
                         </p>
                     </div>
                 </div>
@@ -55,36 +50,10 @@
                 <div class="thumbnail">
                     <img alt="300x200" th:src="@{/landing/img/img2.jpg}" src="../../static/landing/img/img2.jpg" />
                     <div class="caption">
-                        <h3>分院二</h3>
-                        <p>对的，这部分就是内容啦！</p>
+                        <h3>世界颈、腰椎研究会、世界骨伤学会全力推荐疗法</h3>
+                        <p>本疗法曾多次刊登在各大杂志以及学术报告，并受到广泛认可。</p>
                         <p>
-                            <a class="btn btn-primary" href="#">浏览</a> <a class="btn" href="#">更多 »</a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="thumbnail">
-                    <img alt="300x200" th:src="@{/landing/img/img3.jpg}" src="../../static/landing/img/img3.jpg" />
-                    <div class="caption">
-                        <h3>分院三</h3>
-                        <p>没错，这部分就是内容啦！</p>
-                        <p>
-                            <a class="btn btn-primary" href="#">浏览</a> <a class="btn" href="#">更多 »</a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="thumbnail">
-                    <img alt="300x200" th:src="@{/landing/img/img2.jpg}" src="../../static/landing/img/img2.jpg" />
-                    <div class="caption">
-                        <h3>分院四</h3>
-                        <p>对的，这部分就是内容啦！</p>
-                        <p>
-                            <a class="btn btn-primary" href="#">浏览</a> <a class="btn" href="#">更多 »</a>
+                            <a class="btn btn-primary" href="#">了解更多</a>
                         </p>
                     </div>
                 </div>
