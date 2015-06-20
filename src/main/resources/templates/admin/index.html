@@ -137,21 +137,7 @@
                 </div>
             </div>
             <div id="context">
-                <div class="ui styled fluid accordion">
-                    <div class="title">
-                        <i class="dropdown icon"></i> 门户主页 - 使用指导
-                    </div>
-                    <div class="content">
-                        <p class="markdown-content" data-url="admin/md/index.md"></p>
-                    </div>
-                </div>
-                <h2 class="ui header">
-                <i class="settings icon"></i>
-                <div class="content">
-                    门户主页设置
-                    <div class="sub header">设置门户主页各模块的内容</div>
-                </div>
-                </h2>
+                <div th:replace="admin/template :: ad-page-header ('门户主页', 'index')"></div>
                 <div class="ui styled fluid accordion">
                     <div class="title">
                         <i class="dropdown icon"></i> 轮动图

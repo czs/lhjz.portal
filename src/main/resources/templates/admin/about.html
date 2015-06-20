@@ -35,21 +35,7 @@
         <div class="ad-index-container">
             <div th:replace="admin/index :: rail-menu"></div>
             <div id="context">
-                <div class="ui styled fluid accordion">
-                    <div class="title">
-                        <i class="dropdown icon"></i> 关于我们 - 使用指导
-                    </div>
-                    <div class="content">
-                        <p class="markdown-content" data-url="admin/md/about.md"></p>
-                    </div>
-                </div>
-                <h2 class="ui header">
-                <i class="settings icon"></i>
-                <div class="content">
-                    关于我们设置
-                    <div class="sub header">设置关于我们各模块的内容</div>
-                </div>
-                </h2>
+                <div th:replace="admin/template :: ad-page-header ('关于我们', 'about')"></div>
                 <div class="ui styled fluid accordion">
                     <div class="title">
                         <i class="dropdown icon"></i> 轮动图

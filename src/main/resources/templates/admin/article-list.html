@@ -17,6 +17,7 @@
     <!-- js引用 -->
     <script type="text/javascript" th:src="@{/lib/jquery-1.11.2.min.js}" src="../../static/lib/jquery-1.11.2.min.js"></script>
     <script type="text/javascript" th:src="@{/lib/semantic/semantic.min.js}" src="../../static/lib/semantic/semantic.min.js"></script>
+    <script type="text/javascript" th:src="@{/lib/jquery.tablesort.min.js}" src="../../static/lib/jquery.tablesort.min.js"></script>
     <script th:src="@{/lib/toastr/toastr.js}" src="../../static/lib/toastr/toastr.js"></script>
     <!-- 自定义js -->
     <script type="text/javascript" th:src="@{/admin/js/admin.js}" src="../../static/admin/js/admin.js"></script>
@@ -80,28 +81,23 @@
             </div>
         </div>
     </div>
+    <div th:replace="admin/template :: ad-delete-confirm"></div>
     <div th:include="admin/template :: ad-page-common"></div>
     <script type="text/javascript" th:inline="javascript">
     jQuery(document).ready(function($) {
 
-        var btnDel;
-
-        $('.ui.modal').modal({
-            /*closable: false,*/
-            onDeny: function() {
-                return true;
-            },
-            onApprove: function() {
-                btnDel.triggerHandler('lhjz:yes');
-            }
-        });
+        $('table').tablesort().data('tablesort');
 
         $('.lhjz-btn-del').click(function() {
-            btnDel = $(this);
-            $('.ui.modal').modal('show');
-        });
+            var $btn = $(this);
 
-        $('.lhjz-btn-del').api({
+            $('.ad-delete-confirm').modal({
+                onApprove: function() {
+                    $btn.triggerHandler('lhjz:yes');
+                }
+            }).modal('show');
+            
+        }).api({
             action: 'deleteArticleById',
             method: 'post',
             on: 'lhjz:yes',
@@ -130,10 +126,6 @@
             onComplete: function(resp, elem) {}
         });
     });
-
-    //TODO
-    // 1. 删除确认
-    // 2. 编辑文章
     </script>
 </body>
 

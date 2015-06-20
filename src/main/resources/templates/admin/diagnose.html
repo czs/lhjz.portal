@@ -27,14 +27,7 @@
         <div class="ad-index-container">
             <div th:replace="admin/index :: rail-menu"></div>
             <div id="context">
-                <div class="ui styled fluid accordion">
-                    <div class="title">
-                        <i class="dropdown icon"></i> 在线诊断 - 使用指导
-                    </div>
-                    <div class="content">
-                        <p class="markdown-content" data-url="admin/md/diagnose.md"></p>
-                    </div>
-                </div>
+                <div th:replace="admin/template :: ad-page-header ('在线诊断', 'diagnose')"></div>
                 <div class="ui segment">
                     <a th:href="@{/admin/diagnose?status=new}" class="ui primary compact button">新创建</a>
                     <a th:href="@{/admin/diagnose?status=ignored}" class="ui yellow compact button">已忽略</a>
