@@ -220,32 +220,32 @@
                         <div class="col-xs-3">
                             <h4>关于</h4>
                             <ul class="list-unstyled">
-                                <li><a href="about.html">关于我们</a></li>
-                                <li><a href="team.html">专家团队</a></li>
-                                <li><a href="env.html">店内环境</a></li>
+                                <li><a th:text="@{/about}" href="about.html">关于我们</a></li>
+                                <li><a th:text="@{/job}" href="job.html">团队招聘</a></li>
+                                <li><a th:text="@{/env}" href="env.html">店内环境</a></li>
                             </ul>
                         </div>
                         <div class="col-xs-3">
                             <h4>联系</h4>
                             <ul class="list-unstyled">
                                 <li><a href="http://weibo.com/bootcss" title="立衡脊柱官方微博" target="_blank">新浪微博</a></li>
-                                <li><a href="mailto:admin@bootcss.com">电子邮件</a></li>
-                                <li><a href="contact.html">联系我们</a></li>
+                                <li><a href="mailto:lihengjizhu@163.com">电子邮件</a></li>
+                                <li><a th:text="@{/contact}" href="contact.html">联系我们</a></li>
                             </ul>
                         </div>
                         <div class="col-xs-3">
                             <h4>产品</h4>
                             <ul class="list-unstyled">
-                                <li><a href="feature.html">疗法特色</a></li>
-                                <li><a href="product.html">专利产品</a></li>
-                                <li><a href="case.html">康复案例</a></li>
+                                <li><a th:text="@{/feature}" href="feature.html">疗法特色</a></li>
+                                <li><a th:text="@{/product}" href="product.html">专利产品</a></li>
+                                <li><a th:text="@{/case}" href="case.html">康复案例</a></li>
                             </ul>
                         </div>
                         <div class="col-xs-3">
                             <h4>诊断</h4>
                             <ul class="list-unstyled">
-                                <li><a href="health.html">脊柱健康</a></li>
-                                <li><a href="diagnose.html">在线诊断</a></li>
+                                <li><a th:text="@{/health}" href="health.html">脊柱健康</a></li>
+                                <li><a th:text="@{/diagnose}" href="diagnose.html">在线诊断</a></li>
                             </ul>
                         </div>
                     </div>
