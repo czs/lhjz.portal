@@ -178,3 +178,7 @@ body {
 .padding-top-15{
     margin-top: 15px;
 }
+
+#common-feedback-content{
+    min-height: 150px;
+}

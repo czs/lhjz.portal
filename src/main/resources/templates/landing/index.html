@@ -89,6 +89,7 @@
                                     <li th:classappend="${#strings.contains(uri, '/diagnose')} ? 'active' : ''"><a th:href="@{/diagnose}" href="diagnose.html">诊断</a></li>
                                     <li th:classappend="${#strings.contains(uri, '/contact')} ? 'active' : ''"><a th:href="@{/contact}" href="contact.html">联系</a></li>
                                 </ul>
+                                <button type="button" id="btn--global-feedback" class="btn btn-success navbar-btn navbar-right">反馈</button>
                             </div>
                         </div>
                     </nav>
@@ -264,6 +265,7 @@
             </div>
         </div>
     </footer>
+    <div th:include="landing/template :: page-common"></div>
     <script type="text/javascript">
     jQuery(document).ready(function($) {
         //$('.lhjz-navbar').stickUp();

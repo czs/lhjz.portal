@@ -43,4 +43,26 @@ jQuery(function($) {
         activeOverlay: false
     });
 
+    $('#common-feedback-modal').on('show.bs.modal', function(event) {
+        var $modal = $(this);
+        $modal.find('#common-feedback-title').val($('head > title').text());
+        $modal.find('#common-feedback-content').val('');
+    });
+
+    $('#btn-common-feedback-submit').click(function(event) {
+        $.post('feedback/save', {
+            name: $("#common-feedback-modal").find('#common-feedback-title').val(),
+            url: $("#common-feedback-modal").find("#common-feedback-url").val(),
+            content: $("#common-feedback-modal").find('#common-feedback-content').val()
+        }, function(data, textStatus, xhr) {
+            $('#common-feedback-modal').modal('hide');
+            if(!data.success){
+                alert(data.data);
+            }
+        });
+    });
+
+    $('#btn--global-feedback').click(function(event) {
+        $('#common-feedback-modal').modal();
+    });
 });

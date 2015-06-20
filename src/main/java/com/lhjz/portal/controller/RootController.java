@@ -14,6 +14,8 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,9 +25,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.lhjz.portal.base.BaseController;
+import com.lhjz.portal.component.MailSender2;
 import com.lhjz.portal.entity.Article;
 import com.lhjz.portal.entity.Config;
 import com.lhjz.portal.entity.Diagnose;
+import com.lhjz.portal.entity.Feedback;
 import com.lhjz.portal.entity.Settings;
 import com.lhjz.portal.model.Message;
 import com.lhjz.portal.model.RespBody;
@@ -36,12 +40,18 @@ import com.lhjz.portal.pojo.Enum.Key;
 import com.lhjz.portal.pojo.Enum.Module;
 import com.lhjz.portal.pojo.Enum.Page;
 import com.lhjz.portal.pojo.Enum.Target;
+import com.lhjz.portal.pojo.FeedbackForm;
 import com.lhjz.portal.repository.ArticleRepository;
 import com.lhjz.portal.repository.ConfigRepository;
 import com.lhjz.portal.repository.DiagnoseRepository;
+import com.lhjz.portal.repository.FeedbackRepository;
 import com.lhjz.portal.repository.SettingsRepository;
+import com.lhjz.portal.util.DateUtil;
 import com.lhjz.portal.util.JsonUtil;
+import com.lhjz.portal.util.MapUtil;
 import com.lhjz.portal.util.StringUtil;
+import com.lhjz.portal.util.TemplateUtil;
+import com.lhjz.portal.util.ThreadUtil;
 
 /**
  * 
@@ -67,6 +77,18 @@ public class RootController extends BaseController {
 
 	@Autowired
 	ConfigRepository configRepository;
+
+	@Autowired
+	FeedbackRepository feedbackRepository;
+
+	@Autowired
+	MailSender2 mailSender;
+
+	@Value("${lhjz.mail.to.addresses}")
+	private String toAddrArr;
+
+	@Autowired
+	Environment env;
 
 	@RequestMapping()
 	public String home(HttpServletRequest request, Model model) {
@@ -276,7 +298,7 @@ public class RootController extends BaseController {
 
 	@RequestMapping(value = "diagnose/save", method = RequestMethod.POST)
 	@ResponseBody
-	public RespBody save(@Valid DiagnoseForm diagnoseForm,
+	public RespBody diagnoseSave(@Valid DiagnoseForm diagnoseForm,
 			BindingResult bindingResult) {
 
 		logger.debug("Enter method: {}", "save");
@@ -330,6 +352,81 @@ public class RootController extends BaseController {
 
 		log(Action.Create, Target.Diagnose, diagnose2);
 
+		ThreadUtil
+				.exec(() -> {
+
+					try {
+						String[] mailTo = StringUtil.split(
+								env.getProperty("lhjz.mail.diagnose.to.addresses"),
+								",");
+						mailSender.sendHtml(String.format("立衡脊柱-病症描述_%s",
+								DateUtil.format(new Date(), DateUtil.FORMAT2)),
+								TemplateUtil.process(
+										"templates/mail/diagnosis", MapUtil
+												.objArr2Map("diagnose",
+														diagnose)), mailTo);
+
+						logger.debug("在线诊断-症状描述邮件发送状态: {}", "成功");
+					} catch (Exception e) {
+						e.printStackTrace();
+						logger.debug("在线诊断-症状描述邮件发送状态: {}", "失败");
+					}
+				});
+
 		return RespBody.succeed("在线诊断提交成功，我们将尽快给予您回复！");
+	}
+
+	@RequestMapping(value = "feedback/save", method = RequestMethod.POST)
+	@ResponseBody
+	public RespBody feedbackSave(@Valid FeedbackForm feedbackForm,
+			BindingResult bindingResult) {
+
+		logger.debug("Enter method: {}", "feedbackSave");
+
+		if (bindingResult.hasErrors()) {
+			return RespBody.failed(bindingResult.getAllErrors().stream()
+					.map(err -> err.getDefaultMessage())
+					.collect(Collectors.joining("<br/>")));
+		}
+
+		List<Feedback> feedbacks = feedbackRepository
+				.findByContent(feedbackForm.getContent());
+
+		if (feedbacks.size() > 0) {
+			return RespBody.failed("您已经反馈过该内容！");
+		}
+
+		Feedback feedback = new Feedback();
+		feedback.setContent(feedbackForm.getContent());
+		feedback.setCreateDate(new Date());
+		feedback.setMail(feedbackForm.getMail());
+		feedback.setName(feedbackForm.getName());
+		feedback.setPhone(feedbackForm.getPhone());
+		feedback.setUsername(env.getProperty("lhjz.anonymous.user.name",
+				"anonymous_user"));
+		feedback.setUrl(feedbackForm.getUrl());
+
+		final Feedback feedback2 = feedbackRepository.saveAndFlush(feedback);
+
+		log(Action.Create, Target.Feedback, feedback2);
+
+		ThreadUtil.exec(() -> {
+
+			try {
+				mailSender.sendHtml(
+						String.format("立恒脊柱-用户反馈_%s",
+								DateUtil.format(new Date(), DateUtil.FORMAT2)),
+						TemplateUtil.process("templates/mail/feedback",
+								MapUtil.objArr2Map("feedback", feedback2)),
+						StringUtil.split(toAddrArr, ","));
+				logger.info("反馈邮件发送成功！ID:{}", feedback2.getId());
+			} catch (Exception e) {
+				e.printStackTrace();
+				logger.error("反馈邮件发送失败！ID:{}", feedback2.getId());
+			}
+
+		});
+
+		return RespBody.succeed("反馈提交成功，谢谢！");
 	}
 }

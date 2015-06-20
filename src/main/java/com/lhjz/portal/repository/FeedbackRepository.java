@@ -20,4 +20,6 @@ public interface FeedbackRepository extends JpaRepository<Feedback, Long> {
 
 	List<Feedback> findByContentAndUsername(String content, String username);
 
+	List<Feedback> findByContent(String content);
+
 }
