@@ -36,7 +36,7 @@
             <div th:replace="admin/index :: rail-menu"></div>
             <div id="context">
                 <div th:replace="admin/template :: ad-page-header ('资源文件', 'resource')"></div>
-                <div class="ui segment">
+                <div class="ui attached segment">
                     <div id="dropzone">
                         <form action="admin/file/upload" method="post" class="dropzone" id="my-dropzone">
                             <div class="dz-message">拖拽或者点击选择文件上传</div>
@@ -48,7 +48,7 @@
                         </form>
                     </div>
                 </div>
-                <div class="ui segment">
+                <div class="ui attached segment">
                     <div class="ui six doubling cards ad-img-cards">
                         <div class="card ad-img-card" th:each="img : ${imgs}">
                             <a class="image fancybox" data-fancybox-group="gallery" th:title="${T(com.lhjz.portal.util.FileUtil).getName(img.name)}" th:href="@{/{path}/{uuidName}(path=${path},uuidName=${img.uuidName})}"> <img th:src="@{/{path}/{uuidName}(path=${pathLarge},uuidName=${img.uuidName})}" src="../../static/img/img01_b.jpg">

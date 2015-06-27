@@ -28,6 +28,7 @@
             <div th:replace="admin/index :: rail-menu"></div>
             <div id="context">
                 <div th:replace="admin/template :: ad-page-header ('在线诊断', 'diagnose')"></div>
+                <div th:replace="admin/template :: ad-page-basic-settings ('diagnose')"></div>
                 <div class="ui segment">
                     <a th:href="@{/admin/diagnose?status=new}" class="ui primary compact button">新创建</a>
                     <a th:href="@{/admin/diagnose?status=ignored}" class="ui yellow compact button">已忽略</a>

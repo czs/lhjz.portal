@@ -6,6 +6,7 @@ package com.lhjz.portal.controller;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +20,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -89,6 +91,19 @@ public class RootController extends BaseController {
 
 	@Autowired
 	Environment env;
+
+	@SuppressWarnings("unchecked")
+	@ModelAttribute("pageEnable")
+	public Map<String, Object> pageEnable() {
+
+		Config config = configRepository.findFirstByKey(Key.PageEnable);
+
+		if (config != null) {
+			return JsonUtil.json2Object(config.getValue(), Map.class);
+		}
+
+		return null;
+	}
 
 	@RequestMapping()
 	public String home(HttpServletRequest request, Model model) {

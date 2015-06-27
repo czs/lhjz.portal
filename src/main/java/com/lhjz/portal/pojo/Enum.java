@@ -22,7 +22,7 @@ public class Enum {
 	}
 
 	public static enum Page {
-		Unknow, Index, About, Feature, Case, Product, Env, Health;
+		Unknow, Index, About, Feature, Case, Product, Env, Health, Job, Diagnose, Contact;
 	}
 
 	public static enum Module {
@@ -30,7 +30,7 @@ public class Enum {
 	}
 
 	public static enum Key {
-		Unknow, Contact;
+		Unknow, Contact, PageEnable;
 	}
 
 	public static enum Role {

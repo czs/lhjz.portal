@@ -163,6 +163,24 @@ jQuery(function($) {
         }
     });
 
+    $('.page-enable-checkbox').checkbox({
+
+        onChange:function(){
+            var $chk = $('.page-enable-checkbox');
+
+            $.post('admin/pageEnable', {
+                page: $chk.attr('data-page'), 
+                enable: $chk.checkbox('is checked')
+            }, function(data, textStatus, xhr) {
+                if(data.success){
+                    toastr.success('页面显示状态设置成功!');
+                }else{
+                    toastr.error('页面显示状态设置失败!');
+                }
+            });
+        }
+    });
+
 });
 
 jQuery(function($) {

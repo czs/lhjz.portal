@@ -25,7 +25,8 @@
             <div th:replace="admin/index :: rail-menu"></div>
             <div id="context">
                 <div th:replace="admin/template :: ad-page-header ('团队招聘', 'job')"></div>
-                <div class="ui segment">团队招聘</div>
+                <div th:replace="admin/template :: ad-page-basic-settings ('job')"></div>
+                <div class="ui attached segment">团队招聘</div>
             </div>
         </div>
     </div>

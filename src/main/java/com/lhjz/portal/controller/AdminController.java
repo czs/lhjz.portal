@@ -4,8 +4,10 @@
 package com.lhjz.portal.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.slf4j.Logger;
@@ -14,14 +16,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.lhjz.portal.base.BaseController;
 import com.lhjz.portal.entity.Config;
 import com.lhjz.portal.entity.Settings;
 import com.lhjz.portal.entity.security.Authority;
 import com.lhjz.portal.entity.security.User;
+import com.lhjz.portal.model.RespBody;
 import com.lhjz.portal.model.UserInfo;
 import com.lhjz.portal.pojo.ContactForm;
 import com.lhjz.portal.pojo.Enum.Key;
@@ -35,7 +41,9 @@ import com.lhjz.portal.repository.SettingsRepository;
 import com.lhjz.portal.repository.UserRepository;
 import com.lhjz.portal.util.EnumUtil;
 import com.lhjz.portal.util.JsonUtil;
+import com.lhjz.portal.util.MapUtil;
 import com.lhjz.portal.util.StringUtil;
+import com.lhjz.portal.util.WebUtil;
 
 /**
  * 
@@ -335,5 +343,62 @@ public class AdminController extends BaseController {
 	@RequestMapping("feedback")
 	public String feedback(Model model) {
 		return "admin/feedback";
+	}
+
+	@RequestMapping(value = "pageEnable", method = RequestMethod.POST)
+	@ResponseBody
+	public RespBody pageEnable(@RequestParam("page") String page,
+			@RequestParam("enable") boolean enable) {
+
+		Page page2 = EnumUtil.page(page);
+
+		if (page2 == Page.Unknow) {
+			logger.error("设置页面不存在, Page: {}", page);
+			return RespBody.failed("设置页面不存在!");
+		}
+
+		Config config = configRepository.findFirstByKey(Key.PageEnable);
+
+		// page enable config exists.
+		if (config != null) {
+			String json = config.getValue();
+
+			@SuppressWarnings("unchecked")
+			Map<String, Object> map = JsonUtil.json2Object(json, Map.class);
+
+			if (map == null) {
+				map = new HashMap<>();
+			}
+
+			map.put(page, enable);
+
+			config.setValue(JsonUtil.toJson(map));
+
+			configRepository.saveAndFlush(config);
+		} else {// first set page enable config
+			Config config2 = new Config();
+
+			config2.setKey(Key.PageEnable);
+			config2.setValue(JsonUtil.toJson(MapUtil.objArr2Map(page, enable)));
+
+			config2.setUsername(WebUtil.getUsername());
+
+			configRepository.saveAndFlush(config2);
+		}
+
+		return RespBody.succeed();
+	}
+
+	@SuppressWarnings("unchecked")
+	@ModelAttribute("pageEnable")
+	public Map<String, Object> pageEnable() {
+
+		Config config = configRepository.findFirstByKey(Key.PageEnable);
+
+		if (config != null) {
+			return JsonUtil.json2Object(config.getValue(), Map.class);
+		}
+
+		return null;
 	}
 }

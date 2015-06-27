@@ -398,6 +398,13 @@
             </div>
         </h2>
     </th:block>
+    <div th:fragment="ad-page-basic-settings (page)" class="ui attached segment">
+        <div class="ui toggle checkbox page-enable-checkbox" th:attr="data-page=${page}" th:with="chk=${not #maps.isEmpty(pageEnable)} and ${#maps.containsKey(pageEnable, page)} and ${not pageEnable[__${page}__]}">
+            <input th:if="${chk}" type="checkbox">
+            <input th:unless="${chk}" type="checkbox" checked>
+            <label>门户页面显示与否</label>
+        </div>
+    </div>
 </body>
 
 </html>

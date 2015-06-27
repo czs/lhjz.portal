@@ -30,7 +30,8 @@
             <div th:replace="admin/index :: rail-menu"></div>
             <div id="context">
                 <div th:replace="admin/template :: ad-page-header ('联系我们', 'contact')"></div>
-                <div class="ui form segment contact-form">
+                <div th:replace="admin/template :: ad-page-basic-settings ('contact')"></div>
+                <div class="ui attached form segment contact-form">
                     <div class="field">
                         <label>名称:</label>
                         <input type="text" name="name" th:value="${contact.name}">
@@ -60,7 +61,7 @@
                         <img class="ui image contact-map" th:src="${contact.map}" src="../../static/landing/img/map1.jpg" alt="">
                     </div>
                 </div>
-                <div class="ui segment">
+                <div class="ui attached segment">
                     <div class="ui compact button ad-add-image" data-for="contact:map">设置地图</div>
                     <div class="ui primary compact button btn-save">保存</div>
                 </div>
