@@ -150,6 +150,9 @@ INSERT INTO `file` (`id`, `create_date`, `name`, `path`, `status`, `username`, `
 INSERT INTO `file` (`id`, `create_date`, `name`, `path`, `status`, `username`, `uuid_name`, `version`) VALUES ('28', '2015-06-17 16:47:01', '296BEEDD4C4C1B3A2794E7C609E1CE70.jpg', 'upload/img/0/', 'Normal', 'lhjz', '067b4fdd-73a7-49cc-983e-dfeefb88f943.jpg', '0');
 INSERT INTO `file` (`id`, `create_date`, `name`, `path`, `status`, `username`, `uuid_name`, `version`) VALUES ('29', '2015-06-17 16:47:01', '2F5FDD318C571EB0605BBB3B7795F765.jpg', 'upload/img/0/', 'Normal', 'lhjz', '85513508-daf2-4574-a2b8-1d854f69afc4.jpg', '0');
 INSERT INTO `file` (`id`, `create_date`, `name`, `path`, `status`, `username`, `uuid_name`, `version`) VALUES ('30', '2015-06-18 15:28:27', 'thicp邮箱问题.png', 'upload/img/0/', 'Normal', 'lhjz', '25b762c7-5e72-47e6-95d1-2ac013636c4c.png', '0');
+INSERT INTO `file` (`id`, `create_date`, `name`, `path`, `status`, `username`, `uuid_name`, `version`) VALUES ('31', '2015-06-20 17:28:55', '20100211100357_27.jpg', 'upload/img/0/', 'Normal', 'lhjz', '7e12e5da-39c0-43a3-8f1b-64733bb31ebd.jpg', '0');
+INSERT INTO `file` (`id`, `create_date`, `name`, `path`, `status`, `username`, `uuid_name`, `version`) VALUES ('32', '2015-06-20 17:29:13', '刘存峰治疗后.jpg', 'upload/img/0/', 'Normal', 'lhjz', '211843ca-19a3-488d-8914-4d7db59c7786.jpg', '0');
+INSERT INTO `file` (`id`, `create_date`, `name`, `path`, `status`, `username`, `uuid_name`, `version`) VALUES ('33', '2015-06-20 17:29:15', '刘存峰治疗前.jpg', 'upload/img/0/', 'Normal', 'lhjz', '9ebc939b-78b8-41f1-8502-3339bc637692.jpg', '0');
 
 -- ----------------------------
 -- Records of article
