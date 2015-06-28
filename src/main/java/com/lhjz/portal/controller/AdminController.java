@@ -4,6 +4,7 @@
 package com.lhjz.portal.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.lhjz.portal.base.BaseController;
 import com.lhjz.portal.entity.Config;
+import com.lhjz.portal.entity.Job;
 import com.lhjz.portal.entity.Settings;
 import com.lhjz.portal.entity.security.Authority;
 import com.lhjz.portal.entity.security.User;
@@ -37,6 +39,7 @@ import com.lhjz.portal.pojo.Enum.Status;
 import com.lhjz.portal.repository.ConfigRepository;
 import com.lhjz.portal.repository.DiagnoseRepository;
 import com.lhjz.portal.repository.FileRepository;
+import com.lhjz.portal.repository.JobRepository;
 import com.lhjz.portal.repository.SettingsRepository;
 import com.lhjz.portal.repository.UserRepository;
 import com.lhjz.portal.util.EnumUtil;
@@ -72,6 +75,9 @@ public class AdminController extends BaseController {
 
 	@Autowired
 	ConfigRepository configRepository;
+
+	@Autowired
+	JobRepository jobRepository;
 
 	@RequestMapping("login")
 	public String login(Model model) {
@@ -259,6 +265,24 @@ public class AdminController extends BaseController {
 
 	@RequestMapping("job")
 	public String job(Model model) {
+
+		List<Job> jobs = jobRepository.findAll();
+
+		for (Job job : jobs) {
+			String labels = job.getLabels();
+
+			if (labels != null) {
+				String[] arr = labels.split(",");
+
+				for (String lbl : arr) {
+					String[] arr2 = lbl.trim().split("\\s+");
+					job.getLabelList().addAll(Arrays.asList(arr2));
+				}
+			}
+		}
+
+		model.addAttribute("jobs", jobs);
+
 		return "admin/job";
 	}
 

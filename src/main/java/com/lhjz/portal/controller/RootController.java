@@ -4,6 +4,7 @@
 package com.lhjz.portal.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -32,6 +33,7 @@ import com.lhjz.portal.entity.Article;
 import com.lhjz.portal.entity.Config;
 import com.lhjz.portal.entity.Diagnose;
 import com.lhjz.portal.entity.Feedback;
+import com.lhjz.portal.entity.Job;
 import com.lhjz.portal.entity.Settings;
 import com.lhjz.portal.model.Message;
 import com.lhjz.portal.model.RespBody;
@@ -47,6 +49,7 @@ import com.lhjz.portal.repository.ArticleRepository;
 import com.lhjz.portal.repository.ConfigRepository;
 import com.lhjz.portal.repository.DiagnoseRepository;
 import com.lhjz.portal.repository.FeedbackRepository;
+import com.lhjz.portal.repository.JobRepository;
 import com.lhjz.portal.repository.SettingsRepository;
 import com.lhjz.portal.util.DateUtil;
 import com.lhjz.portal.util.JsonUtil;
@@ -91,6 +94,9 @@ public class RootController extends BaseController {
 
 	@Autowired
 	Environment env;
+
+	@Autowired
+	JobRepository jobRepository;
 
 	@SuppressWarnings("unchecked")
 	@ModelAttribute("pageEnable")
@@ -308,6 +314,24 @@ public class RootController extends BaseController {
 
 	@RequestMapping("job")
 	public String job(Model model) {
+
+		List<Job> jobs = jobRepository.findAll();
+
+		for (Job job : jobs) {
+			String labels = job.getLabels();
+
+			if (labels != null) {
+				String[] arr = labels.split(",");
+
+				for (String lbl : arr) {
+					String[] arr2 = lbl.trim().split("\\s+");
+					job.getLabelList().addAll(Arrays.asList(arr2));
+				}
+			}
+		}
+
+		model.addAttribute("jobs", jobs);
+
 		return "landing/job";
 	}
 
