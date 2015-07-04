@@ -6,6 +6,8 @@ package com.lhjz.portal.entity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,6 +15,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
@@ -60,6 +63,9 @@ public class Job implements Serializable {
 
 	@Version
 	private long version;
+
+	@OneToMany(mappedBy = "job")
+	private Set<JobApply> jobApplies = new HashSet<JobApply>();
 
 	public Long getId() {
 		return id;

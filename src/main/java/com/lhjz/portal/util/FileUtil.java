@@ -60,4 +60,29 @@ public class FileUtil {
 		return (i != -1) ? name.substring(i) : StringUtil.EMPTY;
 	}
 
+	public static String joinPaths(String... paths) {
+
+		StringBuilder sb = new StringBuilder();
+
+		int len = paths.length;
+		int cnt = 0;
+
+		for (String path : paths) {
+
+			path = path.replaceAll("\\\\", "/");
+
+			if ((++cnt) < len) {
+				if (path.endsWith("/")) {
+					sb.append(path);
+				} else {
+					sb.append(path).append("/");
+				}
+			} else {
+				sb.append(path);
+			}
+		}
+
+		return sb.toString();
+	}
+
 }

@@ -12,11 +12,11 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
-
-import org.hibernate.validator.constraints.NotBlank;
 
 import com.lhjz.portal.pojo.Enum.Status;
 
@@ -38,15 +38,20 @@ public class JobApply implements Serializable {
 	private Long id;
 
 	// 申请人
-	@NotBlank
 	private String claimer;
 	private String phone;
 	private String mail;
 	private String address;
 	@Column(length = 16777216)
 	private String content;
-	// 简历
+	// 简历路径
 	private String resume;
+	// 简历文件名称
+	private String name;
+
+	@ManyToOne
+	@JoinColumn(name = "JOB_ID")
+	private Job job;
 
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
@@ -138,13 +143,29 @@ public class JobApply implements Serializable {
 		this.version = version;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Job getJob() {
+		return job;
+	}
+
+	public void setJob(Job job) {
+		this.job = job;
+	}
+
 	@Override
 	public String toString() {
 		return "JobApply [id=" + id + ", claimer=" + claimer + ", phone="
 				+ phone + ", mail=" + mail + ", address=" + address
-				+ ", content=" + content + ", resume=" + resume + ", status="
-				+ status + ", createDate=" + createDate + ", version="
-				+ version + "]";
+				+ ", content=" + content + ", resume=" + resume + ", name="
+				+ name + ", jobId=" + job.getId() + ", status=" + status
+				+ ", createDate=" + createDate + ", version=" + version + "]";
 	}
 
 }

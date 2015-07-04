@@ -3,16 +3,21 @@
  */
 package com.lhjz.portal.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.lhjz.portal.base.BaseController;
 import com.lhjz.portal.component.MailSender2;
@@ -34,6 +40,7 @@ import com.lhjz.portal.entity.Config;
 import com.lhjz.portal.entity.Diagnose;
 import com.lhjz.portal.entity.Feedback;
 import com.lhjz.portal.entity.Job;
+import com.lhjz.portal.entity.JobApply;
 import com.lhjz.portal.entity.Settings;
 import com.lhjz.portal.model.Message;
 import com.lhjz.portal.model.RespBody;
@@ -49,14 +56,17 @@ import com.lhjz.portal.repository.ArticleRepository;
 import com.lhjz.portal.repository.ConfigRepository;
 import com.lhjz.portal.repository.DiagnoseRepository;
 import com.lhjz.portal.repository.FeedbackRepository;
+import com.lhjz.portal.repository.JobApplyRepository;
 import com.lhjz.portal.repository.JobRepository;
 import com.lhjz.portal.repository.SettingsRepository;
 import com.lhjz.portal.util.DateUtil;
+import com.lhjz.portal.util.FileUtil;
 import com.lhjz.portal.util.JsonUtil;
 import com.lhjz.portal.util.MapUtil;
 import com.lhjz.portal.util.StringUtil;
 import com.lhjz.portal.util.TemplateUtil;
 import com.lhjz.portal.util.ThreadUtil;
+import com.lhjz.portal.util.WebUtil;
 
 /**
  * 
@@ -97,6 +107,9 @@ public class RootController extends BaseController {
 
 	@Autowired
 	JobRepository jobRepository;
+
+	@Autowired
+	JobApplyRepository jobApplyRepository;
 
 	@SuppressWarnings("unchecked")
 	@ModelAttribute("pageEnable")
@@ -315,6 +328,18 @@ public class RootController extends BaseController {
 	@RequestMapping("job")
 	public String job(Model model) {
 
+		List<Settings> settings = settingsRepository.findByPage(Page.Job);
+
+		List<Settings> introductions = new ArrayList<Settings>();
+
+		for (Settings settings2 : settings) {
+			if (settings2.getModule() == Module.Introduction) {
+				introductions.add(settings2);
+			}
+		}
+
+		model.addAttribute("introductions", introductions);
+
 		List<Job> jobs = jobRepository.findAll();
 
 		for (Job job : jobs) {
@@ -467,5 +492,81 @@ public class RootController extends BaseController {
 		});
 
 		return RespBody.succeed("反馈提交成功，谢谢！");
+	}
+
+	@RequestMapping(value = "job/upload", method = RequestMethod.POST)
+	@ResponseBody
+	public RespBody jobUpload(HttpServletRequest request, Locale locale,
+			@RequestParam("file") MultipartFile[] files,
+			@RequestParam("jobId") Long jobId) {
+
+		logger.debug("upload job file start...");
+
+		String realPath = WebUtil.getRealPath(request);
+
+		String storePath = env.getProperty("lhjz.upload.job.store.path");
+
+		try {
+			// make upload dir if not exists
+			FileUtils.forceMkdir(new File(FileUtil.joinPaths(realPath,
+					storePath)));
+		} catch (IOException e) {
+			e.printStackTrace();
+			logger.error(e.getMessage(), e);
+			return RespBody.failed(e.getMessage());
+		}
+
+		List<JobApply> saveFiles = new ArrayList<JobApply>();
+
+		RespBody respBody = RespBody.succeed();
+
+		for (MultipartFile file : files) {
+
+			String originalFileName = file.getOriginalFilename();
+
+			String type = originalFileName.substring(originalFileName
+					.lastIndexOf("."));
+
+			String uuid = UUID.randomUUID().toString();
+
+			String uuidName = StringUtil.replace("{?1}{?2}", uuid, type);
+
+			// relative file path
+			String path = FileUtil.joinPaths(storePath, uuidName);
+
+			// absolute file path
+			String filePath = FileUtil.joinPaths(realPath, path);
+
+			try {
+
+				// store into webapp dir
+				file.transferTo(new File(filePath));
+
+				// 保存记录到数据库
+				JobApply jobApply = new JobApply();
+				jobApply.setResume(path);
+				jobApply.setName(originalFileName);
+
+				Job job = new Job();
+				job.setId(jobId);
+				jobApply.setJob(job);
+
+				jobApply.setCreateDate(new Date());
+
+				JobApply jobApply2 = jobApplyRepository.saveAndFlush(jobApply);
+
+				saveFiles.add(jobApply2);
+
+				log(Action.Upload, Target.JobApply, jobApply2);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+				logger.error(e.getMessage(), e);
+				return RespBody.failed(e.getMessage());
+			}
+		}
+
+		// back relative file path
+		return respBody.data(saveFiles);
 	}
 }

@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.lhjz.portal.base.BaseController;
 import com.lhjz.portal.entity.Config;
 import com.lhjz.portal.entity.Job;
+import com.lhjz.portal.entity.JobApply;
 import com.lhjz.portal.entity.Settings;
 import com.lhjz.portal.entity.security.Authority;
 import com.lhjz.portal.entity.security.User;
@@ -39,10 +40,12 @@ import com.lhjz.portal.pojo.Enum.Status;
 import com.lhjz.portal.repository.ConfigRepository;
 import com.lhjz.portal.repository.DiagnoseRepository;
 import com.lhjz.portal.repository.FileRepository;
+import com.lhjz.portal.repository.JobApplyRepository;
 import com.lhjz.portal.repository.JobRepository;
 import com.lhjz.portal.repository.SettingsRepository;
 import com.lhjz.portal.repository.UserRepository;
 import com.lhjz.portal.util.EnumUtil;
+import com.lhjz.portal.util.FileUtil;
 import com.lhjz.portal.util.JsonUtil;
 import com.lhjz.portal.util.MapUtil;
 import com.lhjz.portal.util.StringUtil;
@@ -78,6 +81,9 @@ public class AdminController extends BaseController {
 
 	@Autowired
 	JobRepository jobRepository;
+
+	@Autowired
+	JobApplyRepository jobApplyRepository;
 
 	@RequestMapping("login")
 	public String login(Model model) {
@@ -266,6 +272,18 @@ public class AdminController extends BaseController {
 	@RequestMapping("job")
 	public String job(Model model) {
 
+		List<Settings> settings = settingsRepository.findByPage(Page.Job);
+
+		List<Settings> introductions = new ArrayList<Settings>();
+
+		for (Settings settings2 : settings) {
+			if (settings2.getModule() == Module.Introduction) {
+				introductions.add(settings2);
+			}
+		}
+
+		model.addAttribute("introductions", introductions);
+
 		List<Job> jobs = jobRepository.findAll();
 
 		for (Job job : jobs) {
@@ -282,6 +300,10 @@ public class AdminController extends BaseController {
 		}
 
 		model.addAttribute("jobs", jobs);
+
+		List<JobApply> jobApplies = jobApplyRepository.findAll();
+
+		model.addAttribute("jobApplies", jobApplies);
 
 		return "admin/job";
 	}
@@ -350,9 +372,12 @@ public class AdminController extends BaseController {
 				"lhjz.upload.img.scale.size.original", Integer.class);
 
 		// img relative path (eg:'upload/img/' & 640 & '/' )
-		model.addAttribute("path", storePath + sizeOriginal + "/");
-		model.addAttribute("pathLarge", storePath + sizeLarge + "/");
-		model.addAttribute("pathHuge", storePath + sizeHuge + "/");
+		model.addAttribute("path",
+				FileUtil.joinPaths(storePath, sizeOriginal + "/"));
+		model.addAttribute("pathLarge",
+				FileUtil.joinPaths(storePath, sizeLarge + "/"));
+		model.addAttribute("pathHuge",
+				FileUtil.joinPaths(storePath, sizeHuge + "/"));
 		// list all files
 		model.addAttribute("imgs", fileRepository.findAll());
 
