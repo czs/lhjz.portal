@@ -41,6 +41,18 @@ public class JobApplyController extends BaseController {
 	@ResponseBody
 	public RespBody delete(@RequestParam("id") Long id) {
 
+		JobApply jobApply = jobApplyRepository.findOne(id);
+
+		if (jobApply == null) {
+			logger.error("删除职位申请信息不存在! ID: {}", id);
+			return RespBody.failed("删除职位申请信息不存在!");
+		}
+
+		if (jobApply.getStatus() == Status.Bultin) {
+			logger.error("内置职位申请信息, 删除失败! ID: {}", id);
+			return RespBody.failed("内置职位申请信息, 删除失败!");
+		}
+
 		jobApplyRepository.delete(id);
 
 		// TODO 是否要删除上传的简历文件 路径: upload/job/

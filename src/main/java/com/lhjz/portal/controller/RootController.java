@@ -102,6 +102,9 @@ public class RootController extends BaseController {
 	@Value("${lhjz.mail.to.addresses}")
 	private String toAddrArr;
 
+	@Value("${lhjz.mail.job.to.addresses}")
+	private String toAddrArrForJob;
+
 	@Autowired
 	Environment env;
 
@@ -535,7 +538,7 @@ public class RootController extends BaseController {
 			String path = FileUtil.joinPaths(storePath, uuidName);
 
 			// absolute file path
-			String filePath = FileUtil.joinPaths(realPath, path);
+			final String filePath = FileUtil.joinPaths(realPath, path);
 
 			try {
 
@@ -558,6 +561,23 @@ public class RootController extends BaseController {
 				saveFiles.add(jobApply2);
 
 				log(Action.Upload, Target.JobApply, jobApply2);
+
+				// send mail to job handler.
+				ThreadUtil
+						.exec(() -> {
+							try {
+								mailSender.sendHtmlWithAttachment(
+										String.format("立恒脊柱-职位申请_%s", DateUtil
+												.format(new Date(),
+														DateUtil.FORMAT2)),
+										"<!DOCTYPE html> <html lang='zh-cn'> <head> <meta charset='utf-8' /> <meta http-equiv='X-UA-Compatible' content='IE=edge' /> <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'> <meta name='viewport' content='width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no' /> <title>立衡脊柱 - 职位申请</title> </head> <body> <h3>职位申请用户简历见邮件附件!</h3> </body> </html>",
+										new String[] { filePath }, StringUtil
+												.split(toAddrArrForJob, ","));
+							} catch (Exception e) {
+								e.printStackTrace();
+								logger.error(e.getMessage(), e);
+							}
+						});
 
 			} catch (Exception e) {
 				e.printStackTrace();

@@ -107,8 +107,8 @@
                                     <td><a th:href="@{${jobApply.resume}}" target="_blank" href="#"><div class="ui green label">下载</div></a></td>
                                     <td>
                                         <div class="jobApply-status" th:switch="${#strings.toString(jobApply.status)}">
-                                            <div th:case="'Normal'" class="ui green label">新创建</div>
-                                            <div th:case="'Checked'" class="ui label">已查看</div>
+                                            <div th:case="'Normal'" class="ui green tag label">新创建</div>
+                                            <div th:case="'Checked'" class="ui tag label">已查看</div>
                                         </div>
                                     </td>
                                     <td>
@@ -349,7 +349,7 @@
                         status: 'checked'
                     }, function(data, textStatus, xhr) {
                         if (data.success) {
-                            $btn.closest('tr').find('.jobApply-status').html('<div class="ui label">已查看</div>');
+                            $btn.closest('tr').find('.jobApply-status').html('<div class="ui tag label">已查看</div>');
                             $btn.remove();
                             toastr.success('职位申请状态更新成功!');
                         } else {
