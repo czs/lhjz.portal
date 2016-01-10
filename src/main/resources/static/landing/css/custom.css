@@ -201,3 +201,36 @@ body {
     font-size: x-large;
 }
 /* end <landing/job.html> */
+
+.lh-footer {
+    min-width: 1347px;
+    background-image: url('../img/footer.jpg');
+    background-size: 100%;
+    height: 266px;
+    background-repeat: no-repeat;
+}
+
+.lh-footer * {
+    color: #FFFFFF;
+}
+
+.lh-footer .top {
+    height: 226px
+}
+
+.lhjz-navbar .navbar {
+    background-color: #006C4C;
+    border-color: #006C4C;
+}
+
+.lhjz-navbar * {
+    color: #FFFFFF !important;
+}
+
+.lhjz-navbar .top {
+    min-width: 1347px;
+    background-image: url('../img/header.jpg');
+    background-size: 100%;
+    height: 125px;
+    background-repeat: no-repeat;
+}
