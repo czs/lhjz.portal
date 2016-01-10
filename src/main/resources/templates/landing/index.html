@@ -24,6 +24,42 @@
 </head>
 
 <body>
+    <div th:fragment="header" class="lhjz-navbar">
+        <div class="top"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+                        <div class="container">
+                            <div class="navbar-header">
+                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                                    <span class="sr-only">切换导航</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+                                </button>
+                            </div>
+                            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                                <ul class="nav navbar-nav" th:with="uri=${#httpServletRequest.requestURI}">
+                                    <li>
+                                        <a class="navbar-brand" th:href="@{/}" href="index.html">首页
+                                        </a>
+                                    </li>
+                                    <li th:unless="${not #maps.isEmpty(pageEnable)} and ${#maps.containsKey(pageEnable, 'about')} and ${not pageEnable['about']}" th:classappend="${#strings.contains(uri, '/about')} ? 'active' : ''"><a th:href="@{/about}" href="about.html">关于</a></li>
+                                    <li th:unless="${not #maps.isEmpty(pageEnable)} and ${#maps.containsKey(pageEnable, 'feature')} and ${not pageEnable['feature']}" th:classappend="${#strings.contains(uri, '/feature')} ? 'active' : ''"><a th:href="@{/feature}" href="feature.html">特色</a></li>
+                                    <li th:unless="${not #maps.isEmpty(pageEnable)} and ${#maps.containsKey(pageEnable, 'case')} and ${not pageEnable['case']}" th:classappend="${#strings.contains(uri, '/case')} ? 'active' : ''"><a th:href="@{/case}" href="case.html">案例</a></li>
+                                    <li th:unless="${not #maps.isEmpty(pageEnable)} and ${#maps.containsKey(pageEnable, 'product')} and ${not pageEnable['product']}" th:classappend="${#strings.contains(uri, '/product')} ? 'active' : ''"><a th:href="@{/product}" href="product.html">专利</a></li>
+                                    <li th:unless="${not #maps.isEmpty(pageEnable)} and ${#maps.containsKey(pageEnable, 'env')} and ${not pageEnable['env']}" th:classappend="${#strings.contains(uri, '/env')} ? 'active' : ''"><a th:href="@{/env}" href="env.html">环境</a></li>
+                                    <li th:unless="${not #maps.isEmpty(pageEnable)} and ${#maps.containsKey(pageEnable, 'job')} and ${not pageEnable['job']}" th:classappend="${#strings.contains(uri, '/job')} ? 'active' : ''"><a th:href="@{/job}" href="job.html">招聘</a></li>
+                                    <li th:unless="${not #maps.isEmpty(pageEnable)} and ${#maps.containsKey(pageEnable, 'health')} and ${not pageEnable['health']}" th:classappend="${#strings.contains(uri, '/health')} ? 'active' : ''"><a th:href="@{/health}" href="health.html">健康</a></li>
+                                    <li th:unless="${not #maps.isEmpty(pageEnable)} and ${#maps.containsKey(pageEnable, 'diagnose')} and ${not pageEnable['diagnose']}" th:classappend="${#strings.contains(uri, '/diagnose')} ? 'active' : ''"><a th:href="@{/diagnose}" href="diagnose.html">诊断</a></li>
+                                    <li th:unless="${not #maps.isEmpty(pageEnable)} and ${#maps.containsKey(pageEnable, 'contact')} and ${not pageEnable['contact']}" th:classappend="${#strings.contains(uri, '/contact')} ? 'active' : ''"><a th:href="@{/contact}" href="contact.html">联系</a></li>
+                                </ul>
+                                <button type="button" id="btn--global-feedback" class="btn btn-success navbar-btn navbar-right">反馈</button>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="container-fluid lhjz-container-fluid">
         <div th:unless="${#lists.isEmpty(bigImgs)}" class="carousel slide" id="carousel-lhjz">
             <ol class="carousel-indicators" th:remove="all-but-first">
@@ -60,42 +96,6 @@
             </div>
             <a class="left carousel-control" href="#carousel-lhjz" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
             <a class="right carousel-control" href="#carousel-lhjz" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
-        </div>
-    </div>
-    <div th:fragment="header" class="lhjz-navbar">
-        <div class="top"></div>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-                        <div class="container">
-                            <div class="navbar-header">
-                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                                    <span class="sr-only">切换导航</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
-                                </button>
-                            </div>
-                            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                                <ul class="nav navbar-nav" th:with="uri=${#httpServletRequest.requestURI}">
-                                    <li>
-                                        <a class="navbar-brand" th:href="@{/}" href="index.html">首页
-                                        </a>
-                                    </li>
-                                    <li th:unless="${not #maps.isEmpty(pageEnable)} and ${#maps.containsKey(pageEnable, 'about')} and ${not pageEnable['about']}" th:classappend="${#strings.contains(uri, '/about')} ? 'active' : ''"><a th:href="@{/about}" href="about.html">关于</a></li>
-                                    <li th:unless="${not #maps.isEmpty(pageEnable)} and ${#maps.containsKey(pageEnable, 'feature')} and ${not pageEnable['feature']}" th:classappend="${#strings.contains(uri, '/feature')} ? 'active' : ''"><a th:href="@{/feature}" href="feature.html">特色</a></li>
-                                    <li th:unless="${not #maps.isEmpty(pageEnable)} and ${#maps.containsKey(pageEnable, 'case')} and ${not pageEnable['case']}" th:classappend="${#strings.contains(uri, '/case')} ? 'active' : ''"><a th:href="@{/case}" href="case.html">案例</a></li>
-                                    <li th:unless="${not #maps.isEmpty(pageEnable)} and ${#maps.containsKey(pageEnable, 'product')} and ${not pageEnable['product']}" th:classappend="${#strings.contains(uri, '/product')} ? 'active' : ''"><a th:href="@{/product}" href="product.html">专利</a></li>
-                                    <li th:unless="${not #maps.isEmpty(pageEnable)} and ${#maps.containsKey(pageEnable, 'env')} and ${not pageEnable['env']}" th:classappend="${#strings.contains(uri, '/env')} ? 'active' : ''"><a th:href="@{/env}" href="env.html">环境</a></li>
-                                    <li th:unless="${not #maps.isEmpty(pageEnable)} and ${#maps.containsKey(pageEnable, 'job')} and ${not pageEnable['job']}" th:classappend="${#strings.contains(uri, '/job')} ? 'active' : ''"><a th:href="@{/job}" href="job.html">招聘</a></li>
-                                    <li th:unless="${not #maps.isEmpty(pageEnable)} and ${#maps.containsKey(pageEnable, 'health')} and ${not pageEnable['health']}" th:classappend="${#strings.contains(uri, '/health')} ? 'active' : ''"><a th:href="@{/health}" href="health.html">健康</a></li>
-                                    <li th:unless="${not #maps.isEmpty(pageEnable)} and ${#maps.containsKey(pageEnable, 'diagnose')} and ${not pageEnable['diagnose']}" th:classappend="${#strings.contains(uri, '/diagnose')} ? 'active' : ''"><a th:href="@{/diagnose}" href="diagnose.html">诊断</a></li>
-                                    <li th:unless="${not #maps.isEmpty(pageEnable)} and ${#maps.containsKey(pageEnable, 'contact')} and ${not pageEnable['contact']}" th:classappend="${#strings.contains(uri, '/contact')} ? 'active' : ''"><a th:href="@{/contact}" href="contact.html">联系</a></li>
-                                </ul>
-                                <button type="button" id="btn--global-feedback" class="btn btn-success navbar-btn navbar-right">反馈</button>
-                            </div>
-                        </div>
-                    </nav>
-                </div>
-            </div>
         </div>
     </div>
     <div class="container lhjz-content">

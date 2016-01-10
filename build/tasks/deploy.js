@@ -58,8 +58,9 @@ gulp.task('deploy-dest-static', function() {
 
 gulp.task('deploy-publish', function() {
 
+    // .shell(['cd ' + paths.dest, 'rm -rf META-INF org upload WEB-INF', 'unzip -o lhjz.portal-*.war', 'service tomcat restart'], {
     return gulpSSH
-        .shell(['cd ' + paths.dest, 'rm -rf META-INF org upload WEB-INF', 'unzip -o lhjz.portal-*.war', 'service tomcat restart'], {
+        .shell(['cd ' + paths.dest, 'rm -rf META-INF org upload WEB-INF', 'unzip -o lhjz.portal-*.war'], {
             filePath: 'deploy-shell.log'
         })
         .pipe(gulp.dest(paths.logs));
@@ -68,8 +69,9 @@ gulp.task('deploy-publish', function() {
 
 gulp.task('deploy-publish-static', function() {
 
+    // .shell(['cd ' + paths.dest_static, 'rm -rf static templates', 'unzip -o lhjz.static-*.zip', 'service tomcat restart'], {
     return gulpSSH
-        .shell(['cd ' + paths.dest_static, 'rm -rf static templates', 'unzip -o lhjz.static-*.zip', 'service tomcat restart'], {
+        .shell(['cd ' + paths.dest_static, 'rm -rf static templates', 'unzip -o lhjz.static-*.zip'], {
             filePath: 'deploy-shell.log'
         })
         .pipe(gulp.dest(paths.logs));
