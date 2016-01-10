@@ -11,3 +11,5 @@ log/
 .README.md.html
 
 src/main/webapp/upload/
+node_modules/
+logs/
