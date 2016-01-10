@@ -29,6 +29,17 @@ gulp.task('deploy-backup', function() {
         .pipe(gulp.dest(paths.logs));
 });
 
+gulp.task('deploy-backup-static', function() {
+
+    var datetime = fm.asString('yyyy-MM-dd_hhmmss', new Date());
+
+    return gulpSSH
+        .shell(['cd ' + paths.dest_static, 'mkdir ../../../lhjz-backup-static', 'mkdir ../../../lhjz-backup-static/' + datetime, 'mv lhjz.static-*.zip ../../../lhjz-backup-static/' + datetime], {
+            filePath: 'deploy-shell.log'
+        })
+        .pipe(gulp.dest(paths.logs));
+});
+
 gulp.task('deploy-dest', function() {
 
     return gulp
@@ -37,23 +48,41 @@ gulp.task('deploy-dest', function() {
 
 });
 
+gulp.task('deploy-dest-static', function() {
+
+    return gulp
+        .src(['target/lhjz.static-*.zip'])
+        .pipe(gulpSSH.dest(paths.dest_static));
+
+});
+
 gulp.task('deploy-publish', function() {
 
     return gulpSSH
-        .shell(['cd ' + paths.dest, 'rm -rf META-INF org upload WEB-INF', 'unzip -o lhjz.portal-*.war', './opt/lhjz/tomcat8/bin/startup.sh'], {
+        .shell(['sh /opt/lhjz/tomcat8/bin/shutdown.sh', 'sleep 5s', 'cd ' + paths.dest, 'rm -rf META-INF org upload WEB-INF', 'unzip -o lhjz.portal-*.war', 'sleep 5s', 'sh /opt/lhjz/tomcat8/bin/startup.sh'], {
             filePath: 'deploy-shell.log'
         })
         .pipe(gulp.dest(paths.logs));
 
 });
 
-function deployRunTask(callback) {
+gulp.task('deploy-publish-static', function() {
+
+    return gulpSSH
+        .shell(['sh /opt/lhjz/tomcat8/bin/shutdown.sh', 'sleep 5s', 'cd ' + paths.dest_static, 'rm -rf static templates', 'unzip -o lhjz.static-*.zip', 'sleep 5s', 'sh /opt/lhjz/tomcat8/bin/startup.sh'], {
+            filePath: 'deploy-shell.log'
+        })
+        .pipe(gulp.dest(paths.logs));
+
+});
+
+function deployRunTask(type, callback) {
 
     if (!args.pwd) {
         throw new Error('ssh remote host password not set error, add --pwd=$pwd');
     }
 
-    gulpSSH = = new GulpSSH({
+    gulpSSH = new GulpSSH({
         ignoreErrors: false,
         sshConfig: {
             host: '120.25.70.236',
@@ -63,16 +92,35 @@ function deployRunTask(callback) {
         }
     });
 
-    return runSequence(
-        'pkg',
-        'deploy-backup',
-        'deploy-dest',
-        'deploy-publish',
-        callback
-    );
+    if (type === 'static') {
+
+        return runSequence(
+            'pkg-static',
+            'deploy-backup-static',
+            'deploy-dest-static',
+            'deploy-publish-static',
+            callback
+        );
+    } else {
+
+        return runSequence(
+            'pkg',
+            'deploy-backup',
+            'deploy-dest',
+            'deploy-publish',
+            callback
+        );
+    }
+
 }
 
 gulp.task('deploy', function(callback) {
 
-    return deployRunTask(callback);
+    return deployRunTask('all', callback);
+});
+
+
+gulp.task('deploy-static', function(callback) {
+
+    return deployRunTask('static', callback);
 });
