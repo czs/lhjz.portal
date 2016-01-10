@@ -7,7 +7,7 @@ var args = require('../args');
 
 var gulpSSH = null;
 
-// deploy steps: pkg -> backup -> dest -> rm -> unzip -> service tomcat start
+// deploy steps: pkg -> backup -> dest -> rm -> unzip -> service tomcat restart
 
 gulp.task('deploy-precheck', function() {
 
@@ -59,7 +59,7 @@ gulp.task('deploy-dest-static', function() {
 gulp.task('deploy-publish', function() {
 
     return gulpSSH
-        .shell(['sh /opt/lhjz/tomcat8/bin/shutdown.sh', 'sleep 5s', 'cd ' + paths.dest, 'rm -rf META-INF org upload WEB-INF', 'unzip -o lhjz.portal-*.war', 'sleep 5s', 'sh /opt/lhjz/tomcat8/bin/startup.sh'], {
+        .shell(['cd ' + paths.dest, 'rm -rf META-INF org upload WEB-INF', 'unzip -o lhjz.portal-*.war', 'service tomcat restart'], {
             filePath: 'deploy-shell.log'
         })
         .pipe(gulp.dest(paths.logs));
@@ -69,7 +69,7 @@ gulp.task('deploy-publish', function() {
 gulp.task('deploy-publish-static', function() {
 
     return gulpSSH
-        .shell(['sh /opt/lhjz/tomcat8/bin/shutdown.sh', 'sleep 5s', 'cd ' + paths.dest_static, 'rm -rf static templates', 'unzip -o lhjz.static-*.zip', 'sleep 5s', 'sh /opt/lhjz/tomcat8/bin/startup.sh'], {
+        .shell(['cd ' + paths.dest_static, 'rm -rf static templates', 'unzip -o lhjz.static-*.zip', 'service tomcat restart'], {
             filePath: 'deploy-shell.log'
         })
         .pipe(gulp.dest(paths.logs));
